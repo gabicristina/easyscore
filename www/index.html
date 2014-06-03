@@ -59,7 +59,7 @@ div.egcode {
 <script type="application/javascript" src="js/af_subpage.js"></script>
 <script type="application/javascript" src="js/getFiles.js"></script>
 <script type="text/javascript" src="js/vexflow-min.js"></script>
-<!-- script src="http://192.168.0.4:8080/target/target-script-min.js#anonymous"></script-->
+<script src="http://192.168.0.4:8080/target/target-script-min.js#anonymous"></script>
 
 <!-- SCRIPT-VEXFLOW -->
 <script>
@@ -137,39 +137,6 @@ div.egcode {
 										data-transition="fade">Música A </a></li>
 								</ul>
 								<span class="uib_shim"></span>
-								<script>
-									$('ul').append($('<li/>', { //here appending `<li>`
-										'data-role' : "list-divider"
-									}).append($('<a/>', { //here appending `<a>` into `<li>`
-										'href' : '#musica_info',
-										'data-transition' : 'fade',
-										'text' : 'Música B'
-									})));
-
-									/*testes Gabi
-									window.requestFileSystem(
-											LocalFileSystem.PERSISTENT, 0,
-											gotFS, fail);
-									alert("qualquer coisa");
-									alert(fs.root.fullPath);
-
-									function gotFS(fileSystem) {
-										alert("omg");
-										var reader = fileSystem.root.createReader();
-									    reader.readEntries(gotList, fail);    
-									}
-									function gotList(entries) {
-									    var i;
-									    for (i=0; i<entries.length; i++) {
-									        if (entries[i].name.indexOf(".svg") != -1) {
-									            alert(teste);
-									        }
-									    }
-									}
-									 */
-									//getFiles();
-									$('ul').listview('refresh');
-								</script>
 							</div>
 						</div>
 						<span class="uib_shim"></span>
