@@ -59,7 +59,8 @@ div.egcode {
 <script type="application/javascript" src="js/af_subpage.js"></script>
 <script type="application/javascript" src="js/getFiles.js"></script>
 <script type="text/javascript" src="js/vexflow-min.js"></script>
-<script src="http://192.168.0.4:8080/target/target-script-min.js#anonymous"></script>
+<script
+	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
 
 <!-- SCRIPT-VEXFLOW -->
 <script>
@@ -132,11 +133,15 @@ div.egcode {
 
 								<ul class="list widget uib_w_2 d-margins"
 									data-uib="app_framework/listview" data-ver="0">
-									<li class="widget uib_w_3" data-uib="app_framework/listitem"
+									<!-- li class="widget uib_w_3" data-uib="app_framework/listitem"
 										data-ver="0"><a href="#musica_info"
-										data-transition="fade">Música A </a></li>
+										data-transition="fade">Música A </a></li -->
 								</ul>
 								<span class="uib_shim"></span>
+								<p id="byte_content">teste</p>
+								<p id="file_size">file_size</p>
+								<p id="file_path">file_path</p>
+								<p id="entry_path">entry_path</p>
 							</div>
 						</div>
 						<span class="uib_shim"></span>
@@ -155,70 +160,51 @@ div.egcode {
 				<p />
 				<script>
 					var canvas = $("div.panel div.b canvas")[0];
-					var renderer = new Vex.Flow.Renderer(
-							canvas,
+					var renderer = new Vex.Flow.Renderer(canvas,
 							Vex.Flow.Renderer.Backends.CANVAS);
-			
+
 					var ctx = renderer.getContext();
-					var stave = new Vex.Flow.Stave(
-							10, 0, 500);
-			
+					var stave = new Vex.Flow.Stave(10, 0, 500);
+
 					// Add a treble clef
 					stave.addClef("treble");
 					stave.setContext(ctx).draw();
-			
+
 					// Create a quarter E, a half D, and a quarter C-Major chord.
-					var notes = [
-							new Vex.Flow.StaveNote(
-									{
-										keys : [ "e/5" ],
-										duration : "q"
-									}),
-							new Vex.Flow.StaveNote(
-									{
-										keys : [ "d/5" ],
-										duration : "h"
-									}),
-							new Vex.Flow.StaveNote(
-									{
-										keys : [
-												"c/5",
-												"e/5",
-												"g/5" ],
-										duration : "q"
-									}) ];
-			
+					var notes = [ new Vex.Flow.StaveNote({
+						keys : [ "e/5" ],
+						duration : "q"
+					}), new Vex.Flow.StaveNote({
+						keys : [ "d/5" ],
+						duration : "h"
+					}), new Vex.Flow.StaveNote({
+						keys : [ "c/5", "e/5", "g/5" ],
+						duration : "q"
+					}) ];
+
 					// Create a second voice, with just one whole note
-					var notes2 = [ new Vex.Flow.StaveNote(
-							{
-								keys : [ "c/4" ],
-								duration : "w"
-							}) ];
-			
+					var notes2 = [ new Vex.Flow.StaveNote({
+						keys : [ "c/4" ],
+						duration : "w"
+					}) ];
+
 					// Create a voice in 4/4
 					function create_4_4_voice() {
-						return new Vex.Flow.Voice(
-								{
-									num_beats : 4,
-									beat_value : 4,
-									resolution : Vex.Flow.RESOLUTION
-								});
+						return new Vex.Flow.Voice({
+							num_beats : 4,
+							beat_value : 4,
+							resolution : Vex.Flow.RESOLUTION
+						});
 					}
-			
+
 					// Create voices and add notes to each of them.
-					var voice = create_4_4_voice()
-							.addTickables(notes);
-					var voice2 = create_4_4_voice()
-							.addTickables(notes2);
-			
+					var voice = create_4_4_voice().addTickables(notes);
+					var voice2 = create_4_4_voice().addTickables(notes2);
+
 					// Format and justify the notes to 500 pixels
-					var formatter = new Vex.Flow.Formatter()
-							.joinVoices(
-									[ voice, voice2 ])
-							.format(
-									[ voice, voice2 ],
-									500);
-			
+					var formatter = new Vex.Flow.Formatter().joinVoices(
+							[ voice, voice2 ]).format([ voice, voice2 ], 500);
+
 					// Render voice
 					voice.draw(ctx, stave);
 					voice2.draw(ctx, stave);

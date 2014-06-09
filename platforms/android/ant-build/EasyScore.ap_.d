@@ -49,6 +49,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\appframe
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\getFiles.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\index_user_scripts.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.min.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\musicxml_test.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\vexflow-min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\__index.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file \

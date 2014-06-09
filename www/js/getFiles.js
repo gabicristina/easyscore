@@ -1,21 +1,16 @@
-
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-    alert("ready");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 5*1024*1024, onFSSuccess, fail);
     //window.requestFileSystem(LocalFileSystem.PERSISTENT, 5*1024*1024, gotFS, fail);
     //window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
 }
 
 function gotFS(fileSystem) {
-   alert("got fs");
-   alert(fileSystem.root.fullPath); //print /
    var root = new DirectoryEntry(fileSystem.root.fullPath);
-	
+
    //Get a directory reader
    var directoryReader = root.createReader();
-
    directoryReader.readEntries(gotFiles,fail);	
 }
 
@@ -32,20 +27,42 @@ function doDirectoryListing(dirEntry) {
 
 function gotFiles(entries) {
 	for(var i=0,len=entries.length; i<len; i++) {
-		//Name of the files
-		alert(entries[i].name);
-		$('ul').append($('<li/>', { //here appending `<li>`
-			'data-role' : "list-divider"
-		}).append($('<a/>', { //here appending `<a>` into `<li>`
-			'href' : '#musica_info',
-			'data-transition' : 'fade',
-			'text' : entries[i].name
-		})));
+		if (entries[i].isDirectory) {
+			alert("Directory: " + entries[i].name);
+			$('ul').append($('<li/>', { //here appending `<li>`
+				'data-role' : "list-divider"
+			}).append($('<a/>', { //here appending `<a>` into `<li>`
+				'href' : '#musica_info',
+				'data-transition' : 'fade',
+				'text' : entries[i].name
+			})));
+		} else if (entries[i].isFile) {
+			alert("File: " + entries[i].name);
+			document.getElementById('entry_path').textContent = "Entry: " + entries[i].fullPath;
+			var file = new File(entries[i].name, entries[i].fullPath);
+			
+			document.getElementById('file_size').textContent = file.size;
+			document.getElementById('file_path').textContent = "File: " + file.localURL;
+			var reader = new FileReader();
+
+		    // If we use onloadend, we need to check the readyState.
+		    reader.onloadend = function(evt) {
+		      if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+		        document.getElementById('byte_content').textContent = evt.target.result;
+		      }
+		    };
+
+		    var blob = file.slice(1, 4);
+		    reader.readAsBinaryString(blob);
+		}
 	}
-	$('ul').listview('refresh');
 }
 function fail() {
 	alert("fail");
+}
+
+function success() {
+	alert("success");
 }
 /*
  * 
