@@ -34,33 +34,14 @@ div.egcode {
 	font-size: 14px;
 }
 </style>
-<!--  script src="intelxdk.js"></script -->
 <script src="cordova.js"></script>
-<!--  script type="text/javascript">
-   /* This code is used to run as soon as Intel activates */
-   		var onDeviceReady=function(){
-   		//hide splash screen
-   		intel.xdk.device.hideSplashScreen();
-   		};
-   		document.addEventListener("intel.xdk.device.ready",onDeviceReady,false);
-  </script -->
 <script type="application/javascript" src="js/appframework.ui.min.js"></script>
 <script type="application/javascript" src="js/jquery.min.js"></script>
 <script type="application/javascript" src="js/index_user_scripts.js"></script>
-<!--  script type="application/javascript" src="sidebar/js/jquery.event.move.js"></script>
-  <script type="application/javascript" src="sidebar/js/jquery.event.swipe.js"></script>
-  <script type="application/javascript" src="sidebar/js/sidebar.js"></script>
-  <script type="application/javascript" src="sidebar/js/swipe.js"></script>
-  <!--   
-   You may substitute jQuery for the App Framework selector library.
-   See http://app-framework-software.intel.com/documentation.php#afui/afui_jquery
-  -->
 <script type="application/javascript" src="js/appframework.js"></script>
 <script type="application/javascript" src="js/af_subpage.js"></script>
 <script type="application/javascript" src="js/getFiles.js"></script>
-<script type="text/javascript" src="js/vexflow-min.js"></script>
-<script
-	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
+<!-- script type="text/javascript" src="js/vexflow-min.js"></script -->
 
 <!-- SCRIPT-VEXFLOW -->
 <script>
@@ -104,6 +85,85 @@ div.egcode {
 						})
 	})
 </script>
+
+<!-- SCRIPTS VEXXX MUSICXML -->
+  <!-- VexFlow Sources -->
+  <script src="src/vex.js"></script>
+  <script src="src/flow.js"></script>
+  <script src="src/fraction.js"></script>
+  <script src="src/fonts/vexflow_font.js"></script>
+  <script src="src/glyph.js"></script>
+  <script src="src/tables.js"></script>
+  <script src="src/stave.js"></script>
+  <script src="src/staveconnector.js"></script>
+  <script src="src/voice.js"></script>
+  <script src="src/voicegroup.js"></script>
+  <script src="src/modifier.js"></script>
+  <script src="src/modifiercontext.js"></script>
+  <script src="src/accidental.js"></script>
+  <script src="src/dot.js"></script>
+  <script src="src/tickcontext.js"></script>
+  <script src="src/tickable.js"></script>
+  <script src="src/note.js"></script>
+  <script src="src/bend.js"></script>
+  <script src="src/stem.js"></script>
+  <script src="src/notehead.js"></script>
+  <script src="src/stemmablenote.js"></script>
+  <script src="src/stavenote.js"></script>
+  <script src="src/tabnote.js"></script>
+  <script src="src/barnote.js"></script>
+  <script src="src/clefnote.js"></script>
+  <script src="src/timesignote.js"></script>
+  <script src="src/ghostnote.js"></script>
+  <script src="src/formatter.js"></script>
+  <script src="src/stavetie.js"></script>
+  <script src="src/stavehairpin.js"></script>
+  <script src="src/tabtie.js"></script>
+  <script src="src/tabslide.js"></script>
+  <script src="src/beam.js"></script>
+  <script src="src/vibrato.js"></script>
+  <script src="src/annotation.js"></script>
+  <script src="src/tuning.js"></script>
+  <script src="src/stavemodifier.js"></script>
+  <script src="src/keysignature.js"></script>
+  <script src="src/timesignature.js"></script>
+  <script src="src/clef.js"></script>
+  <script src="src/music.js"></script>
+  <script src="src/keymanager.js"></script>
+  <script src="src/renderer.js"></script>
+  <script src="src/stavebarline.js"></script>
+  <script src="src/stavevolta.js"></script>
+  <script src="src/staverepetition.js"></script>
+  <script src="src/stavesection.js"></script>
+  <script src="src/stavetempo.js"></script>
+  <script src="src/stavetext.js"></script>
+  <script src="src/raphaelcontext.js"></script>
+  <script src="src/canvascontext.js"></script>
+  <script src="src/tuplet.js"></script>
+  <script src="src/boundingbox.js"></script>
+  
+  <script src="src/measure.js"></script>
+  <script src="src/musicxml.js"></script>
+  <script src="src/document.js"></script>
+  <script src="src/documentformatter.js"></script>
+
+  <!-- Test Sources -->
+  <link rel="stylesheet" href="src/qunit.css"
+    type="text/css" media="screen" />
+  <!-- script src="js/jquery.min.js"></script -->
+  <script src="src/qunit.js"></script>
+  <script src="src/vexflow_test_helpers.js"></script>
+  <script src="src/document_Gabi.js"></script>
+  <script>
+    $(function() {
+    	Vex.Flow.Test.Document.Start();
+    });
+  </script>
+  <!-- END OF MUSICXML -->
+  
+  <script
+	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
+  
 </head>
 
 <body id="afui" class="android light">
@@ -117,35 +177,21 @@ div.egcode {
 				<header class="container-group inner-element uib_w_1"
 					data-uib="app_framework/header" data-ver="0" id="af-header">
 					<h1>EasyScore</h1>
-					<div class="widget-container wrapping-col single-centered"></div>
-					<div
-						class="widget-container content-area horiz-area wrapping-col left"></div>
-					<div
-						class="widget-container content-area horiz-area wrapping-col right"></div>
 				</header>
 				<div class="upage-content" id="mainsub">
-
-					<div class="grid urow uib_row_1 row-height-1" data-uib="layout/row"
-						data-ver="0">
-						<div class="col uib_col_1 col-0_12-12" data-uib="layout/col"
-							data-ver="0">
-							<div class="widget-container content-area vertical-col">
-
-								<ul class="list widget uib_w_2 d-margins"
-									data-uib="app_framework/listview" data-ver="0">
-									<!-- li class="widget uib_w_3" data-uib="app_framework/listitem"
-										data-ver="0"><a href="#musica_info"
-										data-transition="fade">Música A </a></li -->
-								</ul>
-								<span class="uib_shim"></span>
-								<p id="byte_content">teste</p>
-								<p id="file_size">file_size</p>
-								<p id="file_path">file_path</p>
-								<p id="entry_path">entry_path</p>
-							</div>
-						</div>
-						<span class="uib_shim"></span>
-					</div>
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaMusica" data-ver="0">
+						<!-- li class="widget uib_w_3" data-uib="app_framework/listitem"
+							data-ver="0"><a href="#musica_info"
+							data-transition="fade">Música A </a></li -->
+					</ul>
+					<span class="uib_shim"></span>
+					<p id="byte_content">teste</p>
+					<p id="file_size">file_size</p>
+					<p id="file_path">file_path</p>
+					<p id="entry_path">entry_path</p>
+					<a href="OpenFileExample.html">TESTE FILE</a>
+					<a href="teste_vexflow.html">TESTE VEXFLOW</a>
 				</div>
 				<!-- /upage-content -->
 
@@ -155,62 +201,16 @@ div.egcode {
 		</div>
 		<div class="upage panel" id="mostra_part" data-header="none"
 			data-footer="none">
-			<div class="example b">
-				<canvas width=525 height=120></canvas>
-				<p />
-				<script>
-					var canvas = $("div.panel div.b canvas")[0];
-					var renderer = new Vex.Flow.Renderer(canvas,
-							Vex.Flow.Renderer.Backends.CANVAS);
-
-					var ctx = renderer.getContext();
-					var stave = new Vex.Flow.Stave(10, 0, 500);
-
-					// Add a treble clef
-					stave.addClef("treble");
-					stave.setContext(ctx).draw();
-
-					// Create a quarter E, a half D, and a quarter C-Major chord.
-					var notes = [ new Vex.Flow.StaveNote({
-						keys : [ "e/5" ],
-						duration : "q"
-					}), new Vex.Flow.StaveNote({
-						keys : [ "d/5" ],
-						duration : "h"
-					}), new Vex.Flow.StaveNote({
-						keys : [ "c/5", "e/5", "g/5" ],
-						duration : "q"
-					}) ];
-
-					// Create a second voice, with just one whole note
-					var notes2 = [ new Vex.Flow.StaveNote({
-						keys : [ "c/4" ],
-						duration : "w"
-					}) ];
-
-					// Create a voice in 4/4
-					function create_4_4_voice() {
-						return new Vex.Flow.Voice({
-							num_beats : 4,
-							beat_value : 4,
-							resolution : Vex.Flow.RESOLUTION
-						});
-					}
-
-					// Create voices and add notes to each of them.
-					var voice = create_4_4_voice().addTickables(notes);
-					var voice2 = create_4_4_voice().addTickables(notes2);
-
-					// Format and justify the notes to 500 pixels
-					var formatter = new Vex.Flow.Formatter().joinVoices(
-							[ voice, voice2 ]).format([ voice, voice2 ], 500);
-
-					// Render voice
-					voice.draw(ctx, stave);
-					voice2.draw(ctx, stave);
-				</script>
+				  <div style="text-align: center;">
+				    <h1 id="qunit-header">VexFlow Tests</h1>
+				    <div id="vexflow_testoutput">
+						<canvas class="vex-tabdiv" width="300" height="120"></canvas>
+					</div>
+				  </div>
 				<h2>THAT WAS A TEST</h2>
-			</div>
+				<textarea id="read_text" rows="10" cols="50">
+				</textarea>
+				<p id="read_text_p">ops</p>
 			<!-- /upage-outer -->
 		</div>
 
@@ -220,99 +220,38 @@ div.egcode {
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0" id="af-header-info">
 					<h1>Informações</h1>
-					<div class="widget-container wrapping-col single-centered"></div>
-					<div
-						class="widget-container content-area horiz-area wrapping-col left"></div>
-					<div
-						class="widget-container content-area horiz-area wrapping-col right"></div>
 				</header>
 
 				<div id="musica_infosub" class="upage-content ">
-
-					<div class="grid grid-pad urow uib_row_2 row-height-2"
-						data-uib="layout/row" data-ver="0">
-
-						<span class="uib_shim"></span>
-						<div class="col uib_col_4 col-0" data-uib="layout/col"
-							data-ver="0">
-							<div class="widget-container content-area vertical-col">
-								<span class="uib_shim"></span>
-							</div>
-						</div>
+					<div id="meuXML"> 
+					asaaaaa
 					</div>
-
-					<div class="grid grid-pad urow uib_row_3 row-height-3"
-						data-uib="layout/row" data-ver="0">
-
-						<div class="col uib_col_2 col-0" data-uib="layout/col"
-							data-ver="0">
-							<div class="widget-container content-area vertical-col">
-
-								<div class="widget uib_w_11 d-margins" data-uib="media/text"
-									data-ver="0">
-									<div class="widget-container left-receptacle"></div>
-									<div class="widget-container right-receptacle"></div>
-									<div>
-										<p>Autor:</p>
-									</div>
-								</div>
-								<div class="widget uib_w_12 d-margins" data-uib="media/text"
-									data-ver="0">
-									<div class="widget-container left-receptacle"></div>
-									<div class="widget-container right-receptacle"></div>
-									<div>
-										<p>Nome da Música:</p>
-									</div>
-								</div>
-								<span class="uib_shim"></span>
-							</div>
-						</div>
-						<span class="uib_shim"></span>
+					<div>
+						<p>Autor:</p>
 					</div>
-
-					<div class="grid grid-pad urow uib_row_5 row-height-5"
-						data-uib="layout/row" data-ver="0">
-						<div class="col uib_col_6 col-0_12-12" data-uib="layout/col"
-							data-ver="0">
-							<div class="widget-container content-area vertical-col">
-
-								<div class="button-grouped flex widget uib_w_13 d-margins"
-									data-uib="app_framework/button_group" data-ver="0">
-									<a class="button widget uib_w_14 d-margins"
-										data-uib="app_framework/button" data-ver="0" id="btn_comecar"
-										href="#mostra_part" data-transition="fade">Começar</a><a
-										class="button widget uib_w_15 d-margins icon user"
-										data-uib="app_framework/button" data-ver="0"
-										id="btn_criarGrupo">Criar Grupo</a>
-								</div>
-								<span class="uib_shim"></span>
-							</div>
-						</div>
-						<span class="uib_shim"></span>
+					<div>
+						<p>Nome da Música:</p>
+					</div>
+					<div class="button-grouped flex widget uib_w_13 d-margins"
+						data-uib="app_framework/button_group" data-ver="0">
+						<a class="button widget uib_w_14 d-margins"
+							data-uib="app_framework/button" data-ver="0" id="btn_comecar"
+							href="#mostra_part" data-transition="fade">Começar</a><a
+							class="button widget uib_w_15 d-margins icon user"
+							data-uib="app_framework/button" data-ver="0"
+							id="btn_criarGrupo">Criar Grupo</a>
 					</div>
 				</div>
 				<div id="procura_disp" class="upage-content hidden">
-
-					<div class="grid grid-pad urow uib_row_7 row-height-7"
-						data-uib="layout/row" data-ver="0">
-						<div class="col uib_col_8 col-0_12-12" data-uib="layout/col"
-							data-ver="0">
-							<div class="widget-container content-area vertical-col">
-
-								<ul class="list widget uib_w_17 d-margins"
-									data-uib="app_framework/listview" data-ver="0" id="ltv_dispos">
-									<li class="widget uib_w_18" data-uib="app_framework/listitem"
-										data-ver="0"><a>List Item</a></li>
-									<li class="widget uib_w_19" data-uib="app_framework/listitem"
-										data-ver="0"><a>List Item</a></li>
-									<li class="widget uib_w_20" data-uib="app_framework/listitem"
-										data-ver="0"><a>List Item</a></li>
-								</ul>
-								<span class="uib_shim"></span>
-							</div>
-						</div>
-						<span class="uib_shim"></span>
-					</div>
+					<ul class="list widget uib_w_17 d-margins"
+						data-uib="app_framework/listview" data-ver="0" id="ltv_dispos">
+						<li class="widget uib_w_18" data-uib="app_framework/listitem"
+							data-ver="0"><a>List Item</a></li>
+						<li class="widget uib_w_19" data-uib="app_framework/listitem"
+							data-ver="0"><a>List Item</a></li>
+						<li class="widget uib_w_20" data-uib="app_framework/listitem"
+							data-ver="0"><a>List Item</a></li>
+					</ul>								
 				</div>
 			</div>
 			<!-- /upage-outer -->

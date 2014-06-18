@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
+    <title>Open File</title>
+    <!-- script type="text/javascript" src="js/xui-2.3.2.js"></script -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" >
+
+    var fileObject;
+
+    document.addEventListener("deviceready", onDeviceReady, true);
+
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, _init, fail); 
+    }
+
+	var _fileContent = '';
+	function setFileContent(fileEntry){
+	 _fileContent = fileEntry;
+	 alert('123');
+	 return false;
+	 //saveFileContent();
+	}
+	
+	function getFileContent(fileEntry){
+	 return _fileContent;
+	}
+	
+	function _init(filesystem){
+	 onFileSystemSuccess(fileSystem); 
+	}
+	
+    function onFileSystemSuccess(fileSystem) {
+        fileSystem.root.getFile("readme.txt", {create: false, exclusive: false}, setFileContent, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileObject = fileEntry;
+
+        x$('#saveFile_btn').on('click', function() {
+            saveFileContent();
+        });
+    }
+
+    function gotFileWriter(writer) {
+        var myText = document.getElementById('my_text').value;
+        /* prepare write listeners */
+        writer.onwriteend = function(evt) {
+            console.log("DONE Writing text");
+            x$('#message').html('<p>File contents have been written.<br /><strong>File path:</strong> ' + fileObject.fullPath + '</p>');
+
+            fileObject.file(function(e) {
+
+                console.log("called the file func on the file ob");
+
+                var reader = new FileReader();
+                /* prepare read listeners */
+                reader.onloadstart = function(evt) {
+                    console.log("started reading");
+                };
+                reader.onabort = function(evt) {
+                    console.log("aborted read text");
+                    console.log(evt.target.result);
+                    x$('#contents').html('<strong>Aborted</strong> <br />');
+                };
+                reader.onerror = function(evt) {
+                    console.log("Error read text");
+                    console.log("Error"+evt.error.code);
+                    x$('#contents').html('<strong>Error:</strong> <br />' + evt.error.code);
+                };
+                reader.onloadend = function(evt) {
+                    console.log("successfully read text");
+                    console.log("Target Result ["+evt.target.result+"]");
+                    console.log("Reader Result ["+reader.result+"]");
+                    $('#contents').html('<strong>File contents:</strong> <br />' + evt.target.result);
+                };
+
+                console.log("Reading text");
+                reader.readAsText(e);
+            });
+        };
+        console.log("Writing text ["+myText+"]");
+        writer.write(myText);
+
+    }
+
+    function saveFileContent() {
+        fileObject.createWriter(gotFileWriter, fail);
+    }
+
+    function fail(error) {
+        alert(error.code);
+    }
+    </script>
+</head>
+<body>
+
+    <input type="text" id="my_text" />
+    <input type="button" id="saveFile_btn" value="Save" />
+
+    <div id="message"></div>
+    <div id="contents"></div>
+
+</body>
