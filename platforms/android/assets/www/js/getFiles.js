@@ -32,50 +32,11 @@ function gotFiles(entries) {
 				'data-transition' : 'fade',
 				'text' : entries[i].name
 			})));
-		} else if (entries[i].isFile) {
-			alert("File: " + entries[i].toURL());
-			alert("Type of entries[i]: " + typeof entries[i]);
-			document.getElementById('entry_path').textContent = "Entry: "
-					+ entries[i].toURL();
-			var file = new File(entries[i].name, entries[i].fullPath);
-
-			document.getElementById('file_size').textContent = file.fullPath;
-			document.getElementById('file_path').textContent = "File: "
-					+ file.localURL;
-			var reader = new FileReader();
-
-			// fs.root.getFile("EasyScore", {create: true, exclusive: false},
-			// doDirectoryListing, fail);
-			entries[i].file(function(file) {
-				var reader = new FileReader();
-
-				reader.onloadend = function(e) {
-					var txtArea = document.createElement('textarea');
-					txtArea.value = this.result;
-					document.body.appendChild(txtArea);
-				};
-
-				reader.readAsText(file);
-			}, errorHandler);
-			/*
-			 * / If we use onloadend, we need to check the readyState.
-			 * reader.onloadend = function(evt) { if (evt.target.readyState ==
-			 * FileReader.DONE) { // DONE == 2
-			 * document.getElementById('byte_content').textContent =
-			 * evt.target.result; } };
-			 * 
-			 * var blob = file.slice(1, 4); reader.readAsBinaryString(blob);
-			 */
-//			readXML();
 		}
 	}
 };
 function fail() {
 	alert("fail");
-};
-
-function success() {
-	alert("success");
 };
 function errorHandler(e) {
 	alert("erro");
@@ -100,26 +61,10 @@ function errorHandler(e) {
 	default:
 		msg = 'Unknown Error';
 		break;
-	};
+	}
+	;
 
 	console.log('Error: ' + msg);
-};
-function readXML() {
-	var variavel = "EasyScore/teste.txt";
-	$.ajax({
-		type : "GET",
-		url : variavel,
-		dataType : "text",
-		success : function(xml) {
-			alert(xml);
-			// $('#meuXML').html(xml)
-			// caso for necessário pode usar assim para converter xml em texto
-			// $('#meuXML').html($(xml).text());
-			// caso Jquery não suporte a function .text()
-			// caso for necessário pode usar assim para converter xml em texto
-			// $('#meuXML').html((new XMLSerializer()).serializeToString(xml));
-		}
-	});
 };
 
 /*

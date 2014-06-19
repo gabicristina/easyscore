@@ -1,8 +1,3 @@
-/**
- * VexFlow - Document Tests (JSON and MusicXML)
- * @author Daniel Ringwalt (ringw)
- */
-
 Vex.Flow.Test.Document = {};
 
 Vex.Flow.Test.Document.Start = function() {
@@ -10,6 +5,7 @@ Vex.Flow.Test.Document.Start = function() {
   Vex.Flow.Test.runTest("Basic MusicXML Test", Vex.Flow.Test.Document.xmlSimple);
   Vex.Flow.Test.runTest("MusicXML Document Test", Vex.Flow.Test.Document.xmlDoc);
 };
+
 Vex.Flow.Test.Document.xmlSimple = function(options, contextBuilder) {
   expect(2);
 
@@ -59,37 +55,22 @@ Vex.Flow.Test.Document.xmlSimple = function(options, contextBuilder) {
 };
 
 function fetch() {
-	var i = 1;
-/*  var req = new XMLHttpRequest();
-  //req.setRequestHeader("Access-Control-Allow-Origin", "*");
-  //req.setRequestHeader("allow-file-access-from-files");
-  req.open('GET', uri, false);
-  req.send(null);
-  if (req.readyState != 4) return undefined;
-  return req.responseText;*/
 	fs.root.getFile("EasyScore/chant.xml", {
 			create : false,
 			exclusive : false
 	}, function(fileEntry) {
 		// onSuccess
-		var fe = fileEntry;
-		var reader = new FileReader();
-		alert("conseguiu entrar no fileentry " + fe.localURL);
-		reader.onloadend = function(e) {
-			document.getElementById('read_text').textContent = this.result;
-			document.getElementById('read_text').value = this.result;
-			document.getElementById('read_text_p').textContent = file.size;
-			alert("onloadend");
-		};
-		reader.onerror = errorReaderHandler;
-		reader.onload = function(e) {
-	      document.getElementById('read_text_p').textContent = i++;
-	    }
-		reader.onloadstart = function(e) {
-			alert("começou onloadstart");
-	      document.getElementById('read_text_p').textContent = 'oops, comecei!';
-	    };
-	   reader.readAsText(fe);
+		fileEntry.file(function(file) {
+			var reader = new FileReader();
+			reader.onloadend = function(e) {
+				if (e.target.readyState == FileReader.DONE) { // DONE == 2
+					document.getElementById('read_text').value = this.result;
+					return this.result;
+				}
+			};
+			reader.onerror = errorReaderHandler;
+			reader.readAsText(file);
+		},errorHandler);
 	},errorHandler);
 };
 
@@ -112,8 +93,7 @@ function errorReaderHandler(evt) {
 Vex.Flow.Test.Document.xmlDoc = function(options, contextBuilder) {
   var docString;
   try {
-//    docString = Vex.Flow.Test.Document.Fetch("https://github.com/ringw/vexflow/blob/musicxml/docs/samples/chant.xml");
-    docString = fetch();
+	  docString = fetch();
   }
   catch (e) {
     ok(true, "Skipping test; browser does not support local file:// AJAX");
@@ -121,7 +101,8 @@ Vex.Flow.Test.Document.xmlDoc = function(options, contextBuilder) {
     return;
   }
   if (! docString) {
-    ok(false, "Document does not exist");
+    alert("Document does not exist");
+	  ok(false, "Document does not exist");
     return;
   }
   expect(2);
