@@ -36,10 +36,10 @@ function gotFiles(entries) {
 			alert("File: " + entries[i].toURL());
 			alert("Type of entries[i]: " + typeof entries[i]);
 			document.getElementById('entry_path').textContent = "Entry: "
-					+ entries[i].fullPath;
+					+ entries[i].toURL();
 			var file = new File(entries[i].name, entries[i].fullPath);
 
-			document.getElementById('file_size').textContent = file.size;
+			document.getElementById('file_size').textContent = file.fullPath;
 			document.getElementById('file_path').textContent = "File: "
 					+ file.localURL;
 			var reader = new FileReader();
@@ -78,6 +78,7 @@ function success() {
 	alert("success");
 };
 function errorHandler(e) {
+	alert("erro");
 	var msg = '';
 
 	switch (e.code) {
@@ -99,8 +100,7 @@ function errorHandler(e) {
 	default:
 		msg = 'Unknown Error';
 		break;
-	}
-	;
+	};
 
 	console.log('Error: ' + msg);
 };

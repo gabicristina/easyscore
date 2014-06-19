@@ -154,15 +154,17 @@ div.egcode {
   <script src="src/qunit.js"></script>
   <script src="src/vexflow_test_helpers.js"></script>
   <script src="src/document_Gabi.js"></script>
-  <script>
-    $(function() {
-    	Vex.Flow.Test.Document.Start();
-    });
-  </script>
   <!-- END OF MUSICXML -->
   
-  <script
-	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
+  <!-- script
+	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script -->
+	<script>
+	$(document).ready(function(){
+		$('#btn_comecar').click(function() {
+			Vex.Flow.Test.Document.Start();
+		});
+	});
+	</script>
   
 </head>
 
@@ -204,7 +206,7 @@ div.egcode {
 				  <div style="text-align: center;">
 				    <h1 id="qunit-header">VexFlow Tests</h1>
 				    <div id="vexflow_testoutput">
-						<canvas class="vex-tabdiv" width="300" height="120"></canvas>
+						
 					</div>
 				  </div>
 				<h2>THAT WAS A TEST</h2>
@@ -240,6 +242,14 @@ div.egcode {
 							class="button widget uib_w_15 d-margins icon user"
 							data-uib="app_framework/button" data-ver="0"
 							id="btn_criarGrupo">Criar Grupo</a>
+							
+							<script>
+								
+							  /*
+							    $(function() {
+							    	Vex.Flow.Test.Document.Start();
+							    });*/
+							  </script>
 					</div>
 				</div>
 				<div id="procura_disp" class="upage-content hidden">
