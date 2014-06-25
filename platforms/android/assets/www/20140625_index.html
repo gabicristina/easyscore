@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  link rel="stylesheet" type="text/css" href="css/af.ui.min.css" -->
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/af.ui.css">
+<link rel="stylesheet" type="text/css" href="css/icons.min.css">
+<link rel="stylesheet" type="text/css" href="css/index_main.less.css"
+	class="main-less">
+<title>EasyScore</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+<style type="text/css">
+/* Prevent copy paste for all elements except text fields */
+* {
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+input,textarea {
+	-webkit-user-select: text;
+}
+
+/*Daqui para baixo - vexflow*/
+canvas {
+	background: #eed;
+	padding: 10px;
+	border: 10px solid #ddc;
+}
+
+div.egcode {
+	font-family: Courier;
+	font-size: 14px;
+}
+</style>
+<script src="cordova.js"></script>
+<script type="application/javascript" src="js/appframework.ui.min.js"></script>
+<script type="application/javascript" src="js/jquery.min.js"></script>
+<script type="application/javascript" src="js/index_user_scripts.js"></script>
+<script type="application/javascript" src="js/appframework.js"></script>
+<script type="application/javascript" src="js/af_subpage.js"></script>
+<script type="application/javascript" src="js/getFiles.js"></script>
+<!-- script type="text/javascript" src="js/vexflow-min.js"></script -->
+
+<!-- SCRIPT-VEXFLOW -->
+<script>
+	/* Take raw javascript code, and return moderately useful HTML */
+	function prettify_code(code) {
+		var lines = code.split(/\r\n|\n|\r/);
+		var new_lines = [];
+		for (var j = 0; j < lines.length; ++j) {
+			code = lines[j];
+			code = code.replace(/\s/g, "&nbsp;");
+			code = code.replace(/>/g, "&gt;");
+			code = code.replace(/</g, "&lt;");
+			new_lines.push(code);
+		}
+
+		pretty_code = "<div class='egcode'>" + new_lines.join("<br/>")
+				+ "</div>";
+		return pretty_code;
+	}
+
+	/*
+	   Find all the javascript examples and copy their source code
+	   into the associated <code> blocks.
+	 */
+	$(function() {
+		$("div.description")
+				.each(
+						function(index, sel) {
+							codes = $(sel).find("code.example");
+							codes
+									.each(function(i, s) {
+										var example = $(s).attr("example");
+										var code = $(
+												$(sel).find(
+														"div.example."
+																+ example
+																+ " script")[0])
+												.html();
+										$(s).html(prettify_code(code));
+									})
+						})
+	})
+</script>
+
+<!-- SCRIPTS VEXXX MUSICXML -->
+  <!-- VexFlow Sources -->
+  <script src="src/vex.js"></script>
+  <script src="src/flow.js"></script>
+  <script src="src/fraction.js"></script>
+  <script src="src/fonts/vexflow_font.js"></script>
+  <script src="src/glyph.js"></script>
+  <script src="src/tables.js"></script>
+  <script src="src/stave.js"></script>
+  <script src="src/staveconnector.js"></script>
+  <script src="src/voice.js"></script>
+  <script src="src/voicegroup.js"></script>
+  <script src="src/modifier.js"></script>
+  <script src="src/modifiercontext.js"></script>
+  <script src="src/accidental.js"></script>
+  <script src="src/dot.js"></script>
+  <script src="src/tickcontext.js"></script>
+  <script src="src/tickable.js"></script>
+  <script src="src/note.js"></script>
+  <script src="src/bend.js"></script>
+  <script src="src/stem.js"></script>
+  <script src="src/notehead.js"></script>
+  <script src="src/stemmablenote.js"></script>
+  <script src="src/stavenote.js"></script>
+  <script src="src/tabnote.js"></script>
+  <script src="src/barnote.js"></script>
+  <script src="src/clefnote.js"></script>
+  <script src="src/timesignote.js"></script>
+  <script src="src/ghostnote.js"></script>
+  <script src="src/formatter.js"></script>
+  <script src="src/stavetie.js"></script>
+  <script src="src/stavehairpin.js"></script>
+  <script src="src/tabtie.js"></script>
+  <script src="src/tabslide.js"></script>
+  <script src="src/beam.js"></script>
+  <script src="src/vibrato.js"></script>
+  <script src="src/annotation.js"></script>
+  <script src="src/tuning.js"></script>
+  <script src="src/stavemodifier.js"></script>
+  <script src="src/keysignature.js"></script>
+  <script src="src/timesignature.js"></script>
+  <script src="src/clef.js"></script>
+  <script src="src/music.js"></script>
+  <script src="src/keymanager.js"></script>
+  <script src="src/renderer.js"></script>
+  <script src="src/stavebarline.js"></script>
+  <script src="src/stavevolta.js"></script>
+  <script src="src/staverepetition.js"></script>
+  <script src="src/stavesection.js"></script>
+  <script src="src/stavetempo.js"></script>
+  <script src="src/stavetext.js"></script>
+  <script src="src/raphaelcontext.js"></script>
+  <script src="src/canvascontext.js"></script>
+  <script src="src/tuplet.js"></script>
+  <script src="src/boundingbox.js"></script>
+  
+  <script src="src/measure.js"></script>
+  <script src="src/musicxml.js"></script>
+  <script src="src/document.js"></script>
+  <script src="src/documentformatter.js"></script>
+
+  <!-- Test Sources -->
+  <link rel="stylesheet" href="src/qunit.css"
+    type="text/css" media="screen" />
+  <!-- script src="js/jquery.min.js"></script -->
+  <script src="src/qunit.js"></script>
+  <script src="src/vexflow_test_helpers.js"></script>
+  <script src="src/document_Gabi.js"></script>
+  <!-- END OF MUSICXML -->
+  
+  <!-- script
+	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script -->
+	<script>
+	$(document).ready(function(){
+		$('#btn_comecar').click(function() {
+			Vex.Flow.Test.Document.Start();
+		});
+	});
+	</script>
+  
+</head>
+
+<body id="afui" class="android light">
+
+	<!-- content goes here-->
+	<div class="uwrap" id="content">
+		<div class="upage panel" id="mainpage" data-header="af-header"
+			data-footer="none">
+			<div class="upage-outer">
+
+				<header class="container-group inner-element uib_w_1"
+					data-uib="app_framework/header" data-ver="0" id="af-header">
+					<h1>EasyScore</h1>
+				</header>
+				<div class="upage-content" id="mainsub">
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaMusica" data-ver="0">
+						<!-- li class="widget uib_w_3" data-uib="app_framework/listitem"
+							data-ver="0"><a href="#musica_info"
+							data-transition="fade">Música A </a></li -->
+					</ul>
+					<span class="uib_shim"></span>
+					<p id="byte_content">teste</p>
+					<p id="file_size">file_size</p>
+					<p id="file_path">file_path</p>
+					<p id="entry_path">entry_path</p>
+					<a href="OpenFileExample.html">TESTE FILE</a>
+					<a href="teste_vexflow.html">TESTE VEXFLOW</a>
+				</div>
+				<!-- /upage-content -->
+
+			</div>
+			<!-- /upage-outer -->
+
+		</div>
+		<div class="upage panel" id="mostra_part" data-header="none"
+			data-footer="none">
+				  <div style="text-align: center;">
+				    <h1 id="qunit-header">VexFlow Tests</h1>
+				    <div id="vexflow_testoutput">
+						
+					</div>
+				  </div>
+				<h2>THAT WAS A TEST</h2>
+				<textarea id="read_text" rows="10" cols="50">
+				</textarea>
+				<p id="read_text_p">ops</p>
+			<!-- /upage-outer -->
+		</div>
+
+		<div class="upage panel" id="musica_info" data-header="af-header-info"
+			data-footer="none">
+			<div class="upage-outer">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0" id="af-header-info">
+					<h1>Informações</h1>
+				</header>
+
+				<div id="musica_infosub" class="upage-content ">
+					<div id="meuXML"> 
+					asaaaaa
+					</div>
+					<div>
+						<p>Autor:</p>
+					</div>
+					<div>
+						<p>Nome da Música:</p>
+					</div>
+					<div class="button-grouped flex widget uib_w_13 d-margins"
+						data-uib="app_framework/button_group" data-ver="0">
+						<a class="button widget uib_w_14 d-margins"
+							data-uib="app_framework/button" data-ver="0" id="btn_comecar"
+							href="#mostra_part" data-transition="fade">Começar</a><a
+							class="button widget uib_w_15 d-margins icon user"
+							data-uib="app_framework/button" data-ver="0"
+							id="btn_criarGrupo">Criar Grupo</a>
+					</div>
+				</div>
+				<div id="procura_disp" class="upage-content hidden">
+					<ul class="list widget uib_w_17 d-margins"
+						data-uib="app_framework/listview" data-ver="0" id="ltv_dispos">
+						<li class="widget uib_w_18" data-uib="app_framework/listitem"
+							data-ver="0"><a>List Item</a></li>
+						<li class="widget uib_w_19" data-uib="app_framework/listitem"
+							data-ver="0"><a>List Item</a></li>
+						<li class="widget uib_w_20" data-uib="app_framework/listitem"
+							data-ver="0"><a>List Item</a></li>
+					</ul>								
+				</div>
+			</div>
+			<!-- /upage-outer -->
+		</div>
+
+		<!-- /upage -->
+
+	</div>
+	<!-- /uwrap -->
+</body>
+
+</html>

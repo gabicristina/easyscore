@@ -1,92 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--  link rel="stylesheet" type="text/css" href="css/af.ui.min.css" -->
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/af.ui.css">
-<link rel="stylesheet" type="text/css" href="css/icons.min.css">
-<link rel="stylesheet" type="text/css" href="css/index_main.less.css"
-	class="main-less">
-<title>EasyScore</title>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
-<style type="text/css">
-/* Prevent copy paste for all elements except text fields */
-* {
-	-webkit-user-select: none;
-	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-}
-
-input,textarea {
-	-webkit-user-select: text;
-}
-
-/*Daqui para baixo - vexflow*/
-canvas {
-	background: #eed;
-	padding: 10px;
-	border: 10px solid #ddc;
-}
-
-div.egcode {
-	font-family: Courier;
-	font-size: 14px;
-}
-</style>
-<script src="cordova.js"></script>
-<script type="application/javascript" src="js/appframework.ui.min.js"></script>
-<script type="application/javascript" src="js/jquery.min.js"></script>
-<script type="application/javascript" src="js/index_user_scripts.js"></script>
-<script type="application/javascript" src="js/appframework.js"></script>
-<script type="application/javascript" src="js/af_subpage.js"></script>
-<script type="application/javascript" src="js/getFiles.js"></script>
-<!-- script type="text/javascript" src="js/vexflow-min.js"></script -->
-
-<!-- SCRIPT-VEXFLOW -->
-<script>
-	/* Take raw javascript code, and return moderately useful HTML */
-	function prettify_code(code) {
-		var lines = code.split(/\r\n|\n|\r/);
-		var new_lines = [];
-		for (var j = 0; j < lines.length; ++j) {
-			code = lines[j];
-			code = code.replace(/\s/g, "&nbsp;");
-			code = code.replace(/>/g, "&gt;");
-			code = code.replace(/</g, "&lt;");
-			new_lines.push(code);
-		}
-
-		pretty_code = "<div class='egcode'>" + new_lines.join("<br/>")
-				+ "</div>";
-		return pretty_code;
-	}
-
-	/*
-	   Find all the javascript examples and copy their source code
-	   into the associated <code> blocks.
-	 */
-	$(function() {
-		$("div.description")
-				.each(
-						function(index, sel) {
-							codes = $(sel).find("code.example");
-							codes
-									.each(function(i, s) {
-										var example = $(s).attr("example");
-										var code = $(
-												$(sel).find(
-														"div.example."
-																+ example
-																+ " script")[0])
-												.html();
-										$(s).html(prettify_code(code));
-									})
-						})
-	})
-</script>
-
-<!-- SCRIPTS VEXXX MUSICXML -->
+    <title>Right Side Menu App template</title>
+<!--
+    This template can be used for simple app with side menu that can be opened to switch views, for applications like Facebook App or other Chat app.
+-->  
+    
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    	
+	<!-- SCRIPTS VEXXX MUSICXML -->
   <!-- VexFlow Sources -->
   <script src="src/vex.js"></script>
   <script src="src/flow.js"></script>
@@ -150,61 +72,81 @@ div.egcode {
   <!-- Test Sources -->
   <link rel="stylesheet" href="src/qunit.css"
     type="text/css" media="screen" />
-  <!-- script src="js/jquery.min.js"></script -->
   <script src="src/qunit.js"></script>
   <script src="src/vexflow_test_helpers.js"></script>
   <script src="src/document_Gabi.js"></script>
   <!-- END OF MUSICXML -->
   
-  <!-- script
-	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script -->
+  <script
+	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="js/af.ui.css" />
+    <link rel="stylesheet" type="text/css" href="js/icons.css" />
+    <script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
+    <!--AppFramework plugin for sliding side menu-->
+    <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
+
 	<script>
 	$(document).ready(function(){
+		$.ui.setRightSideMenuWidth(220);
+		$.ui.launch();
 		$('#btn_comecar').click(function() {
 			Vex.Flow.Test.Document.Start();
 		});
 	});
+	
+	$.ui.animateHeaders = false;        
 	</script>
-  
+	<style text="text/css">
+	canvas {
+		background: #eed;
+		padding: 10px;
+		border: 10px solid #ddc;
+	}
+
+	div.egcode {
+		font-family: Courier;
+		font-size: 14px;
+	}
+	</style>
 </head>
-
-<body id="afui" class="android light">
-
-	<!-- content goes here-->
-	<div class="uwrap" id="content">
-		<div class="upage panel" id="mainpage" data-header="af-header"
+<body> 
+<div id="afui">
+    <aside>
+        <ul class="list">
+            <li class="divider">Chat</li>
+            <li class="icon user"><a href="#mainpage">Main</a></li>
+			<li class="icon user"><a href="#mostra_part">Mostra_Part</a></li>
+			<li class="icon user"><a href="#musica_info">Musica_Info</a></li>
+        </ul>
+    </aside>    
+    
+    <div id="content" class="uwrap"> 
+        
+    <!--Main Pages-->
+        <div class="upage panel" id="mainpage" data-header="af-header"
 			data-footer="none">
-			<div class="upage-outer">
-
-				<header class="container-group inner-element uib_w_1"
-					data-uib="app_framework/header" data-ver="0" id="af-header">
-					<h1>EasyScore</h1>
-				</header>
-				<div class="upage-content" id="mainsub">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaMusica" data-ver="0">
-						<!-- li class="widget uib_w_3" data-uib="app_framework/listitem"
-							data-ver="0"><a href="#musica_info"
-							data-transition="fade">MÃºsica A </a></li -->
-					</ul>
-					<span class="uib_shim"></span>
-					<p id="byte_content">teste</p>
-					<p id="file_size">file_size</p>
-					<p id="file_path">file_path</p>
-					<p id="entry_path">entry_path</p>
-					<a href="OpenFileExample.html">TESTE FILE</a>
-					<a href="teste_vexflow.html">TESTE VEXFLOW</a>
-				</div>
-				<!-- /upage-content -->
-
-			</div>
-			<!-- /upage-outer -->
-
+			<header class="container-group inner-element uib_w_1"
+				data-uib="app_framework/header" data-ver="0" id="af-header">
+				<a onclick='$.ui.toggleRightSideMenu()' class='button icon chat' style="float:right"></a>
+				<h1>EasyScore</h1>
+            </header>
+			</header>
+			<div class="upage-content" id="mainsub">
+				<ul class="list widget uib_w_2 d-margins"
+					data-uib="app_framework/listview" id="listaMusica" data-ver="0">
+				</ul>
+				<a href="#mostra_part">da página Mostra_Part</a>
+				<a href="#musica_info">da página Musica_Info</a>
+			</div><!-- /upage-content -->
 		</div>
-		<div class="upage panel" id="mostra_part" data-header="none"
+		<div class="upage panel" id="mostra_part" data-header="af-header-part"
 			data-footer="none">
-				  <div style="text-align: center;">
-				    <h1 id="qunit-header">VexFlow Tests</h1>
+				<header class="container-group inner-element uib_w_1"
+					data-uib="app_framework/header" data-ver="0" id="af-header-part">
+					<a onclick='$.ui.toggleRightSideMenu()' class='button icon chat' style="float:right"></a>
+					<h1>Música!</h1>
+				</header>
+				<div style="text-align: center;">
 				    <div id="vexflow_testoutput">
 						
 					</div>
@@ -213,15 +155,14 @@ div.egcode {
 				<textarea id="read_text" rows="10" cols="50">
 				</textarea>
 				<p id="read_text_p">ops</p>
-			<!-- /upage-outer -->
-		</div>
-
+		</div><!-- /upage-outer -->
 		<div class="upage panel" id="musica_info" data-header="af-header-info"
 			data-footer="none">
 			<div class="upage-outer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0" id="af-header-info">
-					<h1>InformaÃ§Ãµes</h1>
+					<a onclick='$.ui.toggleRightSideMenu()' class='button icon chat' style="float:right"></a>
+					<h1>Informações</h1>
 				</header>
 
 				<div id="musica_infosub" class="upage-content ">
@@ -232,13 +173,13 @@ div.egcode {
 						<p>Autor:</p>
 					</div>
 					<div>
-						<p>Nome da MÃºsica:</p>
+						<p>Nome da Música:</p>
 					</div>
 					<div class="button-grouped flex widget uib_w_13 d-margins"
 						data-uib="app_framework/button_group" data-ver="0">
 						<a class="button widget uib_w_14 d-margins"
 							data-uib="app_framework/button" data-ver="0" id="btn_comecar"
-							href="#mostra_part" data-transition="fade">ComeÃ§ar</a><a
+							href="#mostra_part" data-transition="fade">Começar</a><a
 							class="button widget uib_w_15 d-margins icon user"
 							data-uib="app_framework/button" data-ver="0"
 							id="btn_criarGrupo">Criar Grupo</a>
@@ -247,22 +188,12 @@ div.egcode {
 				<div id="procura_disp" class="upage-content hidden">
 					<ul class="list widget uib_w_17 d-margins"
 						data-uib="app_framework/listview" data-ver="0" id="ltv_dispos">
-						<li class="widget uib_w_18" data-uib="app_framework/listitem"
-							data-ver="0"><a>List Item</a></li>
-						<li class="widget uib_w_19" data-uib="app_framework/listitem"
-							data-ver="0"><a>List Item</a></li>
-						<li class="widget uib_w_20" data-uib="app_framework/listitem"
-							data-ver="0"><a>List Item</a></li>
+						<!--adicionar dispositivos-->
 					</ul>								
 				</div>
-			</div>
-			<!-- /upage-outer -->
-		</div>
-
-		<!-- /upage -->
-
-	</div>
-	<!-- /uwrap -->
+			</div><!-- /upage-outer -->
+		</div><!--Música_Info-->
+    </div>
+</div>
 </body>
-
 </html>
