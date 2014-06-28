@@ -51,6 +51,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css\__index
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\img\__logo.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af.slidemenu.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af.ui.css \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af.ui.css - alterado \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af_subpage.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\appframework.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\appframework.ui.min.js \

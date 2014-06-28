@@ -314,7 +314,7 @@ body {
     height:100%;
     display:none;
     position:absolute; top:0; right:0;
-    border-left: 1px solid #61210B; /*rgba(128,128,128,0.5);*/
+    border-left: 1px solid #61210B;
 }
 
 
@@ -676,9 +676,9 @@ body {
 }
 
 #afui .header{
-    background:#CC8972; /*#0088D1*/
+    background: #CC8972;
     border:none;
-    border-bottom:1px solid #CC8972; /*#0088D1*/
+    border-bottom: 1px solid #CC8972;
     color:white;
 }
 
@@ -834,18 +834,18 @@ body {
 #afui > #aside_menu,
 #afui > #menu.tabletMenu {
     color:white;
-    background:#573F9B; /*#00AEEF;*/
-    border-right:1px solid #61210B; /*#006BA4;*/
+    background: #573F9B;
+    border-right: 1px solid #61210B;
 }
 
 #afui #aside_menu .list li,#afui #aside_menu .list .divider,#afui #aside_menu .list li:last-child,
 #afui #menu .list li,#afui #menu .list .divider,#afui #menu .list li:last-child {
-    border-color: #CC8982; /*#4CC6F4;*/
+    border-color: #CC8982;
 }
 
 #afui #aside_menu .list .divider,
 #afui #menu .list .divider {
-    background:#6631FE; /*#0088D1;*/
+    background: #6631FE;
     color:inherit;
     font-size: 1em;
 }
