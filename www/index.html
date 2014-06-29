@@ -74,6 +74,7 @@
 <script src="src/document_Gabi.js"></script>
 <!-- END OF MUSICXML -->
 
+<script src="js/websocket.js"></script>
 <script
 	src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
 <link rel="stylesheet" type="text/css" href="js/af.ui.css" />
@@ -82,6 +83,7 @@
 	src="js/appframework.ui.min.js"></script>
 <!--AppFramework plugin for sliding side menu-->
 <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
+<script src="cordova.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -89,6 +91,18 @@
 		$.ui.launch();
 		$('#btn_comecar').click(function() {
 			Vex.Flow.Test.Document.Start();
+		});
+		$('#btn_upload').click(function() {
+			//deve enviar a partitura informada para o servidor
+		});
+		$('#btn_criaEstudio').click(function() {
+			createGroup(document.getElementById("criaNomeEstudio").value);
+		});
+		$('#btn_selecionaPart').click(function() {
+			//precisa atribuir o usuário ao grupo e fazer download da partitura!
+		});
+		$('#btn_comecar').click(function() {
+			//deve iniciar a execução da partitura escolhida
 		});
 	});
 
@@ -111,16 +125,16 @@ div.egcode {
 	<div id="afui">
 		<aside>
 			<ul class="list">
-				<li class="divider"></li>
-				<li><a href="#mainpage">Main</a></li>
+				<li><a href="#mainpage">Consultar Estúdios</a></li>
+				<li><a href="#upload">Carregar Partitura</a></li>
+				<li><a href="#criaEstudio">Criar Estúdio</a></li>
+				<li><a href="#mostra_part">Mostra_Part</a></li>
 				<li><a href="#mostra_part">Mostra_Part</a></li>
 				<li><a href="#musica_info">Musica_Info</a></li>
 			</ul>
 		</aside>
 
 		<div id="content" class="uwrap">
-
-			<!--Main Pages-->
 			<div class="upage panel" id="mainpage" data-header="af-header"
 				data-footer="none">
 				<header class="container-group inner-element uib_w_1"
@@ -129,16 +143,18 @@ div.egcode {
 						class='button icon settings' style="float: right"></a>
 					<h1>EasyScore</h1>
 				</header>
-				</header>
 				<div class="upage-content" id="mainsub">
 					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaMusica" data-ver="0">
+						data-uib="app_framework/listview" id="listaEstudios" data-ver="0">
+						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
+							class="checkboxDelete" /> <a href="#selecionaPartEst"> Estúdio 1 </a></li>
+						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
+							class="checkboxDelete" /> <a href="#selecionaPartEst"> Estúdio 2 </a></li>
 					</ul>
-					<a href="#mostra_part">da página Mostra_Part</a> <a
-						href="#musica_info">da página Musica_Info</a>
 				</div>
 				<!-- /upage-content -->
 			</div>
+			<!-- Main -->
 			<div class="upage panel" id="mostra_part"
 				data-header="af-header-part" data-footer="none">
 				<header class="container-group inner-element uib_w_1"
@@ -155,7 +171,7 @@ div.egcode {
 				</textarea>
 				<p id="read_text_p">ops</p>
 			</div>
-			<!-- /upage-outer -->
+			<!-- /mostra_part -->
 			<div class="upage panel" id="musica_info"
 				data-header="af-header-info" data-footer="none">
 				<div class="upage-outer">
@@ -194,6 +210,88 @@ div.egcode {
 				<!-- /upage-outer -->
 			</div>
 			<!--Música_Info-->
+			<div class="upage panel" id="upload" data-header="af-header-upload"
+				data-footer="none">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0" id="af-header-upload">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>Carregar Partitura</h1>
+				</header>
+				<div id="upload_info" class="upage-content">
+					<br /> <input name="arquivo" type="text"
+						placeholder="caminho do arquivo" />
+					<div class="button-grouped flex widget uib_w_13 d-margins"
+						data-uib="app_framework/button_group" data-ver="0">
+						<button class="button widget uib_w_14 d-margins"
+							data-uib="app_framework/button" data-ver="0" id="btn_upload"
+							data-transition="fade">Enviar</button>
+					</div>
+				</div>
+			</div>
+			<!-- Upload Partitura -->
+			<div class="upage panel" id="criaEstudio"
+				data-header="af-header-criaEstudio" data-footer="none">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-criaEstudio">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>Criar Estúdio</h1>
+				</header>
+				<div id="criaEstudio_info" class="upage-content">
+					<br /> <input type="text" required id="criaNomeEstudio"
+						placeholder="nome do estúdio" />
+					<div class="button-grouped flex widget uib_w_13 d-margins"
+						data-uib="app_framework/button_group" data-ver="0">
+						<button class="button widget uib_w_14 d-margins"
+							data-uib="app_framework/button" data-ver="0" id="btn_criaEstudio"
+							data-transition="fade">Criar</button>
+					</div>
+					<div id="testeWebSocket"></div>
+				</div>
+			</div>
+			<!-- /Criar Estúdio -->
+			<div class="upage panel" id="selecionaPartEst"
+				data-header="af-header-selecionaPartEst" data-footer="none">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-selecionaPartEst">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>NOME DO ESTUDIO</h1>
+				</header>
+				<div id="criaEstudio_info" class="upage-content">
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaPartEst" data-ver="0">
+					</ul>
+				</div>
+			</div>
+			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
+			<div class="upage panel" id="selecionaPartEst"
+				data-header="af-header-selecionaPart" data-footer="none">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-selecionaPart">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>NOME DO ESTUDIO</h1>
+				</header>
+				<div id="selecionaPart_info" class="upage-content">
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaPart" data-ver="0">
+					</ul>
+					<button class="button widget uib_w_14 d-margins"
+						data-uib="app_framework/button" data-ver="0"
+						id="btn_selecionaPart" data-transition="fade">Receber
+						partitura</button>
+					<!-- ESTE BOTÃO SÓ PODE APARECER PARA O MAESTRO!!! -->
+					<button class="button widget uib_w_14 d-margins"
+						data-uib="app_framework/button" data-ver="0" id="btn_comecar"
+						data-transition="fade">Começar</button>
+				</div>
+			</div>
+			<!-- /MÚSICO - Selecionar Partituras -->
 		</div>
 	</div>
 </body>

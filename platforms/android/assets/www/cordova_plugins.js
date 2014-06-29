@@ -128,12 +128,20 @@ module.exports = [
         "merges": [
             "window.FileSystem"
         ]
+    },
+    {
+        "file": "plugins/com.knowledgecode.cordova.websocket/www/websocket.js",
+        "id": "com.knowledgecode.cordova.websocket.websocket",
+        "clobbers": [
+            "WebSocket"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.file": "1.1.0"
+    "org.apache.cordova.file": "1.1.0",
+    "com.knowledgecode.cordova.websocket": "0.6.2"
 }
 // BOTTOM OF METADATA
 });

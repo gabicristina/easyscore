@@ -1,4 +1,10 @@
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes.dex : \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\knowledgecode\cordova\websocket\WebSocket$Close.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\knowledgecode\cordova\websocket\WebSocket$Creation$1.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\knowledgecode\cordova\websocket\WebSocket$Creation.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\knowledgecode\cordova\websocket\WebSocket$JettyWebSocket.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\knowledgecode\cordova\websocket\WebSocket$Send.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\knowledgecode\cordova\websocket\WebSocket.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\tcc\easyscore\BuildConfig.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\tcc\easyscore\EasyScore.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\com\tcc\easyscore\R$attr.class \
@@ -47,3 +53,4 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\NoModificationAllowedException.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\TypeMismatchException.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\dexedLibs\classes-567d9d622a8d046d2c3a9e43c64d0e86.jar \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\dexedLibs\jetty-websocket-8.1.15.v20140411-5331a70ac83481ca94187903bf2cce43.jar \
