@@ -676,9 +676,9 @@ body {
 }
 
 #afui .header{
-    background:#CC8972; /*#0088D1*/
+    background:#0088D1; /*#CC8972;*/
     border:none;
-    border-bottom:1px solid #CC8972; /*#0088D1*/
+    border-bottom:1px solid #0088D1; /*#CC8972*/
     color:white;
 }
 
@@ -834,18 +834,18 @@ body {
 #afui > #aside_menu,
 #afui > #menu.tabletMenu {
     color:white;
-    background:#573F9B; /*#00AEEF;*/
-    border-right:1px solid #61210B; /*#006BA4;*/
+    background:#00AEEF; /*#573F9B;*/
+    border-right:1px solid #006BA4; /*#61210B;*/
 }
 
 #afui #aside_menu .list li,#afui #aside_menu .list .divider,#afui #aside_menu .list li:last-child,
 #afui #menu .list li,#afui #menu .list .divider,#afui #menu .list li:last-child {
-    border-color: #CC8982; /*#4CC6F4;*/
+    border-color: #4CC6F4; /*#CC8982;*/
 }
 
 #afui #aside_menu .list .divider,
 #afui #menu .list .divider {
-    background:#6631FE; /*#0088D1;*/
+    background:#0088D1; /*#6631FE;*/
     color:inherit;
     font-size: 1em;
 }

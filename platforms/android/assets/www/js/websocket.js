@@ -50,4 +50,8 @@ function createGroup(name) {
 	var create = '{"type": "create","values": [{"name": "' + name + '"}]}';
 	doSend(create);
 };
+function listGroup(name) {
+	var create = '{"type": "list"}';
+	doSend(create);
+};
 document.addEventListener("deviceready", init, false);

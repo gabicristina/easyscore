@@ -53,10 +53,11 @@ Vex.Flow.Test.Document.xmlSimple = function(options, contextBuilder) {
   var doc = new Vex.Flow.Document(docString);
   ok(true, "created document");
 
-  var ctx = new contextBuilder(options.canvas_sel, 300, 120);
-  doc.getFormatter().setWidth(300).drawBlock(0, ctx);
+  var ctx = new contextBuilder(options.canvas_sel, largPart, altPart);
+  ctx.scale(escPart, escPart);
+  doc.getFormatter().setWidth(largPart).drawBlock(0, ctx);
   ok(true, "drew document");
-}
+};
 Vex.Flow.Test.Document.Fetch = function(uri) {
   var req = new XMLHttpRequest();
   //req.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -85,10 +86,10 @@ Vex.Flow.Test.Document.xmlDoc = function(options, contextBuilder) {
   var doc = new Vex.Flow.Document(docString);
   ok(true, "created document");
 
-  var formatter = doc.getFormatter();
-  formatter.setWidth(800);
-  var ctx = new contextBuilder(options.canvas_sel, 480, 120);
-  ctx.scale(0.6, 0.6);
-  formatter.drawBlock(0, ctx);
+  var ctx = new contextBuilder(options.canvas_sel, largPart, altPart);
+  ctx.scale(escPart, escPart);
+  doc.getFormatter().setWidth(largPart).drawBlock(0, ctx);
+  //ctx.scale(0.6, 0.6);
+  //formatter.drawBlock(0, ctx);
   ok(true, "drew document");
 };

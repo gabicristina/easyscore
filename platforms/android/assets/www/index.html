@@ -81,15 +81,23 @@
 <link rel="stylesheet" type="text/css" href="js/icons.css" />
 <script type="text/javascript" charset="utf-8"
 	src="js/appframework.ui.min.js"></script>
+<!-- NÃO DEIXA APARECER O CHECKBOX -->
 <!--AppFramework plugin for sliding side menu-->
 <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
 <script src="cordova.js"></script>
 
 <script>
+	var altPart = 120;
+	var largPart = 480;
+	var escPart = 1.0;
 	$(document).ready(function() {
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
 		$('#btn_comecar').click(function() {
+			Vex.Flow.Test.Document.Start();
+		});
+		$('#btn_upload').click(function() {
+			//deve enviar a partitura informada para o servidor
 			Vex.Flow.Test.Document.Start();
 		});
 		$('#btn_criaEstudio').click(function() {
@@ -101,6 +109,11 @@
 		$('#btn_comecar').click(function() {
 			//deve iniciar a execução da partitura escolhida
 		});
+		$('#btn_configuracoes').click(function() {
+			altPart = document.getElementById("conf_altPart").value;
+			largPart = document.getElementById("conf_largPart").value;
+			escPart = document.getElementById("conf_escPart").value;
+		})
 	});
 
 	$.ui.animateHeaders = false;
@@ -125,9 +138,10 @@ div.egcode {
 				<li><a href="#mainpage">Consultar Estúdios</a></li>
 				<li><a href="#upload">Carregar Partitura</a></li>
 				<li><a href="#criaEstudio">Criar Estúdio</a></li>
+				<li><a href="#configuracoes">Configurações</a></li>
+				<!-- li><a href="#mostra_part">Mostra_Part</a></li>
 				<li><a href="#mostra_part">Mostra_Part</a></li>
-				<li><a href="#mostra_part">Mostra_Part</a></li>
-				<li><a href="#musica_info">Musica_Info</a></li>
+				<li><a href="#musica_info">Musica_Info</a></li -->
 			</ul>
 		</aside>
 
@@ -143,70 +157,19 @@ div.egcode {
 				<div class="upage-content" id="mainsub">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaEstudios" data-ver="0">
-						<li>
-		                    <input type="checkbox" name="checkbox-1" id="checkbox-1" class="checkboxDelete"/>
-		                    <a href="#"> Estúdio 1 </a>
-		                </li>
-		                <li>
-		                    <input type="checkbox" name="checkbox-1" id="checkbox-1" class="checkboxDelete"/>
-		                    <a href="#"> Estúdio 2 </a>
-		                </li>
+						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
+							class="checkboxDelete" /> <a href="#selecionaPartEst">
+								Estúdio 1 </a></li>
+						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
+							class="checkboxDelete" /> <a href="#selecionaPartEst">
+								Estúdio 2 </a></li>
 					</ul>
-				</div> <!-- /upage-content -->
-			</div> <!-- Main -->
-			<div class="upage panel" id="mostra_part"
-				data-header="af-header-part" data-footer="none">
-				<header class="container-group inner-element uib_w_1"
-					data-uib="app_framework/header" data-ver="0" id="af-header-part">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Música!</h1>
-				</header>
-				<div style="text-align: center;">
-					<div id="vexflow_testoutput"></div>
 				</div>
-				<h2>THAT WAS A TEST</h2>
-				<textarea id="read_text" rows="10" cols="50">
-				</textarea>
-				<p id="read_text_p">ops</p>
-			</div><!-- /mostra_part -->
-			<div class="upage panel" id="musica_info"
-				data-header="af-header-info" data-footer="none">
-				<div class="upage-outer">
-					<header class="container-group inner-element uib_w_10"
-						data-uib="app_framework/header" data-ver="0" id="af-header-info">
-						<a onclick='$.ui.toggleRightSideMenu()'
-							class='button icon settings' style="float: right"></a>
-						<h1>Informações</h1>
-					</header>
-
-					<div id="musica_infosub" class="upage-content">
-						<div id="meuXML">asaaaaa</div>
-						<div>
-							<p>Autor:</p>
-						</div>
-						<div>
-							<p>Nome da Música:</p>
-						</div>
-						<div class="button-grouped flex widget uib_w_13 d-margins"
-							data-uib="app_framework/button_group" data-ver="0">
-							<a class="button widget uib_w_14 d-margins"
-								data-uib="app_framework/button" data-ver="0" id="btn_comecar"
-								href="#mostra_part" data-transition="fade">Começar</a><a
-								class="button widget uib_w_15 d-margins icon user"
-								data-uib="app_framework/button" data-ver="0" id="btn_criarGrupo">Criar
-								Grupo</a>
-						</div>
-					</div>
-					<div id="procura_disp" class="upage-content hidden">
-						<ul class="list widget uib_w_17 d-margins"
-							data-uib="app_framework/listview" data-ver="0" id="ltv_dispos">
-							<!--adicionar dispositivos-->
-						</ul>
-					</div>
-				</div>
-				<!-- /upage-outer -->
-			</div> <!--Música_Info-->
+				<!-- /upage-content -->
+			</div>
+			<!-- Main -->
+			</div>
+			<!--Música_Info-->
 			<div class="upage panel" id="upload" data-header="af-header-upload"
 				data-footer="none">
 				<header class="container-group inner-element uib_w_10"
@@ -216,8 +179,8 @@ div.egcode {
 					<h1>Carregar Partitura</h1>
 				</header>
 				<div id="upload_info" class="upage-content">
-					<br/>
-					<input name="arquivo" type="text" placeholder="caminho do arquivo" />
+					<br /> <input name="arquivo" type="text"
+						placeholder="caminho do arquivo" />
 					<div class="button-grouped flex widget uib_w_13 d-margins"
 						data-uib="app_framework/button_group" data-ver="0">
 						<button class="button widget uib_w_14 d-margins"
@@ -225,18 +188,23 @@ div.egcode {
 							data-transition="fade">Enviar</button>
 					</div>
 				</div>
-			</div> <!-- Upload Partitura -->
-			<div class="upage panel" id="criaEstudio" data-header="af-header-criaEstudio"
-				data-footer="none">
+				<div style="text-align: center;">
+					<div id="vexflow_testoutput"></div>
+				</div>
+			</div>
+			<!-- Upload Partitura -->
+			<div class="upage panel" id="criaEstudio"
+				data-header="af-header-criaEstudio" data-footer="none">
 				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0" id="af-header-criaEstudio">
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-criaEstudio">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
 					<h1>Criar Estúdio</h1>
 				</header>
 				<div id="criaEstudio_info" class="upage-content">
-					<br/>
-					<input type="text" required id="criaNomeEstudio" placeholder="nome do estúdio" />
+					<br /> <input type="text" required id="criaNomeEstudio"
+						placeholder="nome do estúdio" />
 					<div class="button-grouped flex widget uib_w_13 d-margins"
 						data-uib="app_framework/button_group" data-ver="0">
 						<button class="button widget uib_w_14 d-margins"
@@ -245,11 +213,13 @@ div.egcode {
 					</div>
 					<div id="testeWebSocket"></div>
 				</div>
-			</div> <!-- Criar Estúdio -->
-			<div class="upage panel" id="selecionaPartEst" data-header="af-header-selecionaPartEst"
-				data-footer="none">
+			</div>
+			<!-- /Criar Estúdio -->
+			<div class="upage panel" id="selecionaPartEst"
+				data-header="af-header-selecionaPartEst" data-footer="none">
 				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0" id="af-header-selecionaPartEst">
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-selecionaPartEst">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
 					<h1>NOME DO ESTUDIO</h1>
@@ -259,11 +229,13 @@ div.egcode {
 						data-uib="app_framework/listview" id="listaPartEst" data-ver="0">
 					</ul>
 				</div>
-			</div> <!-- MAESTRO - Selecionar Partituras do Estúdio -->
-			<div class="upage panel" id="selecionaPartEst" data-header="af-header-selecionaPart"
-				data-footer="none">
+			</div>
+			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
+			<div class="upage panel" id="selecionaPartEst"
+				data-header="af-header-selecionaPart" data-footer="none">
 				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0" id="af-header-selecionaPart">
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-selecionaPart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
 					<h1>NOME DO ESTUDIO</h1>
@@ -273,14 +245,43 @@ div.egcode {
 						data-uib="app_framework/listview" id="listaPart" data-ver="0">
 					</ul>
 					<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="btn_selecionaPart"
-							data-transition="fade">Receber partitura</button>
+						data-uib="app_framework/button" data-ver="0"
+						id="btn_selecionaPart" data-transition="fade">Receber
+						partitura</button>
 					<!-- ESTE BOTÃO SÓ PODE APARECER PARA O MAESTRO!!! -->
 					<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="btn_comecar"
-							data-transition="fade">Começar</button>
+						data-uib="app_framework/button" data-ver="0" id="btn_comecar"
+						data-transition="fade">Começar</button>
 				</div>
-			</div> <!-- MÚSICO - Selecionar Partituras -->
+			</div>
+			<!-- /MÚSICO - Selecionar Partituras -->
+			<div class="upage panel" id="configuracoes"
+				data-header="af-header-configuracoes" data-footer="none">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-configuracoes">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>NOME DO ESTUDIO</h1>
+				</header>
+				<div id="configuracoes_info" class="upage-content">
+					<label>Altura e Largura da Partitura</label> <input type="text"
+						required id="conf_altPart" placeholder="altura da partitura" />
+					<input
+						type="text" required id="conf_largPart"
+						placeholder="largura da partirura" />
+					<br />
+					<label>Escala da Partitura</label>
+					<input type="text" required id="conf_escPart"
+						placeholder="escala da partitura" />
+					<br />
+					<br />
+					<button class="button widget uib_w_14 d-margins"
+						data-uib="app_framework/button" data-ver="0"
+						id="btn_configuracoes" data-transition="fade">Gravar</button>
+				</div>
+			</div>
+			<!-- /Configurações -->
 		</div>
 	</div>
 </body>
