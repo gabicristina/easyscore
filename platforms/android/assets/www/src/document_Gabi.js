@@ -8,7 +8,7 @@ Vex.Flow.Test.Document = {};
 Vex.Flow.Test.Document.Start = function() {
   module("Document");
   Vex.Flow.Test.runTest("Basic MusicXML Test", Vex.Flow.Test.Document.xmlSimple);
-  Vex.Flow.Test.runTest("MusicXML Document Test", Vex.Flow.Test.Document.xmlDoc);
+  //Vex.Flow.Test.runTest("MusicXML Document Test", Vex.Flow.Test.Document.xmlDoc);
 };
 Vex.Flow.Test.Document.xmlSimple = function(options, contextBuilder) {
   expect(2);
@@ -84,12 +84,7 @@ Vex.Flow.Test.Document.xmlDoc = function(options, contextBuilder) {
   }
   expect(2);
   var doc = new Vex.Flow.Document(docString);
-  ok(true, "created document");
-
   var ctx = new contextBuilder(options.canvas_sel, largPart, altPart);
   ctx.scale(escPart, escPart);
   doc.getFormatter().setWidth(largPart).drawBlock(0, ctx);
-  //ctx.scale(0.6, 0.6);
-  //formatter.drawBlock(0, ctx);
-  ok(true, "drew document");
 };
