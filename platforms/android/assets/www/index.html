@@ -71,7 +71,8 @@
 	media="screen" />
 <script src="src/qunit.js"></script>
 <script src="src/vexflow_test_helpers.js"></script>
-<script src="src/document_Gabi.js"></script>
+<script src="js/document_web.js"></script>
+<script src="js/part_complete.js"></script>
 <!-- END OF MUSICXML -->
 
 <script src="js/websocket.js"></script>
@@ -88,41 +89,59 @@
 	var altPart = 120;
 	var largPart = 480;
 	var escPart = 1.0;
+	var velPart = 1 * 1000;
 	$(document).ready(function() {
+		init();
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
 		$('#btn_comecar').click(function() {
-			Vex.Flow.Test.Document.Start();
+			Vex.Flow.Test.Web.Start();
+			//deve iniciar a execução da partitura escolhida
 		});
 		$('#btn_upload').click(function() {
 			//deve enviar a partitura informada para o servidor
-			Vex.Flow.Test.Document.Start();
+			Vex.Flow.Test.Web.Start();
 		});
 		$('#btn_criaEstudio').click(function() {
-			if (createGroup(document.getElementById("criaNomeEstudio").value)) {
-				
+			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
+				alert("Estúdio " + document.getElementById("criaNomeEstudio").value + " criado com sucesso");
 			};
 		});
 		$('#btn_selecionaPart').click(function() {
 			//precisa atribuir o usuário ao grupo e fazer download da partitura!
 		});
-		$('#btn_comecar').click(function() {
-			//deve iniciar a execução da partitura escolhida
-		});
 		$('#btn_configuracoes').click(function() {
-			altPart = document.getElementById("conf_altPart").value;
-			largPart = document.getElementById("conf_largPart").value;
-			escPart = document.getElementById("conf_escPart").value;
+			altPart = document.getElementById("rangeAltura").innerHTML;
+			escPart = document.getElementById("rangeEscala").innerHTML;
+			velPart = (document.getElementById("rangeVelocidade").innerHTML) * 1000;
+			alert("Altura: " + altPart + "\n" +
+					"Largura: " + largPart + "\n" +
+					"Escala: " + escPart + "\n" +
+					"Velocidade: "+ velPart);
+		});
+		$('#btn_closeWeb').click(function() {
+			close();
+		});
+		$('#consultarEstudios').click(function() {
+			listStudio();
 		})
 	});
 
 	$.ui.animateHeaders = false;
 </script>
 <style text="text/css">
+#exibePart {
+	background-color: #eed;
+	background: #eed;
+}
+
+#exibe_info {
+	background-color: #eed;
+	background: #eed;
+}
+
 canvas {
 	background: #eed;
-	padding: 10px;
-	border: 10px solid #ddc;
 }
 
 div.egcode {
@@ -135,21 +154,18 @@ div.egcode {
 	<div id="afui">
 		<aside>
 			<ul class="list">
-				<li><a href="#mainpage">Consultar Estúdios</a></li>
+				<li id="consultarEstudios"><a href="#mainpage">Consultar Estúdios</a></li>
 				<li><a href="#upload">Carregar Partitura</a></li>
 				<li><a href="#criaEstudio">Criar Estúdio</a></li>
 				<li><a href="#configuracoes">Configurações</a></li>
 				<li><a href="#selecionaPartEst">SelecionaPartEst</a></li>
 				<li><a href="#selecionaPart">SelecionaPart</a></li>
-				<!-- li><a href="#mostra_part">Mostra_Part</a></li>
-				<li><a href="#mostra_part">Mostra_Part</a></li>
-				<li><a href="#musica_info">Musica_Info</a></li -->
 			</ul>
 		</aside>
 
 		<div id="content" class="uwrap">
 			<div class="upage panel" id="mainpage" data-header="af-header"
-				data-footer="none">
+				data-footer="af-footer">
 				<header class="container-group inner-element uib_w_1"
 					data-uib="app_framework/header" data-ver="0" id="af-header">
 					<a onclick='$.ui.toggleRightSideMenu()'
@@ -166,14 +182,15 @@ div.egcode {
 							class="checkboxDelete" /> <a href="#selecionaPart">
 								Estúdio 2 </a></li>
 					</ul>
+					<br/>
+					<br/>
+					<a class="button" data-uib="app_framework/button" data-ver="0" id="btn_closeWeb">CloseWeb</a>
 				</div>
 				<!-- /upage-content -->
-			</div>
-			<!-- Main -->
-			</div>
+			</div>	<!-- /Main -->
 			<!--Música_Info-->
 			<div class="upage panel" id="upload" data-header="af-header-upload"
-				data-footer="none">
+				data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0" id="af-header-upload">
 					<a onclick='$.ui.toggleRightSideMenu()'
@@ -181,21 +198,15 @@ div.egcode {
 					<h1>Carregar Partitura</h1>
 				</header>
 				<div id="upload_info" class="upage-content">
-					<br /> <input name="arquivo" type="text"
-						placeholder="caminho do arquivo" />
-					<div class="button-grouped flex widget uib_w_13 d-margins"
-						data-uib="app_framework/button_group" data-ver="0">
-						<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="btn_upload"
-							data-transition="fade">Enviar</button>
-					</div>
-					
-					<a class="button widget uib_w_23 d-margins" data-uib="app_framework/button" data-ver="0">Enviar grande</a><span class="uib_shim"></span>
+					<br />
+					<input name="arquivo" type="text" placeholder="caminho do arquivo" />
+					<a class="button" data-uib="app_framework/button"
+						id="btn_upload" href="#mainpage" data-ver="0">Enviar</a>
 				</div>
 			</div>
 			<!-- Upload Partitura -->
 			<div class="upage panel" id="criaEstudio"
-				data-header="af-header-criaEstudio" data-footer="none">
+				data-header="af-header-criaEstudio" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-criaEstudio">
@@ -206,7 +217,7 @@ div.egcode {
 				<div id="criaEstudio_info" class="upage-content">
 					<br /> <input type="text" required id="criaNomeEstudio"
 						placeholder="nome do estúdio" />
-					<div class="button-grouped flex widget uib_w_13 d-margins"
+					<!-- div class="button-grouped flex widget uib_w_13 d-margins"
 						data-uib="app_framework/button_group" data-ver="0">
 						<button class="button widget uib_w_14 d-margins"
 							data-uib="app_framework/button" data-ver="0" id="btn_criaEstudio"
@@ -215,13 +226,14 @@ div.egcode {
 								Criar
 							</a>
 						</button>
-					</div>
-					<div id="testeWebSocket"></div>
+					</div -->
+					<a class="button" href="#selecionaPartEst" 
+						data-uib="app_framework/button" data-ver="0">Criar</a>
 				</div>
 			</div>
 			<!-- /Criar Estúdio -->
 			<div class="upage panel" id="selecionaPartEst"
-				data-header="af-header-selecionaPartEst" data-footer="none">
+				data-header="af-header-selecionaPartEst" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-selecionaPartEst">
@@ -244,7 +256,7 @@ div.egcode {
 			</div>
 			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
 			<div class="upage panel" id="selecionaPart"
-				data-header="af-header-selecionaPart" data-footer="none">
+				data-header="af-header-selecionaPart" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-selecionaPart">
@@ -282,16 +294,19 @@ div.egcode {
 					<div class="button-grouped flex widget uib_w_13 d-margins"
 						data-uib="app_framework/button_group" data-ver="0">
 						<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="btn_comecar"
+							data-uib="app_framework/button" data-ver="0" id="bttttn_comecar"
 							data-transition="fade">
 							<a href="#exibePart" style="text-decoration: none">Começar</a>
 						</button>
 					</div>
+					
+					<a class="button" data-uib="app_framework/button" data-ver="0" 
+						id="btn_comecar" href="#exibePart">Começar</a>
 				</div>
 			</div>
 			<!-- /MÚSICO - Selecionar Partituras -->
 			<div class="upage panel" id="configuracoes"
-				data-header="af-header-configuracoes" data-footer="none">
+				data-header="af-header-configuracoes" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-configuracoes">
@@ -300,21 +315,36 @@ div.egcode {
 					<h1>Configurações</h1>
 				</header>
 				<div id="configuracoes_info" class="upage-content">
+					<br />
+					<br />
 					<label>Altura e Largura da Partitura</label>
+					<input type="range" min="0" max="50" value="0" step="5" onchange='showValue(this.value, "rangeAltura")' />
 					<br/>
-					<div id='bar'></div>
-					
-					<input type="text"
-						required id="conf_altPart" placeholder="altura da partitura" />
-					<input
-						type="text" required id="conf_largPart"
-						placeholder="largura da partirura" />
+					<span style="width:auto" id="rangeAltura">0</span>
+					<br />
 					<br />
 					<label>Escala da Partitura</label>
+					<input type="range" min="0" max="50" value="0" step="5" onchange='showValue(this.value, "rangeEscala")' />
+					<br/>
+					<span style="width:auto" id="rangeEscala">0</span>
 					<br />
-					<input type="text" required id="conf_escPart"
-						placeholder="escala da partitura" />
 					<br />
+					<canvas></canvas>
+					<br />
+					<br />
+					<br />
+					<br />
+					<label>Velocidade</label>
+					<input type="range" min="0" max="10" value="0" step="1" onchange='showValue(this.value, "rangeVelocidade")' />
+					<br/>
+					<span style="width:auto" id="rangeVelocidade">0</span>
+					<br />
+					<script type="text/javascript">
+						function showValue(newValue, id)
+						{
+							document.getElementById(id).innerHTML=newValue;
+						}
+					</script>
 					<br />
 					<button class="button widget uib_w_14 d-margins"
 						data-uib="app_framework/button" data-ver="0"
@@ -323,7 +353,7 @@ div.egcode {
 			</div>
 			<!-- /Configurações -->
 			<div class="upage panel" id="exibePart"
-				data-header="af-header-exibePart" data-footer="none">
+				data-header="af-header-exibePart" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-exibePart">
@@ -331,13 +361,15 @@ div.egcode {
 						class='button icon settings' style="float: right"></a>
 					<h1>Estúdio 1</h1>
 				</header>
-				<div id="configuracoes_info" class="upage-content">
+				<div id="exibe_info" class="upage-content">
 					<div style="text-align: center;">
 						<div id="vexflow_testoutput"></div>
 					</div>
 				</div>
 			</div>
 			<!-- /Exibe partitura -->
+			<footer id="af-footer">
+			</footer>
 		</div>
 	</div>
 </body>

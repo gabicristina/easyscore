@@ -2,7 +2,7 @@ var wsUri = "ws://54.207.48.208/easyscore/websocket/easy";
 var output;
 var message;
 function init() {
-	output = document.getElementById("testeWebSocket");
+	output = document.getElementById("af-footer");
 	testWebSocket();
 };
 function testWebSocket() {
@@ -22,6 +22,7 @@ function testWebSocket() {
 };
 function onOpen(evt) {
 	writeToScreen("CONNECTED");
+	listStudio();
 };
 function onClose(evt) {
 	writeToScreen("DISCONNECTED");
@@ -30,8 +31,20 @@ function onMessage(evt) {
 	writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data
 			+ '</span>');
 	message = evt.data;
-	document.getElementById('strRes').value = evt.data;
-	websocket.close();
+	var obj = JSON.parse(evt.data);
+	if (obj.hasOwnProperty('studios')) {
+		$("#listaEstudios").children("li").remove();
+		for ( var studio in obj.studios) {
+			$('#listaEstudios').append($('<li/>', { // here appending `<li>`
+				'data-role' : "list-divider"
+			}).append($('<a/>', { // here appending `<a>` into `<li>`
+				'href' : '#selecionaPart',
+				'data-transition' : 'fade',
+				'text' : studio.name
+			})));
+		}
+	}
+	//document.getElementById('strRes').value = evt.data;
 };
 function onError(evt) {
 	writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
@@ -44,14 +57,45 @@ function writeToScreen(message) {
 	var pre = document.createElement("p");
 	pre.style.wordWrap = "break-word";
 	pre.innerHTML = message;
-	output.appendChild(pre);
+	output.insertBefore(pre, output.firstChild);
 };
-function createGroup(name) {
+function createStudio(name) {
 	var create = '{"type": "create","values": [{"name": "' + name + '"}]}';
 	doSend(create);
 };
-function listGroup(name) {
-	var create = '{"type": "list"}';
-	doSend(create);
+function listStudio() {
+	var listGroup = '{"type": "list","values": []}';
+	doSend(listGroup);
+};
+function joinStudio(idStudio) {
+	var joinGroup = '{"type": "join","values": [{"studio_id": "' + idStudio
+			+ '",}]}';
+	doSend(joinGroup);
+};
+function sendScore(idStudio, nome, score) {
+	var sendScore = '{"type": "send_score", "values": [{ \
+	                    "studio_id": "'
+			+ idStudio
+			+ '",\
+	                    "name": "'
+			+ nome
+			+ '",\
+	                    "content": "' + score + '"}]}';
+	doSend(sendScore);
+};
+function getScore(idStudio, idScore) {
+	var getScore = '{"type": "get_score", "values": [{\
+						"studio_id": "'
+			+ idStudio + '",\
+						"score_id": "' + idScore + '"}]}';
+	doSend(getScore);
+};
+function notify(idStudio) {
+	var notify = '{"type": "notify", "values": [{"studio_id": "' + idStudio
+			+ '"}]}';
+	doSend(notify);
+};
+function close() {
+	websocket.close();
 };
 document.addEventListener("deviceready", init, false);

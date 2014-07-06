@@ -37,7 +37,6 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index.html 
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src \
-C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\teste_vexflow.html \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css\af.ui.css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css\af.ui.min.css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css\icons.min.css \
@@ -47,19 +46,19 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css\__index
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\img\__logo.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af.slidemenu.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af.ui.css \
-C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af.ui.css - alterado \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\af_subpage.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\appframework.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\appframework.ui.min.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\document_web.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\getFiles.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\icons.css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\index.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\index_user_scripts.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\musicxml_test.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_complete.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\vexflow-min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\websocket.js \
-C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\__index.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\com.knowledgecode.cordova.websocket \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\com.knowledgecode.cordova.websocket\www \
