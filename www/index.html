@@ -106,6 +106,18 @@ div.egcode {
 	font-family: Courier;
 	font-size: 14px;
 }
+
+/*header {
+	position: absolute;
+	top:0px;
+	left:0px;
+}
+
+header.button.icon.settings{
+	position: absolute;
+	top:0px;
+	right:0px;
+}*/
 </style>
 </head>
 <body>
@@ -120,16 +132,17 @@ div.egcode {
 				<li><a href="#selecionaPart">SelecionaPart</a></li>
 			</ul>
 		</aside>
- 
+		
+		<header class="container-group inner-element uib_w_1"
+			data-uib="app_framework/header" data-ver="0" id="af-header">
+			<a onclick='$.ui.toggleRightSideMenu()'
+				class='button icon settings' style="float: right"></a>
+			<h1>EasyScore</h1>
+		</header>
+		
 		<div id="content" class="uwrap">
 			<div class="upage panel" id="mainpage" data-header="af-header"
 				data-footer="af-footer">
-				<header class="container-group inner-element uib_w_1"
-					data-uib="app_framework/header" data-ver="0" id="af-header">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>EasyScore</h1>
-				</header>
 				<div class="upage-content" id="mainsub">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaEstudios" data-ver="0">
@@ -272,7 +285,7 @@ div.egcode {
 			</div>
 			<!-- /Configurações -->
 			<div class="upage panel" id="exibePart"
-				data-header="af-header-exibePart" data-footer="af-footer" js-scrolling="false">
+				data-header="af-header" data-footer="af-footer" js-scrolling="false">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-exibePart">
@@ -320,8 +333,8 @@ div.egcode {
     function drawPart(container) {
         var doc = new Vex.Flow.Document(comp);
         var formatter = doc.getFormatter();
-        formatter.scale = 2.0;
-        formatter.setWidth(600).draw($("#" + container)[0]);
+        formatter.zoom = 2.0;
+        formatter.setWidth(1500).draw($("#" + container)[0]);
  
         // Numero de blocos
         var nBlocks = formatter.measuresInBlock.length;
@@ -333,25 +346,14 @@ div.egcode {
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
 		$('#btn_comecar').click(function() {
-			/*Vex.Flow.Test.Web.Start();
-			setInterval(function() {
-				windowScoreTop+=130; 
-			    window.scrollTo(0,windowScoreTop);
-			    if (windowScoreTop > 1000) {
-			    	clearInterval();
-			    }
-			}, 1000);*/
-			//deve iniciar a execu��o da partitura escolhida
-                //drawPart("vexflow_testoutput");
-            setTimeout(function() {
+			setTimeout(function() {
                 drawPart("vexflow_testoutput");
                 $("#exibePart").css('overflow', 'auto');
             }, 1500);
 		});
 		$('#btn_upload').click(function() {
-			//deve enviar a partitura informada para o servidor
-			//Vex.Flow.Test.Web.Start();
-			//drawPart("vexflow_testoutput");
+			//envia a partitura informada para o servidor
+			sendScore();
 		});
 		$('#btn_criaEstudio').click(function() {
 			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
