@@ -34,13 +34,13 @@ function onMessage(evt) {
 	var obj = JSON.parse(evt.data);
 	if (obj.hasOwnProperty('studios')) {
 		$("#listaEstudios").children("li").remove();
-		for ( var studio in obj.studios) {
+		for (var i = 0; i<obj.studios.length; i++) {
 			$('#listaEstudios').append($('<li/>', { // here appending `<li>`
 				'data-role' : "list-divider"
 			}).append($('<a/>', { // here appending `<a>` into `<li>`
 				'href' : '#selecionaPart',
 				'data-transition' : 'fade',
-				'text' : studio.name
+				'text' : obj.studios[i].name
 			})));
 		}
 	}
@@ -74,12 +74,8 @@ function joinStudio(idStudio) {
 };
 function sendScore(idStudio, nome, score) {
 	var sendScore = '{"type": "send_score", "values": [{ \
-	                    "studio_id": "'
-			+ idStudio
-			+ '",\
-	                    "name": "'
-			+ nome
-			+ '",\
+	                    "studio_id": "' + idStudio + '",\
+	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
 	doSend(sendScore);
 };
