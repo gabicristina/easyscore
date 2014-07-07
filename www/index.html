@@ -107,6 +107,9 @@ div.egcode {
 	font-size: 14px;
 }
 
+footer {
+	padding: 10px;
+}
 /*header {
 	position: absolute;
 	top:0px;
@@ -329,6 +332,14 @@ header.button.icon.settings{
         }
         cb();
     }
+	
+	function scrollDiv(numberOfBlocks, container, timeout) {
+		$(container).animate({top:'-=10px'},'fast');
+		if (i < numberOfBlocks) {
+            setTimeout(cb, timeout);
+        }
+		cb();
+	}
     
     function drawPart(container) {
         var doc = new Vex.Flow.Document(comp);
@@ -338,7 +349,8 @@ header.button.icon.settings{
  
         // Numero de blocos
         var nBlocks = formatter.measuresInBlock.length;
-        scrollBlocksIntoView(nBlocks, container, 3000);     
+        //scrollBlocksIntoView(nBlocks, container, 3000);
+        scrollDiv(nBlocks, container, 1000);
     }
 	
 	$(document).ready(function() {
