@@ -7,6 +7,7 @@ var windowScoreTop = 0;
 Vex.Flow.Test.Web.Start = function() {
 	module("Document");
 	for (i = 0; i < 12; i++) {
+		alert("oi?");
 		Vex.Flow.Test.runTest("", Vex.Flow.Test.Web.xmlDoc);
 	}
 };
@@ -47,7 +48,14 @@ Vex.Flow.Test.Web.xmlDoc = function(options, contextBuilder) {
 	}
 	expect(2);
 	var docWeb = new Vex.Flow.Document(comp);
+	/*var ctx = new contextBuilder(options.canvas_sel, 750, 130);
+	ctx.scale(1.2, 1.2);
+	
+	docWeb.getFormatter().setWidth(600).drawBlock(i, ctx);*/
 	var ctx = new contextBuilder(options.canvas_sel, 750, 130);
 	ctx.scale(1.2, 1.2);
-	docWeb.getFormatter().setWidth(600).drawBlock(i, ctx);
+	var docFormatter = docWeb.getFormatter().setWidth(600);
+	docFormatter.drawBlock(i, ctx);
+	measuresInBlock = docFormatter.measuresInBlock.length;
+	alert(measuresInBlock);
 };

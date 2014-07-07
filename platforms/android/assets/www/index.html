@@ -71,7 +71,7 @@
 	media="screen" />
 <script src="src/qunit.js"></script>
 <script src="src/vexflow_test_helpers.js"></script>
-<script src="js/document_web.js"></script>
+<!--  script src="js/document_web.js"></script -->
 <script src="js/part_complete.js"></script>
 <!-- END OF MUSICXML -->
 
@@ -86,21 +86,55 @@
 <script src="cordova.js"></script>
 
 <script>
-	var altPart = 120;
-	var largPart = 480;
+	var altPart = 750;
+	var largPart = 130;
 	var escPart = 1.0;
 	var velPart = 1 * 1000;
 	$(document).ready(function() {
+		function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
+	        var i = 0;
+	        function cb() {
+	            var el = $("#" + viewPortName + "_canvas" + i)[0];
+	            if (!el) return false;
+	            
+	            el.scrollIntoView();
+	            
+	            i++;
+	            console.log(i);
+	            if (i < numberOfBlocks) {
+	                setTimeout(cb, timeout);
+	            }
+	        }
+	        cb();
+	    }
+	    
+	    function drawPart(container) {
+	        var doc = new Vex.Flow.Document(comp);
+	        var formatter = doc.getFormatter();
+	        formatter.setWidth(600).draw($("#" + container)[0]);
+
+	        // Numero de blocos
+	        var nBlocks = formatter.measuresInBlock.length;
+	        scrollBlocksIntoView(nBlocks, container, 3000);     
+	    }
 		init();
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
 		$('#btn_comecar').click(function() {
 			Vex.Flow.Test.Web.Start();
+			setInterval(function() {
+				windowScoreTop+=130; 
+			    window.scrollTo(0,windowScoreTop);
+			    if (windowScoreTop > 1000) {
+			    	clearInterval();
+			    }
+			}, 1000);
 			//deve iniciar a execução da partitura escolhida
 		});
 		$('#btn_upload').click(function() {
 			//deve enviar a partitura informada para o servidor
-			Vex.Flow.Test.Web.Start();
+			//Vex.Flow.Test.Web.Start();
+			drawPart("vexflow_testoutput");
 		});
 		$('#btn_criaEstudio').click(function() {
 			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
@@ -217,17 +251,7 @@ div.egcode {
 				<div id="criaEstudio_info" class="upage-content">
 					<br /> <input type="text" required id="criaNomeEstudio"
 						placeholder="nome do estúdio" />
-					<!-- div class="button-grouped flex widget uib_w_13 d-margins"
-						data-uib="app_framework/button_group" data-ver="0">
-						<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="btn_criaEstudio"
-							data-transition="fade">
-							<a href="#selecionaPartEst" style="text-decoration: none">
-								Criar
-							</a>
-						</button>
-					</div -->
-					<a class="button" href="#selecionaPartEst" 
+					<a class="button" href="#selecionaPartEst" id="btn_criaEstudio"
 						data-uib="app_framework/button" data-ver="0">Criar</a>
 				</div>
 			</div>
@@ -318,13 +342,13 @@ div.egcode {
 					<br />
 					<br />
 					<label>Altura e Largura da Partitura</label>
-					<input type="range" min="0" max="50" value="0" step="5" onchange='showValue(this.value, "rangeAltura")' />
+					<input type="range" min="0" max="3" value="0" step="1" onchange='showValue(this.value, "rangeAltura")' />
 					<br/>
 					<span style="width:auto" id="rangeAltura">0</span>
 					<br />
 					<br />
 					<label>Escala da Partitura</label>
-					<input type="range" min="0" max="50" value="0" step="5" onchange='showValue(this.value, "rangeEscala")' />
+					<input type="range" min="0" max="3" value="0" step="1" onchange='showValue(this.value, "rangeEscala")' />
 					<br/>
 					<span style="width:auto" id="rangeEscala">0</span>
 					<br />
@@ -335,7 +359,7 @@ div.egcode {
 					<br />
 					<br />
 					<label>Velocidade</label>
-					<input type="range" min="0" max="10" value="0" step="1" onchange='showValue(this.value, "rangeVelocidade")' />
+					<input type="range" min="0" max="3" value="0" step="0.5" onchange='showValue(this.value, "rangeVelocidade")' />
 					<br/>
 					<span style="width:auto" id="rangeVelocidade">0</span>
 					<br />
