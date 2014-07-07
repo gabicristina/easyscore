@@ -85,86 +85,7 @@
 <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
 <script src="cordova.js"></script>
 
-<script>
-	var altPart = 750;
-	var largPart = 130;
-	var escPart = 1.0;
-	var velPart = 1 * 1000;
-	
-	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
-        var i = 0;
-        function cb() {
-            var el = $("#" + viewPortName + "_canvas" + i)[0];
-            if (!el) return false;
-            
-            el.scrollIntoView();
-            
-            i++;
-            console.log(i);
-            if (i < numberOfBlocks) {
-                setTimeout(cb, timeout);
-            }
-        }
-        cb();
-    }
-    
-    function drawPart(container) {
-        var doc = new Vex.Flow.Document(comp);
-        var formatter = doc.getFormatter();
-        formatter.setWidth(600).draw($("#" + container)[0]);
 
-        // Numero de blocos
-        var nBlocks = formatter.measuresInBlock.length;
-        scrollBlocksIntoView(nBlocks, container, 3000);     
-    }
-	
-	$(document).ready(function() {
-		init();
-		$.ui.setRightSideMenuWidth(220);
-		$.ui.launch();
-		$('#btn_comecar').click(function() {
-			Vex.Flow.Test.Web.Start();
-			setInterval(function() {
-				windowScoreTop+=130; 
-			    window.scrollTo(0,windowScoreTop);
-			    if (windowScoreTop > 1000) {
-			    	clearInterval();
-			    }
-			}, 1000);
-			//deve iniciar a execução da partitura escolhida
-		});
-		$('#btn_upload').click(function() {
-			//deve enviar a partitura informada para o servidor
-			//Vex.Flow.Test.Web.Start();
-			drawPart("vexflow_testoutput");
-		});
-		$('#btn_criaEstudio').click(function() {
-			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
-				alert("Estúdio " + document.getElementById("criaNomeEstudio").value + " criado com sucesso");
-			};
-		});
-		$('#btn_selecionaPart').click(function() {
-			//precisa atribuir o usuário ao grupo e fazer download da partitura!
-		});
-		$('#btn_configuracoes').click(function() {
-			altPart = document.getElementById("rangeAltura").innerHTML;
-			escPart = document.getElementById("rangeEscala").innerHTML;
-			velPart = (document.getElementById("rangeVelocidade").innerHTML) * 1000;
-			alert("Altura: " + altPart + "\n" +
-					"Largura: " + largPart + "\n" +
-					"Escala: " + escPart + "\n" +
-					"Velocidade: "+ velPart);
-		});
-		$('#btn_closeWeb').click(function() {
-			close();
-		});
-		$('#consultarEstudios').click(function() {
-			listStudio();
-		})
-	});
-
-	$.ui.animateHeaders = false;
-</script>
 <style text="text/css">
 #exibePart {
 	background-color: #eed;
@@ -297,35 +218,6 @@ div.egcode {
 						<li>Estúdio 1 - Trombone</li>
 						<li>Estúdio 1 - Clarinete</li>
 					</ul>
-					<!-- button class="button widget uib_w_14 d-margins"
-						data-uib="app_framework/button" data-ver="0"
-						id="btn_selecionaPart" data-transition="fade">Receber
-						partitura</button>
-					<!-- ESTE BOTÃO SÓ PODE APARECER PARA O MAESTRO!!! -->
-					<!-- button class="button widget uib_w_14 d-margins"
-						data-uib="app_framework/button" data-ver="0" id="btn_comecar"
-						data-transition="fade">
-						<a href="#exibePart" style="text-decoration: none">Começar</a>
-					</button -->
-					<!-- div class="button-grouped flex widget uib_w_13 d-margins"
-						data-uib="app_framework/button_group" data-ver="0">
-						<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="btn_"
-							data-transition="fade">
-							Receber partitura
-						</button>
-					</div
-					<br/>-->
-					
-					<div class="button-grouped flex widget uib_w_13 d-margins"
-						data-uib="app_framework/button_group" data-ver="0">
-						<button class="button widget uib_w_14 d-margins"
-							data-uib="app_framework/button" data-ver="0" id="bttttn_comecar"
-							data-transition="fade">
-							<a href="#exibePart" style="text-decoration: none">Começar</a>
-						</button>
-					</div>
-					
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
 						id="btn_comecar" href="#exibePart">Começar</a>
 				</div>
@@ -389,7 +281,10 @@ div.egcode {
 				</header>
 				<div id="exibe_info" class="upage-content">
 					<div style="text-align: center;">
-						<div id="vexflow_testoutput"></div>
+						<div id="vexflow_testoutput">
+						<br/>
+						<br/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -398,5 +293,86 @@ div.egcode {
 			</footer>
 		</div>
 	</div>
+<script>
+	var altPart = 750;
+	var largPart = 130;
+	var escPart = 1.0;
+	var velPart = 1 * 1000;
+	
+	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
+        var i = 0;
+        function cb() {
+            var el = $("#" + viewPortName + "_canvas" + i)[0];
+            if (!el) return false;
+            
+            el.scrollIntoView();
+            
+            i++;
+            console.log(i);
+            if (i < numberOfBlocks) {
+                setTimeout(cb, timeout);
+            }
+        }
+        cb();
+    }
+    
+    function drawPart(container) {
+        var doc = new Vex.Flow.Document(comp);
+        var formatter = doc.getFormatter();
+        formatter.setWidth(600).draw($("#" + container)[0]);
+
+        // Numero de blocos
+        var nBlocks = formatter.measuresInBlock.length;
+        scrollBlocksIntoView(nBlocks, container, 3000);     
+    }
+	
+	$(document).ready(function() {
+		init();
+		$.ui.setRightSideMenuWidth(220);
+		$.ui.launch();
+		$('#btn_comecar').click(function() {
+			/*Vex.Flow.Test.Web.Start();
+			setInterval(function() {
+				windowScoreTop+=130; 
+			    window.scrollTo(0,windowScoreTop);
+			    if (windowScoreTop > 1000) {
+			    	clearInterval();
+			    }
+			}, 1000);*/
+			//deve iniciar a execução da partitura escolhida
+			drawPart("vexflow_testoutput");
+		});
+		$('#btn_upload').click(function() {
+			//deve enviar a partitura informada para o servidor
+			//Vex.Flow.Test.Web.Start();
+			//drawPart("vexflow_testoutput");
+		});
+		$('#btn_criaEstudio').click(function() {
+			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
+				alert("Estúdio " + document.getElementById("criaNomeEstudio").value + " criado com sucesso");
+			};
+		});
+		$('#btn_selecionaPart').click(function() {
+			//precisa atribuir o usuário ao grupo e fazer download da partitura!
+		});
+		$('#btn_configuracoes').click(function() {
+			altPart = document.getElementById("rangeAltura").innerHTML;
+			escPart = document.getElementById("rangeEscala").innerHTML;
+			velPart = (document.getElementById("rangeVelocidade").innerHTML) * 1000;
+			alert("Altura: " + altPart + "\n" +
+					"Largura: " + largPart + "\n" +
+					"Escala: " + escPart + "\n" +
+					"Velocidade: "+ velPart);
+		});
+		$('#btn_closeWeb').click(function() {
+			close();
+		});
+		$('#consultarEstudios').click(function() {
+			listStudio();
+		})
+	});
+
+	$.ui.animateHeaders = false;
+</script>
 </body>
 </html>
