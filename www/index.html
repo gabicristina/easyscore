@@ -4,7 +4,7 @@
 <title>EasyScore</title>
 <meta name="viewport"
 	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-
+    <meta charset="utf-8" />
 <!-- SCRIPTS VEXXX MUSICXML -->
 <!-- VexFlow Sources -->
 <script src="src/vex.js"></script>
@@ -60,12 +60,13 @@
 <script src="src/canvascontext.js"></script>
 <script src="src/tuplet.js"></script>
 <script src="src/boundingbox.js"></script>
-
+<script src="src/textnote.js"></script>
+ 
 <script src="src/measure.js"></script>
 <script src="src/musicxml.js"></script>
 <script src="src/document.js"></script>
 <script src="src/documentformatter.js"></script>
-
+ 
 <!-- Test Sources -->
 <link rel="stylesheet" href="src/qunit.css" type="text/css"
 	media="screen" />
@@ -74,33 +75,33 @@
 <!--  script src="js/document_web.js"></script -->
 <script src="js/part_complete.js"></script>
 <!-- END OF MUSICXML -->
-
+ 
 <script src="js/websocket.js"></script>
 <link rel="stylesheet" type="text/css" href="js/af.ui.css" />
 <link rel="stylesheet" type="text/css" href="js/icons.css" />
 <script type="text/javascript" charset="utf-8"
 	src="js/appframework.ui.min.js"></script>
-<!-- NÃO DEIXA APARECER O CHECKBOX -->
+<!-- Nï¿½O DEIXA APARECER O CHECKBOX -->
 <!--AppFramework plugin for sliding side menu-->
 <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
 <script src="cordova.js"></script>
-
-
+ 
+ 
 <style text="text/css">
 #exibePart {
 	background-color: #eed;
 	background: #eed;
 }
-
+ 
 #exibe_info {
 	background-color: #eed;
 	background: #eed;
 }
-
+ 
 canvas {
 	background: #eed;
 }
-
+ 
 div.egcode {
 	font-family: Courier;
 	font-size: 14px;
@@ -111,15 +112,15 @@ div.egcode {
 	<div id="afui">
 		<aside>
 			<ul class="list">
-				<li id="consultarEstudios"><a href="#mainpage">Consultar Estúdios</a></li>
+				<li id="consultarEstudios"><a href="#mainpage">Consultar EstÃºdios</a></li>
 				<li><a href="#upload">Carregar Partitura</a></li>
-				<li><a href="#criaEstudio">Criar Estúdio</a></li>
-				<li><a href="#configuracoes">Configurações</a></li>
+				<li><a href="#criaEstudio">Criar EstÃºdio</a></li>
+				<li><a href="#configuracoes">ConfiguraÃ§Ãµes</a></li>
 				<li><a href="#selecionaPartEst">SelecionaPartEst</a></li>
 				<li><a href="#selecionaPart">SelecionaPart</a></li>
 			</ul>
 		</aside>
-
+ 
 		<div id="content" class="uwrap">
 			<div class="upage panel" id="mainpage" data-header="af-header"
 				data-footer="af-footer">
@@ -134,10 +135,10 @@ div.egcode {
 						data-uib="app_framework/listview" id="listaEstudios" data-ver="0">
 						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
 							class="checkboxDelete" /> <a href="#selecionaPar">
-								Estúdio 1 </a></li>
+								EstÃºdio 1 </a></li>
 						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
 							class="checkboxDelete" /> <a href="#selecionaPart">
-								Estúdio 2 </a></li>
+								EstÃºdio 2 </a></li>
 					</ul>
 					<br/>
 					<br/>
@@ -145,7 +146,7 @@ div.egcode {
 				</div>
 				<!-- /upage-content -->
 			</div>	<!-- /Main -->
-			<!--Música_Info-->
+			<!--Mï¿½sica_Info-->
 			<div class="upage panel" id="upload" data-header="af-header-upload"
 				data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
@@ -169,16 +170,16 @@ div.egcode {
 					id="af-header-criaEstudio">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Criar Estúdio</h1>
+					<h1>Criar EstÃºdio</h1>
 				</header>
 				<div id="criaEstudio_info" class="upage-content">
 					<br /> <input type="text" required id="criaNomeEstudio"
-						placeholder="nome do estúdio" />
+						placeholder="nome do EstÃºdio" />
 					<a class="button" href="#selecionaPartEst" id="btn_criaEstudio"
 						data-uib="app_framework/button" data-ver="0">Criar</a>
 				</div>
 			</div>
-			<!-- /Criar Estúdio -->
+			<!-- /Criar EstÃºdio -->
 			<div class="upage panel" id="selecionaPartEst"
 				data-header="af-header-selecionaPartEst" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
@@ -186,22 +187,22 @@ div.egcode {
 					id="af-header-selecionaPartEst">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>EstÃºdio 1</h1>
 				</header>
 				<div id="criaEstudio_info" class="upage-content">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaPartEst" data-ver="0">
-						<li>Estúdio 1 - Trompete</li>
-						<li>Estúdio 1 - Trombone</li>
-						<li>Estúdio 1 - Clarinete</li>
-						<li>Estúdio 2 - Tuba</li>
-						<li>Estúdio 2 - Clarinete</li>
-						<li>Estúdio 2 - Saxofone</li>
-						<li>Estúdio 3 - Clarinete</li>
+						<li>EstÃºdio 1 - Trompete</li>
+						<li>EstÃºdio 1 - Trombone</li>
+						<li>EstÃºdio 1 - Clarinete</li>
+						<li>EstÃºdio 2 - Tuba</li>
+						<li>EstÃºdio 2 - Clarinete</li>
+						<li>EstÃºdio 2 - Saxofone</li>
+						<li>EstÃºdio 3 - Clarinete</li>
 					</ul>
 				</div>
 			</div>
-			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
+			<!-- /MAESTRO - Selecionar Partituras do EstÃºdio -->
 			<div class="upage panel" id="selecionaPart"
 				data-header="af-header-selecionaPart" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
@@ -209,20 +210,20 @@ div.egcode {
 					id="af-header-selecionaPart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>EstÃºdio 1</h1>
 				</header>
 				<div id="selecionaPart_info" class="upage-content">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Estúdio 1 - Trompete</li>
-						<li>Estúdio 1 - Trombone</li>
-						<li>Estúdio 1 - Clarinete</li>
+						<li>EstÃºdio 1 - Trompete</li>
+						<li>EstÃºdio 1 - Trombone</li>
+						<li>EstÃºdio 1 - Clarinete</li>
 					</ul>
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_comecar" href="#exibePart">Começar</a>
+						id="btn_comecar" href="#exibePart">ComeÃ§ar</a>
 				</div>
 			</div>
-			<!-- /MÚSICO - Selecionar Partituras -->
+			<!-- /Mï¿½SICO - Selecionar Partituras -->
 			<div class="upage panel" id="configuracoes"
 				data-header="af-header-configuracoes" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
@@ -230,7 +231,7 @@ div.egcode {
 					id="af-header-configuracoes">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Configurações</h1>
+					<h1>ConfiguraÃ§Ãµes</h1>
 				</header>
 				<div id="configuracoes_info" class="upage-content">
 					<br />
@@ -269,17 +270,17 @@ div.egcode {
 						id="btn_configuracoes" data-transition="fade">Gravar</button>
 				</div>
 			</div>
-			<!-- /Configurações -->
+			<!-- /ConfiguraÃ§Ãµes -->
 			<div class="upage panel" id="exibePart"
-				data-header="af-header-exibePart" data-footer="af-footer">
+				data-header="af-header-exibePart" data-footer="af-footer" js-scrolling="false">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
 					id="af-header-exibePart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>EstÃºdio 1</h1>
 				</header>
-				<div id="exibe_info" class="upage-content">
+				<div id="exibe_info" class="upage-content" style="overflow: auto">
 					<div style="text-align: center;">
 						<div id="vexflow_testoutput">
 						<br/>
@@ -319,8 +320,9 @@ div.egcode {
     function drawPart(container) {
         var doc = new Vex.Flow.Document(comp);
         var formatter = doc.getFormatter();
+        formatter.scale = 2.0;
         formatter.setWidth(600).draw($("#" + container)[0]);
-
+ 
         // Numero de blocos
         var nBlocks = formatter.measuresInBlock.length;
         scrollBlocksIntoView(nBlocks, container, 3000);     
@@ -339,8 +341,12 @@ div.egcode {
 			    	clearInterval();
 			    }
 			}, 1000);*/
-			//deve iniciar a execução da partitura escolhida
-			drawPart("vexflow_testoutput");
+			//deve iniciar a execuï¿½ï¿½o da partitura escolhida
+                //drawPart("vexflow_testoutput");
+            setTimeout(function() {
+                drawPart("vexflow_testoutput");
+                $("#exibePart").css('overflow', 'auto');
+            }, 1500);
 		});
 		$('#btn_upload').click(function() {
 			//deve enviar a partitura informada para o servidor
@@ -349,11 +355,11 @@ div.egcode {
 		});
 		$('#btn_criaEstudio').click(function() {
 			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
-				alert("Estúdio " + document.getElementById("criaNomeEstudio").value + " criado com sucesso");
+				alert("EstÃºdio " + document.getElementById("criaNomeEstudio").value + " criado com sucesso");
 			};
 		});
 		$('#btn_selecionaPart').click(function() {
-			//precisa atribuir o usuário ao grupo e fazer download da partitura!
+			//precisa atribuir o usuï¿½rio ao grupo e fazer download da partitura!
 		});
 		$('#btn_configuracoes').click(function() {
 			altPart = document.getElementById("rangeAltura").innerHTML;
@@ -371,7 +377,7 @@ div.egcode {
 			listStudio();
 		})
 	});
-
+ 
 	$.ui.animateHeaders = false;
 </script>
 </body>
