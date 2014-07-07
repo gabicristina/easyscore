@@ -70,7 +70,7 @@
 <link rel="stylesheet" href="src/qunit.css" type="text/css"
 	media="screen" />
 <script src="src/qunit.js"></script>
-<script src="src/vexflow_test_helpers.js"></script>
+<!--  script src="src/vexflow_test_helpers.js"></script-->
 <!--  script src="js/document_web.js"></script -->
 <script src="js/part_complete.js"></script>
 <!-- END OF MUSICXML -->
@@ -90,33 +90,35 @@
 	var largPart = 130;
 	var escPart = 1.0;
 	var velPart = 1 * 1000;
-	$(document).ready(function() {
-		function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
-	        var i = 0;
-	        function cb() {
-	            var el = $("#" + viewPortName + "_canvas" + i)[0];
-	            if (!el) return false;
-	            
-	            el.scrollIntoView();
-	            
-	            i++;
-	            console.log(i);
-	            if (i < numberOfBlocks) {
-	                setTimeout(cb, timeout);
-	            }
-	        }
-	        cb();
-	    }
-	    
-	    function drawPart(container) {
-	        var doc = new Vex.Flow.Document(comp);
-	        var formatter = doc.getFormatter();
-	        formatter.setWidth(600).draw($("#" + container)[0]);
+	
+	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
+        var i = 0;
+        function cb() {
+            var el = $("#" + viewPortName + "_canvas" + i)[0];
+            if (!el) return false;
+            
+            el.scrollIntoView();
+            
+            i++;
+            console.log(i);
+            if (i < numberOfBlocks) {
+                setTimeout(cb, timeout);
+            }
+        }
+        cb();
+    }
+    
+    function drawPart(container) {
+        var doc = new Vex.Flow.Document(comp);
+        var formatter = doc.getFormatter();
+        formatter.setWidth(600).draw($("#" + container)[0]);
 
-	        // Numero de blocos
-	        var nBlocks = formatter.measuresInBlock.length;
-	        scrollBlocksIntoView(nBlocks, container, 3000);     
-	    }
+        // Numero de blocos
+        var nBlocks = formatter.measuresInBlock.length;
+        scrollBlocksIntoView(nBlocks, container, 3000);     
+    }
+	
+	$(document).ready(function() {
 		init();
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
