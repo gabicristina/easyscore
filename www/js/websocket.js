@@ -33,16 +33,41 @@ function onMessage(evt) {
 	message = evt.data;
 	var obj = JSON.parse(evt.data);
 	if (obj.hasOwnProperty('studios')) {
+		var list = document.getElementById("listaEstudios");
+		//while(list.firstChild){
+		//	list.removeChild(list.firstChild);
+		//}
 		$("#listaEstudios").children("li").remove();
 		for (var i = 0; i<obj.studios.length; i++) {
-			alert(obj.studios[i]);
-			$('#listaEstudios').append($('<li/>', { // here appending `<li>`
+			/*VIA JQUERY
+			 * $('#listaEstudios').append($('<li/>', { // here appending `<li>`
 				'data-role' : "list-divider"
 			}).append($('<a/>', { // here appending `<a>` into `<li>`
 				'href' : '#selecionaPart',
 				'data-transition' : 'fade',
-				'text' : obj.studios[i].name
-			})));
+				'text' : teste;
+			})));*/
+			var x = document.createElement("LI");
+		    var a = document.createElement("A");
+		    var t = document.createTextNode(obj.studios[i].name);
+		    a.setAttribute("href", "#selecionaPart");
+		    a.setAttribute("hash", obj.studios[i].name);
+		    a.appendChild(t);
+		    x.appendChild(a);
+		    list.appendChild(x);
+		}
+	} else if (obj.hasOwnProperty('akjhsgdkajsdblajsdba')) {
+		var list = document.getElementById("listaEstudios");
+		$("#listaEstudios").children("li").remove();
+		for (var i = 0; i<obj.studios.length; i++) {
+			var x = document.createElement("LI");
+		    var a = document.createElement("A");
+		    var t = document.createTextNode(obj.studios[i].name);
+		    a.setAttribute("href", "#selecionaPart");
+		    a.setAttribute("hash", obj.studios[i].name);
+		    a.appendChild(t);
+		    x.appendChild(a);
+		    list.appendChild(x);
 		}
 	}
 	//document.getElementById('strRes').value = evt.data;

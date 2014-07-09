@@ -301,27 +301,58 @@ header.button.icon.settings{
 						<li>Estúdio 1 - Clarinete</li>
 					</ul>
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_comecar" href="#exibePart">Começar</a>
+						id="btn_notificar" href="#exibePart">Começar</a>
 				</div>
 			</div>
 			<div class="upage panel" id="selecionaExemplo"
-				data-header="af-header-selecionaPart" data-footer="af-footer">
+				data-header="af-header-selecionaExe" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
-					id="af-header-selecionaPart">
+					id="selecionaExe">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>Exemplos</h1>
+				</header>
+				<div id="selecionaExe_info" class="upage-content">
+					<!-- form name = "radiosForm" -->
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaPart" data-ver="0">
+						<li>Echigo-Jishi</li>
+					</ul>
+					<!-- /form>
+					
+					<li><input type="radio" name="radios" value="1" id="ishigo" checked />Echigo-Jishi</li>
+					<script>
+					var rad = document.radiosForm.radios;
+					var prev = null;
+					for(var i = 0; i < rad.length; i++) {
+					    rad[i].onclick = function() {
+					        if(this !== prev) {
+					            prev = this;
+					        }
+					    };
+					}
+					</script -->
+					<a class="button" data-uib="app_framework/button" data-ver="0" 
+						id="btn_comecarExemplo" href="#exibePart">Começar</a>
+				</div>
+			</div>
+			<!-- Exibe exemplo -->
+			<div class="upage panel" id="exibePart"
+				data-header="af-header" data-footer="af-footer" js-scrolling="false">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-exibePart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
 					<h1>Estúdio 1</h1>
 				</header>
-				<div id="selecionaPart_info" class="upage-content">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Estúdio 1 - Trompete</li>
-						<li>Estúdio 1 - Trombone</li>
-						<li>Estúdio 1 - Clarinete</li>
-					</ul>
-					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_comecar" href="#exibePart">Começar</a>
+				<div id="exibe_info" class="upage-content" style="overflow: auto">
+					<div style="text-align: center;">
+						<div id="vexflow">
+						<br/>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- /Exibe partitura -->
@@ -330,11 +361,11 @@ header.button.icon.settings{
 		</div>
 	</div>
 <script>
-	var altPart = 750;
-	var escPart = 1.0;
-	var velPart = 3000; //timeout de 3 segundos
-	var canAnimate = false;
-	
+var altPart = 750;
+var escPart = 1.0;
+var velPart = 3000; //timeout de 3 segundos
+var comp;
+
 	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
         var i = 0;
         function cb() {
@@ -350,7 +381,7 @@ header.button.icon.settings{
             }
         }
         cb();
-    }
+    };
 	
 	function scrollDiv(numberOfBlocks, container, timeout) 
 	{
@@ -364,7 +395,7 @@ header.button.icon.settings{
 	        }
         }
 	    cb();
-	}
+	};
     
     function drawPart(container) {
         var doc = new Vex.Flow.Document(comp);
@@ -376,17 +407,18 @@ header.button.icon.settings{
         var nBlocks = formatter.measuresInBlock.length;
         scrollBlocksIntoView(nBlocks, container, 3000);
         //scrollDiv(nBlocks, container, 1000);
-    }
+    };
 	
 	$(document).ready(function() {
 		init();
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
-		$('#btn_comecar').click(function() {
+		$('#btn_comecarExemplo').click(function() {
+			alert("oi!");
+			comp = ishigo;
 			setTimeout(function() {
                 drawPart("vexflow");
                 $("#exibePart").css('overflow', 'auto');
-				canAnimate = true;
             }, 10);
 		});
 		$('#btn_upload').click(function() {
@@ -414,7 +446,7 @@ header.button.icon.settings{
 		});
 		$('#consultarEstudios').click(function() {
 			listStudio();
-		})
+		});
 	});
  
 	$.ui.animateHeaders = false;

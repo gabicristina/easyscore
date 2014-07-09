@@ -28,4 +28,5 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-port-mdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-port-xhdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-xhdpi\icon.png \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-xxhdpi\icon.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\AndroidManifest.xml \

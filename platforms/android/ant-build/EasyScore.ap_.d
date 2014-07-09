@@ -37,6 +37,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\img \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index.html \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index_jq.html \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index__.html \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src \

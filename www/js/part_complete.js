@@ -1,4 +1,4 @@
-var comp = '<?xml version="1.0" encoding="UTF-8"?>	\
+var ishigo = '<?xml version="1.0" encoding="UTF-8"?>	\
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">	\
 <score-partwise version="3.0">	\
   <movement-title>越後獅子</movement-title>	\

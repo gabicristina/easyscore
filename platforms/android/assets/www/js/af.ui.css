@@ -1073,7 +1073,7 @@ body {
 }
 #afui input[type="radio"],
 #afui input[type="checkbox"] {
-  display: none;
+/*  display: none;*/
 }
 #afui input[type="radio"] + label,
 #afui input[type="checkbox"] + label {
