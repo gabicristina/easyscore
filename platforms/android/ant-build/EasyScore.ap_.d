@@ -12,6 +12,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-port-ldpi
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-port-mdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-port-xhdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-xhdpi\icon.png \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-xxhdpi\icon.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\values\strings.xml \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\xml\config.xml \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable\icon.png \
@@ -27,6 +28,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-port-mdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-port-xhdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-xhdpi\icon.png \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable-xxhdpi\icon.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\_where-is-www.txt \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\cordova.js \
@@ -34,6 +36,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\cordova_plu
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\img \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index.html \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index_jq.html \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src \
@@ -54,6 +57,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\getFiles
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\icons.css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\index.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\index_user_scripts.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery-1.11.1.min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\musicxml_test.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_complete.js \

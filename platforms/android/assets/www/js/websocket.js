@@ -35,6 +35,7 @@ function onMessage(evt) {
 	if (obj.hasOwnProperty('studios')) {
 		$("#listaEstudios").children("li").remove();
 		for (var i = 0; i<obj.studios.length; i++) {
+			alert(obj.studios[i]);
 			$('#listaEstudios').append($('<li/>', { // here appending `<li>`
 				'data-role' : "list-divider"
 			}).append($('<a/>', { // here appending `<a>` into `<li>`

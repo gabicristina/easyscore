@@ -12,6 +12,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-port-ldpi
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-port-mdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-port-xhdpi\screen.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-xhdpi\icon.png \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\drawable-xxhdpi\icon.png \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\values\strings.xml \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\res\xml\config.xml \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\res\drawable\icon.png \

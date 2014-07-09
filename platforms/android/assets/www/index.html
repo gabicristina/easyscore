@@ -85,7 +85,8 @@
 <!--AppFramework plugin for sliding side menu-->
 <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
 <script src="cordova.js"></script>
- 
+
+<!--script type='text/javascript' src='src/jquery.js'></script--> 
  
 <style text="text/css">
 #exibePart {
@@ -131,8 +132,7 @@ header.button.icon.settings{
 				<li><a href="#upload">Carregar Partitura</a></li>
 				<li><a href="#criaEstudio">Criar Estúdio</a></li>
 				<li><a href="#configuracoes">Configurações</a></li>
-				<li><a href="#selecionaPartEst">SelecionaPartEst</a></li>
-				<li><a href="#selecionaPart">SelecionaPart</a></li>
+				<li><a href="#selecionaExemplo">Exemplos de Partituras</a></li>
 			</ul>
 		</aside>
 		
@@ -253,26 +253,23 @@ header.button.icon.settings{
 					<br />
 					<br />
 					<label>Altura e Largura da Partitura</label>
-					<input type="range" min="0" max="3" value="0" step="1" onchange='showValue(this.value, "rangeAltura")' />
+					<input type="range" min="750" max="2050" value="750" step="100" onchange='showValue(this.value, "rangeAltura")' />
 					<br/>
-					<span style="width:auto" id="rangeAltura">0</span>
+					<span style="width:auto" id="rangeAltura">750</span>
 					<br />
 					<br />
 					<label>Escala da Partitura</label>
-					<input type="range" min="0" max="3" value="0" step="1" onchange='showValue(this.value, "rangeEscala")' />
+					<input type="range" min="1" max="3" value="1" step="0.5" onchange='showValue(this.value, "rangeEscala")' />
 					<br/>
-					<span style="width:auto" id="rangeEscala">0</span>
-					<br />
-					<br />
-					<canvas></canvas>
+					<span style="width:auto" id="rangeEscala">1</span>
 					<br />
 					<br />
 					<br />
 					<br />
 					<label>Velocidade</label>
-					<input type="range" min="0" max="3" value="0" step="0.5" onchange='showValue(this.value, "rangeVelocidade")' />
+					<input type="range" min="1" max="3" value="1" step="0.5" onchange='showValue(this.value, "rangeVelocidade")' />
 					<br/>
-					<span style="width:auto" id="rangeVelocidade">0</span>
+					<span style="width:auto" id="rangeVelocidade">1</span>
 					<br />
 					<script type="text/javascript">
 						function showValue(newValue, id)
@@ -287,22 +284,44 @@ header.button.icon.settings{
 				</div>
 			</div>
 			<!-- /Configurações -->
-			<div class="upage panel" id="exibePart"
-				data-header="af-header" data-footer="af-footer" js-scrolling="false">
+			<div class="upage panel" id="selecionaPart"
+				data-header="af-header-selecionaPart" data-footer="af-footer">
 				<header class="container-group inner-element uib_w_10"
 					data-uib="app_framework/header" data-ver="0"
-					id="af-header-exibePart">
+					id="af-header-selecionaPart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
 					<h1>Estúdio 1</h1>
 				</header>
-				<div id="exibe_info" class="upage-content" style="overflow: auto">
-					<div style="text-align: center;">
-						<div id="vexflow_testoutput">
-						<br/>
-						<br/>
-						</div>
-					</div>
+				<div id="selecionaPart_info" class="upage-content">
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaPart" data-ver="0">
+						<li>Estúdio 1 - Trompete</li>
+						<li>Estúdio 1 - Trombone</li>
+						<li>Estúdio 1 - Clarinete</li>
+					</ul>
+					<a class="button" data-uib="app_framework/button" data-ver="0" 
+						id="btn_comecar" href="#exibePart">Começar</a>
+				</div>
+			</div>
+			<div class="upage panel" id="selecionaExemplo"
+				data-header="af-header-selecionaPart" data-footer="af-footer">
+				<header class="container-group inner-element uib_w_10"
+					data-uib="app_framework/header" data-ver="0"
+					id="af-header-selecionaPart">
+					<a onclick='$.ui.toggleRightSideMenu()'
+						class='button icon settings' style="float: right"></a>
+					<h1>Estúdio 1</h1>
+				</header>
+				<div id="selecionaPart_info" class="upage-content">
+					<ul class="list widget uib_w_2 d-margins"
+						data-uib="app_framework/listview" id="listaPart" data-ver="0">
+						<li>Estúdio 1 - Trompete</li>
+						<li>Estúdio 1 - Trombone</li>
+						<li>Estúdio 1 - Clarinete</li>
+					</ul>
+					<a class="button" data-uib="app_framework/button" data-ver="0" 
+						id="btn_comecar" href="#exibePart">Começar</a>
 				</div>
 			</div>
 			<!-- /Exibe partitura -->
@@ -312,9 +331,9 @@ header.button.icon.settings{
 	</div>
 <script>
 	var altPart = 750;
-	var largPart = 130;
 	var escPart = 1.0;
-	var velPart = 1 * 1000;
+	var velPart = 3000; //timeout de 3 segundos
+	var canAnimate = false;
 	
 	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
         var i = 0;
@@ -327,30 +346,36 @@ header.button.icon.settings{
             i++;
             console.log(i);
             if (i < numberOfBlocks) {
-                setTimeout(cb, timeout);
+                setTimeout(cb, velPart);
             }
         }
         cb();
     }
 	
-	function scrollDiv(numberOfBlocks, container, timeout) {
-		$(container).animate({top:'-=10px'},'fast');
-		if (i < numberOfBlocks) {
-            setTimeout(cb, timeout);
+	function scrollDiv(numberOfBlocks, container, timeout) 
+	{
+		var i = 0;
+        function cb() {
+		    $("#exibePart").animate({top:'-=130px'},'fast');
+	 		i++;
+		    if (i < numberOfBlocks) 
+			{
+	              setTimeout(cb, timeout);
+	        }
         }
-		cb();
+	    cb();
 	}
     
     function drawPart(container) {
         var doc = new Vex.Flow.Document(comp);
         var formatter = doc.getFormatter();
-        formatter.zoom = 2.0;
-        formatter.setWidth(1500).draw($("#" + container)[0]);
+        formatter.zoom = escPart;
+        formatter.setWidth(altPart).draw($("#" + container)[0]);
  
         // Numero de blocos
         var nBlocks = formatter.measuresInBlock.length;
-        //scrollBlocksIntoView(nBlocks, container, 3000);
-        scrollDiv(nBlocks, container, 1000);
+        scrollBlocksIntoView(nBlocks, container, 3000);
+        //scrollDiv(nBlocks, container, 1000);
     }
 	
 	$(document).ready(function() {
@@ -359,9 +384,10 @@ header.button.icon.settings{
 		$.ui.launch();
 		$('#btn_comecar').click(function() {
 			setTimeout(function() {
-                drawPart("vexflow_testoutput");
+                drawPart("vexflow");
                 $("#exibePart").css('overflow', 'auto');
-            }, 1500);
+				canAnimate = true;
+            }, 10);
 		});
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
@@ -378,9 +404,8 @@ header.button.icon.settings{
 		$('#btn_configuracoes').click(function() {
 			altPart = document.getElementById("rangeAltura").innerHTML;
 			escPart = document.getElementById("rangeEscala").innerHTML;
-			velPart = (document.getElementById("rangeVelocidade").innerHTML) * 1000;
+			velPart = (1/(document.getElementById("rangeVelocidade").innerHTML)) * 3000; //inversamente proporcional
 			alert("Altura: " + altPart + "\n" +
-					"Largura: " + largPart + "\n" +
 					"Escala: " + escPart + "\n" +
 					"Velocidade: "+ velPart);
 		});
