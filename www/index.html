@@ -74,6 +74,7 @@
 <!--  script src="src/vexflow_test_helpers.js"></script-->
 <!--  script src="js/document_web.js"></script -->
 <script src="js/part_complete.js"></script>
+<script src="js/part_simples.js"></script>
 <!-- END OF MUSICXML -->
  
 <script src="js/websocket.js"></script>
@@ -86,7 +87,7 @@
 <script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
 <script src="cordova.js"></script>
 
-<!--script type='text/javascript' src='src/jquery.js'></script--> 
+<script src='js/getFiles.js'></script> 
  
 <style text="text/css">
 #exibePart {
@@ -149,16 +150,11 @@ header.button.icon.settings{
 				<div class="upage-content" id="mainsub">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaEstudios" data-ver="0">
-						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
-							class="checkboxDelete" /> <a href="#selecionaPar">
+						<li><a href="selecionaPart">
 								Estúdio 1 </a></li>
-						<li><input type="checkbox" name="checkbox-1" id="checkbox-1"
-							class="checkboxDelete" /> <a href="#selecionaPart">
+						<li><a href="#selecionaPart">
 								Estúdio 2 </a></li>
 					</ul>
-					<br/>
-					<br/>
-					<a class="button" data-uib="app_framework/button" data-ver="0" id="btn_closeWeb">CloseWeb</a>
 				</div>
 				<!-- /upage-content -->
 			</div>	<!-- /Main -->
@@ -173,9 +169,16 @@ header.button.icon.settings{
 				</header>
 				<div id="upload_info" class="upage-content">
 					<br />
-					<input name="arquivo" type="text" placeholder="caminho do arquivo" />
+					<input id="nome_part" type="text" placeholder="nome da partitura" />
+					<input id="arquivo" type="text" placeholder="caminho do arquivo" />
 					<a class="button" data-uib="app_framework/button"
 						id="btn_upload" href="#mainpage" data-ver="0">Enviar</a>
+					<br/>
+					<br/>
+					<br/>
+					<a class="button" data-uib="app_framework/button"
+						id="btn_le" href="#" data-ver="0">Lê Arquivo</a>
+					<textarea id="res_botao" rows="10" cols="50"></textarea>
 				</div>
 			</div>
 			<!-- Upload Partitura -->
@@ -203,7 +206,7 @@ header.button.icon.settings{
 					id="af-header-selecionaPartEst">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>Estúdio</h1>
 				</header>
 				<div id="criaEstudio_info" class="upage-content">
 					<ul class="list widget uib_w_2 d-margins"
@@ -216,6 +219,8 @@ header.button.icon.settings{
 						<li><input type="checkbox"/>Estúdio 2 - Saxofone</li>
 						<li><input type="checkbox"/>Estúdio 3 - Clarinete</li>
 					</ul>
+					<a class="button" data-uib="app_framework/button" data-ver="0" 
+						id="btn_comecar" href="#mainpage">Selecionar</a>
 				</div>
 			</div>
 			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
@@ -226,15 +231,17 @@ header.button.icon.settings{
 					id="af-header-selecionaPart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>Estúdio</h1>
 				</header>
 				<div id="selecionaPart_info" class="upage-content">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Estúdio 1 - Trompete</li>
-						<li>Estúdio 1 - Trombone</li>
-						<li>Estúdio 1 - Clarinete</li>
+						<li>Estúdio - Partitura 1</li>
 					</ul>
+					<a class="button" data-uib="app_framework/button" data-ver="0" 
+						id="btn_selecionaPart" href="#mainpage">Receber</a>
+						<br/>
+						<br/>
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
 						id="btn_comecar" href="#exibePart">Começar</a>
 				</div>
@@ -291,14 +298,12 @@ header.button.icon.settings{
 					id="af-header-selecionaPart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>Estúdio</h1>
 				</header>
 				<div id="selecionaPart_info" class="upage-content">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Estúdio 1 - Trompete</li>
-						<li>Estúdio 1 - Trombone</li>
-						<li>Estúdio 1 - Clarinete</li>
+						<li>Estúdio - Partitura 1</li>
 					</ul>
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
 						id="btn_notificar" href="#exibePart">Começar</a>
@@ -345,7 +350,7 @@ header.button.icon.settings{
 					id="af-header-exibePart">
 					<a onclick='$.ui.toggleRightSideMenu()'
 						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio 1</h1>
+					<h1>Estúdio</h1>
 				</header>
 				<div id="exibe_info" class="upage-content" style="overflow: auto">
 					<div style="text-align: center;">
@@ -365,6 +370,7 @@ var altPart = 750;
 var escPart = 1.0;
 var velPart = 3000; //timeout de 3 segundos
 var comp;
+var idStudio = 1;
 
 	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
         var i = 0;
@@ -414,8 +420,15 @@ var comp;
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
 		$('#btn_comecarExemplo').click(function() {
-			alert("oi!");
 			comp = ishigo;
+			setTimeout(function() {
+                drawPart("vexflow");
+                $("#exibePart").css('overflow', 'auto');
+            }, 10);
+		});
+		$('#btn_comecar').click(function() {
+			notify(idStudio);
+			comp = part_simples;
 			setTimeout(function() {
                 drawPart("vexflow");
                 $("#exibePart").css('overflow', 'auto');
@@ -423,7 +436,13 @@ var comp;
 		});
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
-			sendScore();
+			var nomePart = document.getElementById("nome_part").value;
+			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
+			sendScore(1, nomePart, partitura_lida);
+		});
+		$('#btn_le').click(function() {
+			//envia a partitura informada para o servidor
+			readFile(document.getElementById("arquivo").value);
 		});
 		$('#btn_criaEstudio').click(function() {
 			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
@@ -432,14 +451,12 @@ var comp;
 		});
 		$('#btn_selecionaPart').click(function() {
 			//precisa atribuir o usu�rio ao grupo e fazer download da partitura!
+			getScore();
 		});
 		$('#btn_configuracoes').click(function() {
 			altPart = document.getElementById("rangeAltura").innerHTML;
 			escPart = document.getElementById("rangeEscala").innerHTML;
 			velPart = (1/(document.getElementById("rangeVelocidade").innerHTML)) * 3000; //inversamente proporcional
-			alert("Altura: " + altPart + "\n" +
-					"Escala: " + escPart + "\n" +
-					"Velocidade: "+ velPart);
 		});
 		$('#btn_closeWeb').click(function() {
 			close();
@@ -447,6 +464,7 @@ var comp;
 		$('#consultarEstudios').click(function() {
 			listStudio();
 		});
+		listStudio();
 	});
  
 	$.ui.animateHeaders = false;

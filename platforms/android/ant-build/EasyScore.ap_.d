@@ -36,8 +36,6 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\cordova_plu
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\img \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index.html \
-C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index_jq.html \
-C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\index__.html \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src \
@@ -62,6 +60,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery-1
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\musicxml_test.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_complete.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_simples.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\vexflow-min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\websocket.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\com.knowledgecode.cordova.websocket \

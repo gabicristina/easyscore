@@ -1,4 +1,5 @@
 var fs;
+var partitura_lida;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
@@ -9,37 +10,35 @@ function onDeviceReady() {
 // The directory path is without the prefix of the root directory!
 function onFSSuccess(fileSystem) {
 	this.fs = fileSystem;
-	fileSystem.root.getDirectory("EasyScore", {
-		create : true,
-		exclusive : false
-	}, doDirectoryListing, fail);
 };
 
-// dirEntry needs to be a parameter of the function!
-function doDirectoryListing(dirEntry) {
-	var directoryReader = dirEntry.createReader();
-	directoryReader.readEntries(gotFiles, FileError);
+function readFile(path) {
+	fs.root.getFile(path, {
+			create : false,
+			exclusive : false
+	}, function(fileEntry) {
+		// onSuccess
+		fileEntry.file(function(file) {
+			var reader = new FileReader();
+			reader.onloadend = function(e) {
+				if (e.target.readyState == FileReader.DONE) { // DONE == 2
+					document.getElementById('res_botao').value = this.result;
+					partitura_lida = this.result;
+				}
+			};
+			reader.onerror = errorReaderHandler;
+			reader.readAsText(file);
+		},errorHandlerR);
+	},errorHandlerR);
+	partitura_lida = part_simples;
 };
 
-function gotFiles(entries) {
-	for (var i = 0, len = entries.length; i < len; i++) {
-		if (entries[i].isDirectory) {
-			alert("Directory: " + entries[i].name);
-			$('ul').append($('<li/>', { // here appending `<li>`
-				'data-role' : "list-divider"
-			}).append($('<a/>', { // here appending `<a>` into `<li>`
-				'href' : '#musica_info',
-				'data-transition' : 'fade',
-				'text' : entries[i].name
-			})));
-		}
-	}
-};
 function fail() {
-	alert("fail");
+	alert("Ocorreu um erro ao iniciar a aplicação");
 };
-function errorHandler(e) {
-	alert("erro");
+
+function errorHandlerR(e) {
+	alert("Ocorreu um erro ao acessar o arquivo");
 	var msg = '';
 
 	switch (e.code) {
@@ -61,29 +60,25 @@ function errorHandler(e) {
 	default:
 		msg = 'Unknown Error';
 		break;
-	}
-	;
-
+	};
 	console.log('Error: ' + msg);
 };
 
-/*
- * 
- * 
- * http://www.raymondcamden.com/index.cfm/2014/2/17/Cordova-File-System--Important-Update
- * http://www.html5rocks.com/en/tutorials/file/filesystem/ --DOCUMENTAÇÃO HTML
- * https://gist.github.com/rosshanney/9060654 --'temp.wav'
- * https://gist.github.com/devgeeks/4982983 --example-download-and-open.js
- * http://stackoverflow.com/questions/20836040/window-requestfilesystem-is-undefined-in-ver-3-3-0
- * 
- * SOMENTE PARA LINKS:
- * http://stackoverflow.com/questions/21941731/cordova-phonegap-open-downloaded-file-inappbrowser
- * 
- * http://docs.phonegap.com/en/1.4.1/phonegap_file_file.md.html
- * https://developer.mozilla.org/en-US/docs/Web/API/DirectoryEntry
- * https://github.com/apache/cordova-plugin-file/blob/master/doc/index.md
- * --PLUGIN http://cordova.apache.org/docs/en/2.5.0/cordova_file_file.md.html
- * --DOCUMENTAÇÃO PHONEGAP (ANTIGA)
- * https://cordova.apache.org/docs/en/3.0.0/cordova_file_file.md.html#DirectoryEntry //
- * http://stackoverflow.com/questions/11062882/get-all-filenames-using-phonegap-file-api
- */
+function errorReaderHandler(evt) {
+	alert("Ocorreu um erro ao ler o arquivo");
+	switch(evt.target.error.code) {
+	  case evt.target.error.NOT_FOUND_ERR:
+		msg = 'File Not Found!';
+	    break;
+	  case evt.target.error.NOT_READABLE_ERR:
+		 msg = 'File is not readable';
+	    break;
+	  case evt.target.error.ABORT_ERR:
+		 msg = 'ABORT, ABORT!';
+		break; // noop
+	  default:
+		 msg = 'Unkown Error';
+	  	break;
+    };
+    console.log('Erro ao ler arquivo: ' + msg);
+};

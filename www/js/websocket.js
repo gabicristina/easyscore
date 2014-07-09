@@ -47,23 +47,38 @@ function onMessage(evt) {
 				'data-transition' : 'fade',
 				'text' : teste;
 			})));*/
+			if (obj.studios[i].name != "") {
+				var x = document.createElement("LI");
+			    var a = document.createElement("A");
+			    var t = document.createTextNode(obj.studios[i].name);
+			    a.setAttribute("href", "#selecionaPart");
+			    a.setAttribute("hash", obj.studios[i].name);
+			    a.appendChild(t);
+			    x.appendChild(a);
+			    list.appendChild(x);
+			}
+		}
+	} else if (obj.hasOwnProperty('scores')) {
+		var list = document.getElementById("listaPartEst");
+		$("#listaPartEst").children("li").remove();
+		for (var i = 0; i<obj.studios.length; i++) {
 			var x = document.createElement("LI");
 		    var a = document.createElement("A");
 		    var t = document.createTextNode(obj.studios[i].name);
-		    a.setAttribute("href", "#selecionaPart");
+		    a.setAttribute("href", "#mainpage");
 		    a.setAttribute("hash", obj.studios[i].name);
 		    a.appendChild(t);
 		    x.appendChild(a);
 		    list.appendChild(x);
 		}
-	} else if (obj.hasOwnProperty('akjhsgdkajsdblajsdba')) {
-		var list = document.getElementById("listaEstudios");
-		$("#listaEstudios").children("li").remove();
+		
+		list = document.getElementById("listaPart");
+		$("#listaPart").children("li").remove();
 		for (var i = 0; i<obj.studios.length; i++) {
 			var x = document.createElement("LI");
 		    var a = document.createElement("A");
 		    var t = document.createTextNode(obj.studios[i].name);
-		    a.setAttribute("href", "#selecionaPart");
+		    a.setAttribute("href", "#");
 		    a.setAttribute("hash", obj.studios[i].name);
 		    a.appendChild(t);
 		    x.appendChild(a);
@@ -83,7 +98,7 @@ function writeToScreen(message) {
 	var pre = document.createElement("p");
 	pre.style.wordWrap = "break-word";
 	pre.innerHTML = message;
-	output.insertBefore(pre, output.firstChild);
+	//output.insertBefore(pre, output.firstChild);
 };
 function createStudio(name) {
 	var create = '{"type": "create","values": [{"name": "' + name + '"}]}';
@@ -99,11 +114,11 @@ function joinStudio(idStudio) {
 	doSend(joinGroup);
 };
 function sendScore(idStudio, nome, score) {
-	var sendScore = '{"type": "send_score", "values": [{ \
+	var vsendScore = '{"type": "send_score", "values": [{ \
 	                    "studio_id": "' + idStudio + '",\
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
-	doSend(sendScore);
+	//doSend(vsendScore);
 };
 function getScore(idStudio, idScore) {
 	var getScore = '{"type": "get_score", "values": [{\
@@ -113,10 +128,14 @@ function getScore(idStudio, idScore) {
 	doSend(getScore);
 };
 function notify(idStudio) {
-	var notify = '{"type": "notify", "values": [{"studio_id": "' + idStudio
+	var vnotify = '{"type": "notify", "values": [{"studio_id": "' + idStudio
 			+ '"}]}';
-	doSend(notify);
+	//doSend(vnotify);
 };
+function getTime() {
+	var vgetTime = '{"type": "server_time"}';
+	doSend(vgetTime);
+}
 function close() {
 	websocket.close();
 };
