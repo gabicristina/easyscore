@@ -75,6 +75,7 @@
 <!--  script src="js/document_web.js"></script -->
 <script src="js/part_complete.js"></script>
 <script src="js/part_simples.js"></script>
+<script src="js/part_duas_pautas.js"></script>
 <!-- END OF MUSICXML -->
  
 <script src="js/websocket.js"></script>
@@ -211,16 +212,23 @@ header.button.icon.settings{
 				<div id="criaEstudio_info" class="upage-content">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaPartEst" data-ver="0">
-						<li><input type="checkbox"/>Estúdio 1 - Trompete</li>
-						<li><input type="checkbox"/>Estúdio 1 - Trombone</li>
-						<li><input type="checkbox"/>Estúdio 1 - Clarinete</li>
-						<li><input type="checkbox"/>Estúdio 2 - Tuba</li>
-						<li><input type="checkbox"/>Estúdio 2 - Clarinete</li>
-						<li><input type="checkbox"/>Estúdio 2 - Saxofone</li>
-						<li><input type="checkbox"/>Estúdio 3 - Clarinete</li>
+						<li><input type="checkbox" id="est_1" onclick=check(this.id)/>Estúdio 1 - Partitura 1</li>
+						<li><input type="checkbox" id="est_2t" onclick=check(this.id)/>Estúdio 2 - Tuba</li>
+						<li><input type="checkbox" id="est_2c" onclick=check(this.id)/>Estúdio 2 - Clarinete</li>
+						<li><input type="checkbox" id="est_2s" onclick=check(this.id)/>Estúdio 2 - Saxofone</li>
+						<li><input type="checkbox" id="est_3c" onclick=check(this.id)/>Estúdio 3 - Clarinete</li>
 					</ul>
+					<script>
+					function check(id) {
+						if (document.getElementById(id).checked) {
+					    	document.getElementById("myCheck").checked = false;
+						} else {
+							document.getElementById("myCheck").checked = true;
+						}
+					}
+					</script>
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_comecar" href="#mainpage">Selecionar</a>
+						id="btn_selec" href="#mainpage">Selecionar</a>
 				</div>
 			</div>
 			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
@@ -319,14 +327,14 @@ header.button.icon.settings{
 					<h1>Exemplos</h1>
 				</header>
 				<div id="selecionaExe_info" class="upage-content">
-					<!-- form name = "radiosForm" -->
+					<form name = "radiosForm">
 					<ul class="list widget uib_w_2 d-margins"
 						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Echigo-Jishi</li>
+						<li><input type="radio" name="radios" value="1" id="echigo" checked />Echigo-Jishi</li>
+						<li><input type="radio" name="radios" value="2" id="dupla" checked />Dupla</li>
+						<li><input type="radio" name="radios" value="3" id="simples" checked />Simples</li>
 					</ul>
-					<!-- /form>
-					
-					<li><input type="radio" name="radios" value="1" id="ishigo" checked />Echigo-Jishi</li>
+					</form>
 					<script>
 					var rad = document.radiosForm.radios;
 					var prev = null;
@@ -337,7 +345,7 @@ header.button.icon.settings{
 					        }
 					    };
 					}
-					</script -->
+					</script>
 					<a class="button" data-uib="app_framework/button" data-ver="0" 
 						id="btn_comecarExemplo" href="#exibePart">Começar</a>
 				</div>
@@ -420,15 +428,21 @@ var idStudio = 1;
 		$.ui.setRightSideMenuWidth(220);
 		$.ui.launch();
 		$('#btn_comecarExemplo').click(function() {
-			comp = ishigo;
+			if (document.getElementById("echigo").checked) {
+				comp = ishigo;
+			} else if ((document.getElementById("dupla").checked)) {
+				comp = part_dupla;
+			} else {
+				comp = part_simples;
+			}
 			setTimeout(function() {
                 drawPart("vexflow");
                 $("#exibePart").css('overflow', 'auto');
             }, 10);
 		});
 		$('#btn_comecar').click(function() {
-			notify(idStudio);
-			comp = part_simples;
+			//notify(idStudio);
+			comp = ishigo;
 			setTimeout(function() {
                 drawPart("vexflow");
                 $("#exibePart").css('overflow', 'auto');
