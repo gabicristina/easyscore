@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8"/>
+	<title>EasyScore</title>
+	
+	
+	<!-- SCRIPTS VEXXX MUSICXML -->
+<!-- VexFlow Sources -->
+<script src="src/vex.js"></script>
+<script src="src/flow.js"></script>
+<script src="src/fraction.js"></script>
+<script src="src/fonts/vexflow_font.js"></script>
+<script src="src/glyph.js"></script>
+<script src="src/tables.js"></script>
+<script src="src/stave.js"></script>
+<script src="src/staveconnector.js"></script>
+<script src="src/voice.js"></script>
+<script src="src/voicegroup.js"></script>
+<script src="src/modifier.js"></script>
+<script src="src/modifiercontext.js"></script>
+<script src="src/accidental.js"></script>
+<script src="src/dot.js"></script>
+<script src="src/tickcontext.js"></script>
+<script src="src/tickable.js"></script>
+<script src="src/note.js"></script>
+<script src="src/bend.js"></script>
+<script src="src/stem.js"></script>
+<script src="src/notehead.js"></script>
+<script src="src/stemmablenote.js"></script>
+<script src="src/stavenote.js"></script>
+<script src="src/tabnote.js"></script>
+<script src="src/barnote.js"></script>
+<script src="src/clefnote.js"></script>
+<script src="src/timesignote.js"></script>
+<script src="src/ghostnote.js"></script>
+<script src="src/formatter.js"></script>
+<script src="src/stavetie.js"></script>
+<script src="src/stavehairpin.js"></script>
+<script src="src/tabtie.js"></script>
+<script src="src/tabslide.js"></script>
+<script src="src/beam.js"></script>
+<script src="src/vibrato.js"></script>
+<script src="src/annotation.js"></script>
+<script src="src/tuning.js"></script>
+<script src="src/stavemodifier.js"></script>
+<script src="src/keysignature.js"></script>
+<script src="src/timesignature.js"></script>
+<script src="src/clef.js"></script>
+<script src="src/music.js"></script>
+<script src="src/keymanager.js"></script>
+<script src="src/renderer.js"></script>
+<script src="src/stavebarline.js"></script>
+<script src="src/stavevolta.js"></script>
+<script src="src/staverepetition.js"></script>
+<script src="src/stavesection.js"></script>
+<script src="src/stavetempo.js"></script>
+<script src="src/stavetext.js"></script>
+<script src="src/raphaelcontext.js"></script>
+<script src="src/canvascontext.js"></script>
+<script src="src/tuplet.js"></script>
+<script src="src/boundingbox.js"></script>
+<script src="src/textnote.js"></script>
+
+<script src="src/measure.js"></script>
+<script src="src/musicxml.js"></script>
+<script src="src/document.js"></script>
+<script src="src/documentformatter.js"></script>
+
+<!-- Test Sources -->
+<script src="js/part_complete.js"></script>
+<script src="js/part_simples.js"></script>
+<script src="js/part_duas_pautas.js"></script>
+<script src="js/part_ishigo_nocom.js"></script>
+
+<link rel="stylesheet" href="js/qunit.css" type="text/css"
+	media="screen" />
+z<script src="js/jquery.js"></script>
+<script src="js/qunit.js"></script>
+<script src="js/teste.js"></script>
+<!-- END OF MUSICXML -->
+	
+	
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css">
+	<link rel="stylesheet" href="css/jqm-demos.css">
+	<link rel="shortcut icon" href="img/__logo.png">
+	<script src="js/jquery.mobile-1.4.3.min.js"></script>
+	<script>
+		$(function(){
+			$( "[data-role='header'], [data-role='footer']" ).toolbar();
+		});
+	</script>
+	
+<style text="text/css">
+#exibePart {
+	background-color: #eed;
+	background: #eed;
+}
+
+#exibe_info {
+	background-color: #eed;
+	background: #eed;
+}
+
+canvas {
+	background: #eed;
+}
+
+div.egcode {
+	font-family: Courier;
+	font-size: 14px;
+}
+
+footer {
+	padding: 10px;
+}
+
+#container {
+	border: 1px solid #ccc; height: 100px; overflow: scroll; width: 100px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Start of page: #exibePart -->
+<div data-role="mainpage" id="exibePart" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Estúdio</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<div id="exibe_info" class="upage-content" style="overflow: scroll">
+			<img id="zasdbjk" src="img/logo.png" alt="Smiley face" height="42" width="42"/>	
+		</div>
+		<button id="slide" type="button">Slide</button>
+		<button id="mexe" type="button">Animate</button>
+		<button id="oioioi" type="button">oioioi</button>
+		<a class="button" id="btn_voltaMain" href="#mainpage">Voltar e Limpar</a>
+	</div><!-- /content -->
+</div><!-- /page exibePart -->
+
+<div data-role="footer" id="div_footer">
+	<h4>footer</h4>
+</div><!-- /footer -->
+
+<script>
+	var doc = new Vex.Flow.Document(ishigo);
+	var formatter = doc.getFormatter();
+	formatter.zoom = 3.0;
+	console.log("número de compassos da partitura: " + doc.getNumberOfMeasures());
+	//alert(formatter.measuresInBlock[0].length);
+	formatter.setWidth(doc.getNumberOfMeasures() * 50);
+	
+	$(document).ready(function() {		
+		//drawLine();		
+		document.getElementById('exibe_info').scrollLeft = 0;
+	});
+	
+	document.addEventListener('DOMContentLoaded', function () {   
+		document.getElementById('slide').onclick = function () {
+			document.getElementById('exibe_info').scrollLeft += 200;
+		};
+		document.getElementById('mexe').onclick() = function() {
+			document.getElementById('mexe').animate({left:'+=200px'},500);
+		};
+		
+		/*document.getElementById('btn_comecarExemplo').onclick = function() {
+			drawLine();
+		
+			var nBlocks = doc.getNumberOfMeasures() * 100;
+			console.log("DENTRO DO BOTÃO: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
+			document.getElementById('exibe_info').scrollLeft = -500;
+			//scrollBlocksIntoView(nBlocks, 500);
+		}*/
+		document.getElementById('oioioi').onclick = function() {
+			alert("oioioi");
+		};
+		document.getElementById('btn_voltaMain').onclick = function() {
+			while (typeof this.canvases[b] == "object") {
+				// Remove canvases beyond the last one we are using
+				document.getElementById('exibe_info').removeChild(this.canvases[b]);
+				delete this.canvases[b];
+				b++;
+			  }
+		};
+	}, false);
+	
+	function scrollBlocksIntoView(numberOfBlocks, timeout) {
+		console.log("number of blocks" + numberOfBlocks);
+		var i = 0;
+		function cb() {
+			var elem = document.getElementById('exibe_info');
+			document.getElementById('exibe_info').scrollLeft += 20;
+			console.log("scrollLeft value: " + document.getElementById('exibe_info').scrollLeft);
+			i++;
+			if (i%100===0) console.log(i + " scroll: " + document.getElementById('exibe_info').scrollLeft + " - timeout: " + timeout);
+			if (i < numberOfBlocks) setTimeout(cb, timeout);
+		}
+		cb();
+	};
+</script>
+</body>
+</html>
