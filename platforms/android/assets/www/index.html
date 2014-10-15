@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
+
 <head>
-<title>EasyScore</title>
-<meta name="viewport"
-	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-    <meta charset="utf-8" />
-<!-- SCRIPTS VEXXX MUSICXML -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8"/>
+	<title>EasyScore - jqm protótipo</title>
+	
+	
+	<!-- SCRIPTS VEXXX MUSICXML -->
 <!-- VexFlow Sources -->
 <script src="src/vex.js"></script>
 <script src="src/flow.js"></script>
@@ -61,50 +63,62 @@
 <script src="src/tuplet.js"></script>
 <script src="src/boundingbox.js"></script>
 <script src="src/textnote.js"></script>
- 
+
 <script src="src/measure.js"></script>
 <script src="src/musicxml.js"></script>
 <script src="src/document.js"></script>
 <script src="src/documentformatter.js"></script>
- 
+
 <!-- Test Sources -->
-<link rel="stylesheet" href="src/qunit.css" type="text/css"
-	media="screen" />
-<script src="src/qunit.js"></script>
-<!--  script src="src/vexflow_test_helpers.js"></script-->
-<!--  script src="js/document_web.js"></script -->
 <script src="js/part_complete.js"></script>
 <script src="js/part_simples.js"></script>
 <script src="js/part_duas_pautas.js"></script>
-<!-- END OF MUSICXML -->
- 
-<script src="js/websocket.js"></script>
-<link rel="stylesheet" type="text/css" href="js/af.ui.css" />
-<link rel="stylesheet" type="text/css" href="js/icons.css" />
-<script type="text/javascript" charset="utf-8"
-	src="js/appframework.ui.min.js"></script>
-<!-- N�O DEIXA APARECER O CHECKBOX -->
-<!--AppFramework plugin for sliding side menu-->
-<script type="text/javascript" charset="utf-8" src="js/af.slidemenu.js"></script>
-<script src="cordova.js"></script>
+<script src="js/part_ishigo_nocom.js"></script>
 
-<script src='js/getFiles.js'></script> 
- 
+<link rel="stylesheet" href="js/qunit.css" type="text/css"
+	media="screen" />
+<script src="js/jquery.js"></script>
+<script src="js/qunit.js"></script>
+<script src="js/teste.js"></script>
+<!-- END OF MUSICXML -->
+	
+	
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css">
+	<link rel="stylesheet" href="css/jqm-demos.css">
+	<link rel="shortcut icon" href="img/__logo.png">
+	<script src="js/jquery.mobile-1.4.3.min.js"></script>
+	<script src="js/websocketTime.js"></script>
+	
+	<script>
+		var i = 0;
+		var timeoutvar;
+		
+		$(function(){
+			$( "[data-role='header'], [data-role='footer']" ).toolbar();
+		});
+	</script>
+	<script id="panel-init">
+		$(function () {
+		  $("[data-role=panel]").panel().enhanceWithin();
+		});
+	</script>
+	
+	<!-- script src="http://192.168.0.8:8080/target/target-script-min.js#anonymous"></script -->
 <style text="text/css">
 #exibePart {
 	background-color: #eed;
 	background: #eed;
 }
- 
+
 #exibe_info {
 	background-color: #eed;
 	background: #eed;
 }
- 
+
 canvas {
 	background: #eed;
 }
- 
+
 div.egcode {
 	font-family: Courier;
 	font-size: 14px;
@@ -113,375 +127,314 @@ div.egcode {
 footer {
 	padding: 10px;
 }
-/*header {
-	position: absolute;
-	top:0px;
-	left:0px;
-}
 
-header.button.icon.settings{
-	position: absolute;
-	top:0px;
-	right:0px;
-}*/
+#container {
+	border: 1px solid #ccc; height: 100px; overflow: scroll; width: 100px;
+}
 </style>
 </head>
-<body>
-	<div id="afui">
-		<aside>
-			<ul class="list">
-				<li id="consultarEstudios"><a href="#mainpage">Consultar Estúdios</a></li>
-				<li><a href="#upload">Carregar Partitura</a></li>
-				<li><a href="#criaEstudio">Criar Estúdio</a></li>
-				<li><a href="#configuracoes">Configurações</a></li>
-				<li><a href="#selecionaExemplo">Exemplos de Partituras</a></li>
-			</ul>
-		</aside>
-		
-		<header class="container-group inner-element uib_w_1"
-			data-uib="app_framework/header" data-ver="0" id="af-header">
-			<a onclick='$.ui.toggleRightSideMenu()'
-				class='button icon settings' style="float: right"></a>
-			<h1>EasyScore</h1>
-		</header>
-		
-		<div id="content" class="uwrap">
-			<div class="upage panel" id="mainpage" data-header="af-header"
-				data-footer="af-footer">
-				<div class="upage-content" id="mainsub">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaEstudios" data-ver="0">
-						<li><a href="selecionaPart">
-								Estúdio 1 </a></li>
-						<li><a href="#selecionaPart">
-								Estúdio 2 </a></li>
-					</ul>
-				</div>
-				<!-- /upage-content -->
-			</div>	<!-- /Main -->
-			<!--M�sica_Info-->
-			<div class="upage panel" id="upload" data-header="af-header-upload"
-				data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0" id="af-header-upload">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Carregar Partitura</h1>
-				</header>
-				<div id="upload_info" class="upage-content">
-					<br />
-					<input id="nome_part" type="text" placeholder="nome da partitura" />
-					<input id="arquivo" type="text" placeholder="caminho do arquivo" />
-					<a class="button" data-uib="app_framework/button"
-						id="btn_upload" href="#mainpage" data-ver="0">Enviar</a>
-					<br/>
-					<br/>
-					<br/>
-					<a class="button" data-uib="app_framework/button"
-						id="btn_le" href="#" data-ver="0">Lê Arquivo</a>
-					<textarea id="res_botao" rows="10" cols="50"></textarea>
-				</div>
-			</div>
-			<!-- Upload Partitura -->
-			<div class="upage panel" id="criaEstudio"
-				data-header="af-header-criaEstudio" data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="af-header-criaEstudio">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Criar Estúdio</h1>
-				</header>
-				<div id="criaEstudio_info" class="upage-content">
-					<br /> <input type="text" required id="criaNomeEstudio"
-						placeholder="nome do Estúdio" />
-					<a class="button" href="#selecionaPartEst" id="btn_criaEstudio"
-						data-uib="app_framework/button" data-ver="0">Criar</a>
-				</div>
-			</div>
-			<!-- /Criar Estúdio -->
-			<div class="upage panel" id="selecionaPartEst"
-				data-header="af-header-selecionaPartEst" data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="af-header-selecionaPartEst">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio</h1>
-				</header>
-				<div id="criaEstudio_info" class="upage-content">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaPartEst" data-ver="0">
-						<li><input type="checkbox" id="est_1" onclick=check(this.id)/>Estúdio 1 - Partitura 1</li>
-						<li><input type="checkbox" id="est_2t" onclick=check(this.id)/>Estúdio 2 - Tuba</li>
-						<li><input type="checkbox" id="est_2c" onclick=check(this.id)/>Estúdio 2 - Clarinete</li>
-						<li><input type="checkbox" id="est_2s" onclick=check(this.id)/>Estúdio 2 - Saxofone</li>
-						<li><input type="checkbox" id="est_3c" onclick=check(this.id)/>Estúdio 3 - Clarinete</li>
-					</ul>
-					<script>
-					function check(id) {
-						if (document.getElementById(id).checked) {
-					    	document.getElementById("myCheck").checked = false;
-						} else {
-							document.getElementById("myCheck").checked = true;
-						}
-					}
-					</script>
-					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_selec" href="#mainpage">Selecionar</a>
-				</div>
-			</div>
-			<!-- /MAESTRO - Selecionar Partituras do Estúdio -->
-			<div class="upage panel" id="selecionaPart"
-				data-header="af-header-selecionaPart" data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="af-header-selecionaPart">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio</h1>
-				</header>
-				<div id="selecionaPart_info" class="upage-content">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Estúdio - Partitura 1</li>
-					</ul>
-					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_selecionaPart" href="#mainpage">Receber</a>
-						<br/>
-						<br/>
-					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_comecar" href="#exibePart">Começar</a>
-				</div>
-			</div>
-			<!-- /M�SICO - Selecionar Partituras -->
-			<div class="upage panel" id="configuracoes"
-				data-header="af-header-configuracoes" data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="af-header-configuracoes">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Configurações</h1>
-				</header>
-				<div id="configuracoes_info" class="upage-content">
-					<br />
-					<br />
-					<label>Altura e Largura da Partitura</label>
-					<input type="range" min="750" max="2050" value="750" step="100" onchange='showValue(this.value, "rangeAltura")' />
-					<br/>
-					<span style="width:auto" id="rangeAltura">750</span>
-					<br />
-					<br />
-					<label>Escala da Partitura</label>
-					<input type="range" min="1" max="3" value="1" step="0.5" onchange='showValue(this.value, "rangeEscala")' />
-					<br/>
-					<span style="width:auto" id="rangeEscala">1</span>
-					<br />
-					<br />
-					<br />
-					<br />
-					<label>Velocidade</label>
-					<input type="range" min="1" max="3" value="1" step="0.5" onchange='showValue(this.value, "rangeVelocidade")' />
-					<br/>
-					<span style="width:auto" id="rangeVelocidade">1</span>
-					<br />
-					<script type="text/javascript">
-						function showValue(newValue, id)
-						{
-							document.getElementById(id).innerHTML=newValue;
-						}
-					</script>
-					<br />
-					<button class="button widget uib_w_14 d-margins"
-						data-uib="app_framework/button" data-ver="0"
-						id="btn_configuracoes" data-transition="fade">Gravar</button>
-				</div>
-			</div>
-			<!-- /Configurações -->
-			<div class="upage panel" id="selecionaPart"
-				data-header="af-header-selecionaPart" data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="af-header-selecionaPart">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio</h1>
-				</header>
-				<div id="selecionaPart_info" class="upage-content">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li>Estúdio - Partitura 1</li>
-					</ul>
-					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_notificar" href="#exibePart">Começar</a>
-				</div>
-			</div>
-			<div class="upage panel" id="selecionaExemplo"
-				data-header="af-header-selecionaExe" data-footer="af-footer">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="selecionaExe">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Exemplos</h1>
-				</header>
-				<div id="selecionaExe_info" class="upage-content">
-					<form name = "radiosForm">
-					<ul class="list widget uib_w_2 d-margins"
-						data-uib="app_framework/listview" id="listaPart" data-ver="0">
-						<li><input type="radio" name="radios" value="1" id="echigo" checked />Echigo-Jishi</li>
-						<li><input type="radio" name="radios" value="2" id="dupla" checked />Dupla</li>
-						<li><input type="radio" name="radios" value="3" id="simples" checked />Simples</li>
-					</ul>
-					</form>
-					<script>
-					var rad = document.radiosForm.radios;
-					var prev = null;
-					for(var i = 0; i < rad.length; i++) {
-					    rad[i].onclick = function() {
-					        if(this !== prev) {
-					            prev = this;
-					        }
-					    };
-					}
-					</script>
-					<a class="button" data-uib="app_framework/button" data-ver="0" 
-						id="btn_comecarExemplo" href="#exibePart">Começar</a>
-				</div>
-			</div>
-			<!-- Exibe exemplo -->
-			<div class="upage panel" id="exibePart"
-				data-header="af-header" data-footer="af-footer" js-scrolling="false">
-				<header class="container-group inner-element uib_w_10"
-					data-uib="app_framework/header" data-ver="0"
-					id="af-header-exibePart">
-					<a onclick='$.ui.toggleRightSideMenu()'
-						class='button icon settings' style="float: right"></a>
-					<h1>Estúdio</h1>
-				</header>
-				<div id="exibe_info" class="upage-content" style="overflow: auto">
-					<div style="text-align: center;">
-						<div id="vexflow">
-						<br/>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /Exibe partitura -->
-			<footer id="af-footer">
-			</footer>
-		</div>
-	</div>
-<script>
-var altPart = 750;
-var escPart = 1.0;
-var velPart = 3000; //timeout de 3 segundos
-var comp;
-var idStudio = 1;
 
-	function scrollBlocksIntoView(numberOfBlocks, viewPortName, timeout) {
-        var i = 0;
-        function cb() {
-            var el = $("#" + viewPortName + "_canvas" + i)[0];
-            if (!el) return false;
-            
-            el.scrollIntoView();
-            
-            i++;
-            console.log(i);
-            if (i < numberOfBlocks) {
-                setTimeout(cb, velPart);
-            }
-        }
-        cb();
-    };
+<body>
+<!-- class="ui-mobile-viewport ui-overlay-a ui-panel-page-container-themed ui-panel-page-container" -->
 	
-	function scrollDiv(numberOfBlocks, container, timeout) 
-	{
-		var i = 0;
-        function cb() {
-		    $("#exibePart").animate({top:'-=130px'},'fast');
-	 		i++;
-		    if (i < numberOfBlocks) 
-			{
-	              setTimeout(cb, timeout);
-	        }
-        }
-	    cb();
-	};
-    
-    function drawPart(container) {
-        var doc = new Vex.Flow.Document(comp);
-        var formatter = doc.getFormatter();
-        formatter.zoom = escPart;
-        formatter.setWidth(altPart).draw($("#" + container)[0]);
- 
-        // Numero de blocos
-        var nBlocks = formatter.measuresInBlock.length;
-        scrollBlocksIntoView(nBlocks, container, 3000);
-        //scrollDiv(nBlocks, container, 1000);
-    };
+<!-- Start of first page: #one -->
+<div data-role="page" id="mainpage" data-footer="div_footer">
+	<div data-role="header">
+		<h1>EasyScore</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
 	
-	$(document).ready(function() {
-		init();
-		$.ui.setRightSideMenuWidth(220);
-		$.ui.launch();
-		$('#btn_comecarExemplo').click(function() {
-			if (document.getElementById("echigo").checked) {
-				comp = ishigo;
-			} else if ((document.getElementById("dupla").checked)) {
-				comp = part_dupla;
-			} else {
-				comp = part_simples;
-			}
-			setTimeout(function() {
-                drawPart("vexflow");
-                $("#exibePart").css('overflow', 'auto');
-            }, 10);
-		});
-		$('#btn_comecar').click(function() {
-			//notify(idStudio);
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#selecionaPart">Estúdio 1</a></li>
+			<li><a href="#selecionaPart">Estúdio 2</a></li>
+			<li><a href="#selecionaPart">Estúdio 3</a></li>
+		</ul>
+		<br/>
+		<br/>
+		<p><a href="#selecionaExemplo" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Seleciona Exemplo</a></p>
+		<br/>
+		<br/>
+		<button id="btn_webskt">Testa WebSocket</button>
+	</div><!-- /content -->
+	
+</div><!-- /page one -->
+
+<!-- Start of second page: #upload -->
+<div data-role="page" id="upload" data-theme="a" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Carregar Partitura</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<br />
+		<input id="nome_part" type="text" placeholder="nome da partitura" />
+		<input id="arquivo" type="text" placeholder="caminho do arquivo" />
+		<a class="ui-btn" id="btn_upload" href="#mainpage">Enviar</a>
+		<br/>
+		<br/>
+		<a class="ui-btn" id="btn_le" href="#">Lê Arquivo</a>
+		<textarea id="res_botao" rows="10" cols="50"></textarea>
+	</div><!-- /content -->
+
+</div><!-- /page upload -->
+
+<!-- Start of third page: #criaEstudio -->
+<div data-role="page" id="criaEstudio" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Criar Estúdio</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<br /> <input type="text" required id="criaNomeEstudio"
+			placeholder="nome do Estúdio" />
+		<a class="ui-btn" href="#selecionaPartEst" id="btn_criaEstudio">Criar</a>
+	</div><!-- /content -->
+</div><!-- /page criaEstudio -->
+
+<!-- Start of page: #selecionaPartEst MAESTRO -->
+<div data-role="page" id="selecionaPartEst" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Estúdio</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<form>
+		<fieldset data-role="controlgroup">
+			<legend>Escolha as partituras:</legend>
+			<input name="est_1" id="est_1" type="checkbox">
+			<label for="est_1">Estúdio 1 - Partitura 1</label>
+			<input name="est_2t" id="est_2t" type="checkbox">
+			<label for="est_2t">Estúdio 2 - Tuba</label>
+			<input name="est_2c" id="est_2c" type="checkbox">
+			<label for="est_2c">Estúdio 2 - Clarinete</label>
+			<input name="est_2s" id="est_2s" type="checkbox">
+			<label for="est_2s">Estúdio 2 - Saxofone</label>
+			<input name="est_3c" id="est_3c" type="checkbox">
+			<label for="est_3c">Estúdio 3 - Clarinete</label>
+		</fieldset>
+		</form>
+		<a class="ui-btn" id="btn_selec" href="#mainpage">Selecionar</a>
+		<br/>
+		<br/>
+		<label for="search-control-group">Search</label>
+		<div data-role="controlgroup" data-type="horizontal">
+			<input id="search-control-group" data-wrapper-class="controlgroup-textinput ui-btn" type="text">
+			<!--button id="submit" onclick="adicionarcheck">Submit</button-->
+		</div>
+	</div><!-- /content -->
+</div><!-- /page selecionaPartEst MAESTRO -->
+
+<!-- Start of page: #selecionaPart -->
+<div data-role="page" id="selecionaPart" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Estudio</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true" id="listaPart">
+			<li>Estúdio - Partitura 1</li>
+		</ul>
+		<a class="ui-btn" id="btn_selecionaPart" href="#mainpage">Receber</a>
+			<br/>
+			<br/>
+		<a class="ui-btn" id="btn_comecar" href="#exibePart">Começar</a>
+	</div><!-- /content -->
+	
+</div><!-- /page selecionaPart -->
+
+<!-- Start of page: #configuracoes -->
+<div data-role="page" id="configuracoes" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Configurações</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<br />
+		<br />
+		<label>Escala da Partitura</label>
+		<input type="range" min="1" max="8" value="3" step="0.5" id="rangeEscala" />
+		<br/>
+		<br/>
+		<label>Velocidade</label>
+		<input type="range" min="1" max="20" value="6" step="0.5" id="rangeVelocidade" />
+		<br/>
+		<br/>
+		<button id="btn_configuracoes">Gravar</button>
+	</div><!-- /content -->
+</div><!-- /page configuracoes -->
+
+<!-- Start of page: #selecionaPart -->
+<div data-role="page" id="selecionaPart" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Estúdio</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true" id="listaPart">
+			<li>Estúdio - Partitura 1</li>
+		</ul>
+		<a class="ui-btn" id="btn_notificar" href="#exibePart">Começar</a>
+	</div><!-- /content -->
+	
+</div><!-- /page selecionaPart -->
+
+<!-- Start of page: #selecionaExemplo -->
+<div data-role="page" id="selecionaExemplo" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Exemplos</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<form name = "radiosForm">
+			<fieldset data-role="controlgroup">
+				<legend>Escolha o exemplo:</legend>
+				<input name="radio-choice-v-2" id="echigo" value="on" checked="checked" type="radio">
+				<label for="echigo">Echigo-Jish</label>
+				<input name="radio-choice-v-2" id="dupla" value="off" type="radio">
+				<label for="dupla">Dupla</label>
+				<input name="radio-choice-v-2" id="simples" value="other" type="radio">
+				<label for="simples">Simples</label>
+			</fieldset>
+		</form>
+		
+		<a class="ui-btn" id="btn_comecarExemplo" href="#exibePart">Começar</a>
+	</div><!-- /content -->
+</div><!-- /page selecionaExemplo -->
+
+<!-- Start of page: #exibePart -->
+<div data-role="page" id="exibePart" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Estúdio</h1>
+		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<div id="exibe_info" class="upage-content" style="overflow: auto">
+			<div id="vexflow">
+				<br />
+			</div>
+		</div>
+		<a class="ui-btn" id="btn_voltaMain" href="#mainpage">Voltar e Limpar</a>
+		<button id="btn_pause" style="display: block">Pausar</button>
+		<button id="btn_continue" style="display: none">Continuar</button>
+	</div><!-- /content -->
+</div><!-- /page exibePart -->
+
+<div data-role="footer" id="div_footer">
+	<h4>EasyScore</h4>
+</div><!-- /footer -->
+
+<!-- class="ui-panel ui-panel-position-right ui-panel-display-reveal ui-panel-closed ui-body-a ui-panel-animate"
+
+ class="ui-listview ui-group-theme-a" -->
+<div data-role="panel" data-position="right" data-theme="a" data-display="overlay" id="panel_options">
+	<div class="content">
+		<ul data-inset="true" data-theme="a" data-icon="false" data-role="listview">
+			<li data-icon="back" data-role="list-divider"><a href="#" data-rel="close">Voltar</a></li>
+			<li id="consultarEstudios"><a href="#mainpage">Consultar Estúdios</a></li>
+			<li><a href="#upload">Carregar Partitura</a></li>
+			<li><a href="#criaEstudio">Criar Estúdio</a></li>
+			<li><a href="#configuracoes">Configurações</a></li>
+			<li><a href="#selecionaExemplo">Exemplos de Partituras</a></li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	var doc;
+	var formatter;
+	var escPart = 3.0;
+	var velPart = 500; //timeout de 3 segundos
+	var d = new Date();
+	
+	function setDoc() {
+		var comp;
+		if (document.getElementById("echigo").checked) {
 			comp = ishigo;
-			setTimeout(function() {
-                drawPart("vexflow");
-                $("#exibePart").css('overflow', 'auto');
-            }, 10);
-		});
-		$('#btn_upload').click(function() {
-			//envia a partitura informada para o servidor
-			var nomePart = document.getElementById("nome_part").value;
-			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
-			sendScore(1, nomePart, partitura_lida);
-		});
-		$('#btn_le').click(function() {
-			//envia a partitura informada para o servidor
-			readFile(document.getElementById("arquivo").value);
-		});
-		$('#btn_criaEstudio').click(function() {
-			if (createStudio(document.getElementById("criaNomeEstudio").value)) {
-				alert("Estúdio " + document.getElementById("criaNomeEstudio").value + " criado com sucesso");
-			};
-		});
-		$('#btn_selecionaPart').click(function() {
-			//precisa atribuir o usu�rio ao grupo e fazer download da partitura!
-			getScore();
-		});
-		$('#btn_configuracoes').click(function() {
-			altPart = document.getElementById("rangeAltura").innerHTML;
-			escPart = document.getElementById("rangeEscala").innerHTML;
-			velPart = (1/(document.getElementById("rangeVelocidade").innerHTML)) * 3000; //inversamente proporcional
-		});
-		$('#btn_closeWeb').click(function() {
-			close();
-		});
-		$('#consultarEstudios').click(function() {
-			listStudio();
-		});
-		listStudio();
-	});
- 
-	$.ui.animateHeaders = false;
+		} else if ((document.getElementById("dupla").checked)) {
+			comp = part_dupla;
+		} else {
+			comp = part_simples;
+		}
+	
+		doc = new Vex.Flow.Document(comp);
+		formatter = doc.getFormatter();
+		formatter.zoom = escPart;
+		console.log("número de compassos da partitura: " + doc.getNumberOfMeasures());
+		//alert(formatter.measuresInBlock[0].length);
+		formatter.setWidth(doc.getNumberOfMeasures() * 150);	
+	}
+	
+	document.addEventListener('DOMContentLoaded', function () {   
+		initTime();
+		document.getElementById('btn_webskt').onclick = function() {
+			getTime();
+		}
+		document.getElementById('btn_comecarExemplo').onclick = function() {
+			setDoc();
+			drawLine();
+			
+			var nBlocks = doc.getNumberOfMeasures() * 100;
+			console.log("DENTRO DO BOTÃO: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
+			document.getElementById('exibe_info').scrollLeft = -500;
+			scrollBlocksIntoView(nBlocks, velPart);
+		}
+		document.getElementById('btn_voltaMain').onclick = function() {
+			var b = 0;
+			while (typeof formatter.canvases[b] == "object") {
+				// Remove canvases beyond the last one we are using
+				document.getElementById('vexflow').removeChild(formatter.canvases[b]);
+				delete formatter.canvases[b];
+				b++;
+			  }
+		}
+		document.getElementById('btn_configuracoes').onclick = function() {
+			escPart = document.getElementById("rangeEscala").value;
+			velPart = (1/(document.getElementById("rangeVelocidade").value)) * 3000; //inversamente proporcional
+		};
+		document.getElementById('btn_pause').onclick = function() {
+			document.getElementById('btn_pause').style.display="none";
+			document.getElementById('btn_continue').style.display="block";
+			clearTimeout(timeoutvar);
+		};
+		document.getElementById('btn_continue').onclick = function() {
+			document.getElementById('btn_pause').style.display="block";
+			document.getElementById('btn_continue').style.display="none";
+			var nBlocks = doc.getNumberOfMeasures() * 100;
+			scrollBlocksIntoView(nBlocks, velPart);
+		};
+	}, false);
+	
+	function scrollBlocksIntoView(numberOfBlocks, timeout) {
+		console.log("number of blocks" + numberOfBlocks);
+		function cb() {
+			document.getElementById('exibe_info').scrollLeft += 20;
+			i++;
+			if (i%1000===0) console.log(i + " scroll: " + document.getElementById('exibe_info').scrollLeft + " - timeout: " + timeout);
+			if (i < numberOfBlocks) timeoutvar = setTimeout(cb, timeout);
+			if ( $('#exibe_info').scrollLeft() >= ($('#exibe_info canvas').width() - $('#exibe_info').width()) && i > 3) {
+				clearTimeout(timeoutvar);
+				i = 0;
+			}
+		}
+		cb();
+	};
 </script>
 </body>
 </html>

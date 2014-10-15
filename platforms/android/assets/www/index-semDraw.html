@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8"/>
+	<title>Multi-page template</title>
+	
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css">
+	<link rel="stylesheet" href="css/jqm-demos.css">
+	<link rel="shortcut icon" href="img/__logo.png">
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mobile-1.4.3.min.js"></script>
+	<script>
+		$(function(){
+			$( "[data-role='header'], [data-role='footer']" ).toolbar();
+		});
+	</script>
+</head>
+
+<body>
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="mainpage" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>EasyScore</h1>
+		<a href="#" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#selecionaPart">Estúdio 1</a></li>
+			<li><a href="#selecionaPart">Estúdio 2</a></li>
+			<li><a href="#selecionaPart">Estúdio 3</a></li>
+		</ul>
+		
+		<p><a href="#upload" class="ui-btn ui-shadow ui-corner-all">Show page "two"</a></p>
+		<p><a href="#popup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Show page "popup" (as a dialog)</a></p>
+	</div><!-- /content -->
+</div><!-- /page one -->
+
+<!-- Start of second page: #upload -->
+<div data-role="page" id="upload" data-theme="a" data-footer="div_footer">
+
+	<div data-role="header">
+		<h1>Carregar Partitura</h1>
+		<a href="#" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<br />
+		<input id="nome_part" type="text" placeholder="nome da partitura" />
+		<input id="arquivo" type="text" placeholder="caminho do arquivo" />
+		<a class="button" id="btn_upload" href="#mainpage">Enviar</a>
+		<br/>
+		<br/>
+		<br/>
+		<a class="button" id="btn_le" href="#">Lê Arquivo</a>
+		<textarea id="res_botao" rows="10" cols="50"></textarea>
+	</div><!-- /content -->
+
+</div><!-- /page upload -->
+
+<!-- Start of third page: #criaEstudio -->
+<div data-role="page" id="criaEstudio" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Criar Estúdio</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<br /> <input type="text" required id="criaNomeEstudio"
+			placeholder="nome do Estúdio" />
+		<a class="button" href="#selecionaPartEst" id="btn_criaEstudio">Criar</a>
+	</div><!-- /content -->
+</div><!-- /page criaEstudio -->
+
+<!-- Start of page: #selecionaPartEst MAESTRO -->
+<div data-role="page" id="selecionaPartEst" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Estúdio</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<form>
+		<fieldset data-role="controlgroup">
+			<legend>Escolha as partituras:</legend>
+			<input name="est_1" id="est_1" type="checkbox">
+			<label for="est_1">Estúdio 1 - Partitura 1</label>
+			<input name="est_2t" id="est_2t" type="checkbox">
+			<label for="est_2t">Estúdio 2 - Tuba</label>
+			<input name="est_2c" id="est_2c" type="checkbox">
+			<label for="est_2c">Estúdio 2 - Clarinete</label>
+			<input name="est_2s" id="est_2s" type="checkbox">
+			<label for="est_2s">Estúdio 2 - Saxofone</label>
+			<input name="est_3c" id="est_3c" type="checkbox">
+			<label for="est_3c">Estúdio 3 - Clarinete</label>
+		</fieldset>
+		</form>
+		<a class="button" id="btn_selec" href="#mainpage">Selecionar</a>
+		<br/>
+		<br/>
+		<label for="search-control-group">Search</label>
+		<div data-role="controlgroup" data-type="horizontal">
+			<input id="search-control-group" data-wrapper-class="controlgroup-textinput ui-btn" type="text">
+			<button id="submit" onclick="adicionarcheck">Submit</button>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page selecionaPartEst MAESTRO -->
+
+<!-- Start of page: #selecionaPart -->
+<div data-role="page" id="selecionaPart" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Estudio</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true" id="listaPart">
+			<li>Estúdio - Partitura 1</li>
+		</ul>
+		<a class="button" id="btn_selecionaPart" href="#mainpage">Receber</a>
+			<br/>
+			<br/>
+		<a class="button" id="btn_comecar" href="#exibePart">Começar</a>
+	</div><!-- /content -->
+	
+</div><!-- /page selecionaPart -->
+
+<!-- Start of page: #configuracoes -->
+<div data-role="page" id="configuracoes" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Configurações</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<br />
+		<br />
+		<label>Altura e Largura da Partitura</label>
+		<input type="range" min="750" max="2050" value="750" step="100" onchange='showValue(this.value, "rangeAltura")' />
+		<br/>
+		<span style="width:auto" id="rangeAltura">750</span>
+		<br />
+		<br />
+		<label>Escala da Partitura</label>
+		<input type="range" min="1" max="3" value="1" step="0.5" onchange='showValue(this.value, "rangeEscala")' />
+		<br/>
+		<span style="width:auto" id="rangeEscala">1</span>
+		<br />
+		<br />
+		<br />
+		<br />
+		<label>Velocidade</label>
+		<input type="range" min="1" max="3" value="1" step="0.5" onchange='showValue(this.value, "rangeVelocidade")' />
+		<br/>
+		<span style="width:auto" id="rangeVelocidade">1</span>
+		<br />
+		<script type="text/javascript">
+			function showValue(newValue, id)
+			{
+				document.getElementById(id).innerHTML=newValue;
+			}
+		</script>
+		<br />
+		<button id="btn_configuracoes">Gravar</button>
+	</div><!-- /content -->
+</div><!-- /page configuracoes -->
+
+<!-- Start of page: #selecionaPart -->
+<div data-role="page" id="selecionaPart" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Estúdio</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true" id="listaPart">
+			<li>Estúdio - Partitura 1</li>
+		</ul>
+		<a class="button" id="btn_notificar" href="#exibePart">Começar</a>
+	</div><!-- /content -->
+	
+</div><!-- /page selecionaPart -->
+
+<!-- Start of page: #selecionaExemplo -->
+<div data-role="page" id="selecionaExemplo" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Exemplos</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<form name = "radiosForm">
+			<fieldset data-role="controlgroup">
+				<legend>Escolha o exemplo:</legend>
+				<input name="radio-choice-v-2" id="echigo" value="on" checked="checked" type="radio">
+				<label for="echigo">Echigo-Jish</label>
+				<input name="radio-choice-v-2" id="dupla" value="off" type="radio">
+				<label for="dupla">Dupla</label>
+				<input name="radio-choice-v-2" id="simples" value="other" type="radio">
+				<label for="simples">Simples</label>
+			</fieldset>
+		</form>
+		
+		<a class="button" id="btn_comecarExemplo" href="#exibePart">Começar</a>
+	</div><!-- /content -->
+</div><!-- /page selecionaExemplo -->
+
+<!-- Start of page: #exibePart -->
+<div data-role="page" id="exibePart" data-footer="div_footer">
+
+	<div data-role="header" data-theme="b">
+		<h1>Estúdio</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<div style="text-align: center;">
+			<div id="vexflow">
+			<br/>
+			</div>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page exibePart -->
+
+<div data-role="footer" id="div_footer">
+	<h4>footer</h4>
+</div><!-- /footer -->
+</body>
+</html>
