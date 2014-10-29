@@ -190,8 +190,18 @@ footer {
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
-		<br /> <input type="text" required id="criaNomeEstudio"
-			placeholder="nome do Estúdio" />
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a">
+				<label>Nome do Estúdio</label>
+				<input type="text" required id="criaEstName"/>
+			</div>
+			<div class="ui-block-b" style="width: 200px; padding-left:10px">
+				<label>Horário de Início</label>
+				<input type="time" required id="criaEstStart"/>
+			</div>
+		</fieldset>
+		<label>Velocidade de execução da música</label>
+		<input type="range" min="1" max="20" value="6" step="0.5" id="criaEstSpeed" />
 		<a class="ui-btn" href="#selecionaPartEst" id="btn_criaEstudio">Criar</a>
 	</div><!-- /content -->
 </div><!-- /page criaEstudio -->
@@ -418,6 +428,11 @@ footer {
 			document.getElementById('btn_continue').style.display="none";
 			var nBlocks = doc.getNumberOfMeasures() * 100;
 			scrollBlocksIntoView(nBlocks, velPart);
+		};
+		document.getElementById('btn_criaEstudio').onclick = function() {
+			alert("Início: " + document.getElementById('criaEstStart').value + '\nNome: ' +
+			document.getElementById('criaEstName').value + '\nVelocidade: ' +
+			document.getElementById('criaEstSpeed').value);
 		};
 	}, false);
 	

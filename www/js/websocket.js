@@ -100,7 +100,7 @@ function writeToScreen(message) {
 	pre.innerHTML = message;
 	//output.insertBefore(pre, output.firstChild);
 };
-function createStudio(name) {
+function createStudio(idstudio,name,speed,start) {
 	var create = '{"type": "create","values": [{"name": "' + name + '"}]}';
 	doSend(create);
 };
