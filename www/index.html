@@ -87,7 +87,8 @@
 	<link rel="stylesheet" href="css/jqm-demos.css">
 	<link rel="shortcut icon" href="img/__logo.png">
 	<script src="js/jquery.mobile-1.4.3.min.js"></script>
-	<script src="js/websocketTime.js"></script>
+	<!--script src="js/websocketTime.js"></script-->
+	<script src="js/websocket.js"></script>
 	
 	<script>
 		var i = 0;
@@ -145,7 +146,7 @@ footer {
 	</div><!-- /header -->
 	
 	<div role="main" class="ui-content">
-		<ul data-role="listview" data-inset="true">
+		<ul data-role="listview" data-inset="true" id="listaEstudios">
 			<li><a href="#selecionaPart">Estúdio 1</a></li>
 			<li><a href="#selecionaPart">Estúdio 2</a></li>
 			<li><a href="#selecionaPart">Estúdio 3</a></li>
@@ -372,6 +373,7 @@ footer {
 	var escPart = 3.0;
 	var velPart = 500; //timeout de 3 segundos
 	var d = new Date();
+	var studioid;
 	
 	function setDoc() {
 		var comp;
@@ -392,7 +394,11 @@ footer {
 	}
 	
 	document.addEventListener('DOMContentLoaded', function () {   
-		initTime();
+		//initTime();
+		init();
+		document.getElementById('listaEstudios').onclick = function() {
+			getTime();
+		}
 		document.getElementById('btn_webskt').onclick = function() {
 			getTime();
 		}
@@ -430,9 +436,17 @@ footer {
 			scrollBlocksIntoView(nBlocks, velPart);
 		};
 		document.getElementById('btn_criaEstudio').onclick = function() {
-			alert("Início: " + document.getElementById('criaEstStart').value + '\nNome: ' +
-			document.getElementById('criaEstName').value + '\nVelocidade: ' +
-			document.getElementById('criaEstSpeed').value);
+			var speed = document.getElementById('criaEstSpeed').value;
+			speed = (1/document.getElementById('criaEstSpeed').value) * 3000;
+			var start = document.getElementById('criaEstStart').value;
+			var name = document.getElementById('criaEstName').value;
+			var d = new Date();
+			d.setMinutes(start.substr(3,5));
+			d.setHours(start.substr(0,2));
+			alert("Início: " + start + " date: " + d + '\nNome: ' + name +
+				'\nVelocidade: ' + speed);
+			
+			createStudio(document.getElementById('criaEstName').value, speed, start);
 		};
 	}, false);
 	

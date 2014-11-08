@@ -146,7 +146,7 @@ footer {
 	</div><!-- /header -->
 	
 	<div role="main" class="ui-content">
-		<ul data-role="listview" data-inset="true">
+		<ul data-role="listview" data-inset="true" id="listaEstudios">
 			<li><a href="#selecionaPart">Estúdio 1</a></li>
 			<li><a href="#selecionaPart">Estúdio 2</a></li>
 			<li><a href="#selecionaPart">Estúdio 3</a></li>
@@ -246,7 +246,7 @@ footer {
 <div data-role="page" id="selecionaPart" data-footer="div_footer">
 
 	<div data-role="header">
-		<h1>Estudio</h1>
+		<h1 id='selecionaPartH1'>Estudio</h1>
 		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
 	</div><!-- /header -->
 
@@ -255,9 +255,7 @@ footer {
 			<li>Estúdio - Partitura 1</li>
 		</ul>
 		<a class="ui-btn" id="btn_selecionaPart" href="#mainpage">Receber</a>
-			<br/>
-			<br/>
-		<a class="ui-btn" id="btn_comecar" href="#exibePart">Começar</a>
+		<br/>
 	</div><!-- /content -->
 	
 </div><!-- /page selecionaPart -->
@@ -373,12 +371,13 @@ footer {
 	var escPart = 3.0;
 	var velPart = 500; //timeout de 3 segundos
 	var d = new Date();
+	var studioid;
 	
 	function setDoc() {
 		var comp;
-		if (document.getElementById("echigo").checked) {
+		if ($("#echigo").checked) {
 			comp = ishigo;
-		} else if ((document.getElementById("dupla").checked)) {
+		} else if (($("#dupla").checked)) {
 			comp = part_dupla;
 		} else {
 			comp = part_simples;
@@ -392,57 +391,18 @@ footer {
 		formatter.setWidth(doc.getNumberOfMeasures() * 150);	
 	}
 	
-	document.addEventListener('DOMContentLoaded', function () {   
-		//initTime();
+	var main = function() {
 		init();
-		document.getElementById('btn_webskt').onclick = function() {
-			getTime();
-		}
-		document.getElementById('btn_comecarExemplo').onclick = function() {
-			setDoc();
-			drawLine();
-			
-			var nBlocks = doc.getNumberOfMeasures() * 100;
-			console.log("DENTRO DO BOTÃO: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
-			document.getElementById('exibe_info').scrollLeft = -500;
-			scrollBlocksIntoView(nBlocks, velPart);
-		}
-		document.getElementById('btn_voltaMain').onclick = function() {
-			var b = 0;
-			while (typeof formatter.canvases[b] == "object") {
-				// Remove canvases beyond the last one we are using
-				document.getElementById('vexflow').removeChild(formatter.canvases[b]);
-				delete formatter.canvases[b];
-				b++;
-			  }
-		}
-		document.getElementById('btn_configuracoes').onclick = function() {
-			escPart = document.getElementById("rangeEscala").value;
-			velPart = (1/(document.getElementById("rangeVelocidade").value)) * 3000; //inversamente proporcional
-		};
-		document.getElementById('btn_pause').onclick = function() {
-			document.getElementById('btn_pause').style.display="none";
-			document.getElementById('btn_continue').style.display="block";
-			clearTimeout(timeoutvar);
-		};
-		document.getElementById('btn_continue').onclick = function() {
-			document.getElementById('btn_pause').style.display="block";
-			document.getElementById('btn_continue').style.display="none";
-			var nBlocks = doc.getNumberOfMeasures() * 100;
-			scrollBlocksIntoView(nBlocks, velPart);
-		};
-		document.getElementById('btn_criaEstudio').onclick = function() {
-			var speed = document.getElementById('criaEstSpeed').value;
-			speed = (1/document.getElementById('criaEstSpeed').value) * 3000;
-			var start = document.getElementById('criaEstStart').value;
-			var name = document.getElementById('criaEstName').value;
-			alert("Início: " + start + '\nNome: ' + name +
-				'\nVelocidade: ' + speed);
-			var d = new Date();
-			
-			createStudio(document.getElementById('criaEstName').value, speed, start);
-		};
-	}, false);
+		$('#listaEstudios li').click(function() {
+			alert(this.id);
+		});
+		$('#btn_webskt').click(function() {
+			alert("clicasse em websocket, hein?!");
+		});
+		$('#outraLista li').click(function() {
+			alert(this.id);
+		});
+	}
 	
 	function scrollBlocksIntoView(numberOfBlocks, timeout) {
 		console.log("number of blocks" + numberOfBlocks);
@@ -458,6 +418,8 @@ footer {
 		}
 		cb();
 	};
+	
+	$(document).ready(main);
 </script>
 </body>
 </html>

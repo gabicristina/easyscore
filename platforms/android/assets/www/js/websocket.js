@@ -1,4 +1,5 @@
-var wsUri = "ws://54.207.48.208/easyscore/websocket/easy";
+//var wsUri = "ws://54.207.48.208/easyscore/websocket/easy";
+var wsUri = "ws://192.168.0.2:8081/easyscore-server/websocket/easy";
 var output;
 var message;
 function init() {
@@ -22,6 +23,7 @@ function testWebSocket() {
 };
 function onOpen(evt) {
 	writeToScreen("CONNECTED");
+	alert("open");
 	listStudio();
 };
 function onClose(evt) {
@@ -100,8 +102,8 @@ function writeToScreen(message) {
 	pre.innerHTML = message;
 	//output.insertBefore(pre, output.firstChild);
 };
-function createStudio(name) {
-	var create = '{"type": "create","values": [{"name": "' + name + '"}]}';
+function createStudio(name, start, speed) {
+	var create = '{"type": "create","values": [{"name": "' + name + '","start: ' + start + ', "speed:"' + speed+ '}]}';
 	doSend(create);
 };
 function listStudio() {
@@ -122,9 +124,9 @@ function sendScore(idStudio, nome, score) {
 };
 function getScore(idStudio, idScore) {
 	var getScore = '{"type": "get_score", "values": [{\
-						"studio_id": "'
-			+ idStudio + '",\
-						"score_id": "' + idScore + '"}]}';
+						"studio_id": '
+			+ idStudio + ',\
+						"score_id": ' + idScore + '}]}';
 	doSend(getScore);
 };
 function notify(idStudio) {
