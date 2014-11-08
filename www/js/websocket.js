@@ -38,7 +38,7 @@ function onMessage(evt) {
 	if (obj.hasOwnProperty('studios')) {
 		$("#listaEstudios").children("li").remove();
 		if (obj.studios.length <= 0) { //VALIDAR ESSA PARTE
-			$('<li>').text("Não há estúdios disponíveis").prependTo("#listaEstudios");
+			$('<li>').text("NÃ£o hÃ¡ estÃºdios disponÃ­veis").prependTo("#listaEstudios");
 		}
 		for (var i = 0; i<obj.studios.length; i++) {
 			if (obj.studios[i].name != "") {

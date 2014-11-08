@@ -146,7 +146,7 @@ footer {
 	</div><!-- /header -->
 	
 	<div role="main" class="ui-content">
-		<ul data-role="listview" data-inset="true">
+		<ul data-role="listview" data-inset="true" id="listaEstudios">
 			<li><a href="#selecionaPart">Estúdio 1</a></li>
 			<li><a href="#selecionaPart">Estúdio 2</a></li>
 			<li><a href="#selecionaPart">Estúdio 3</a></li>
@@ -155,8 +155,6 @@ footer {
 		<br/>
 		<p><a href="#selecionaExemplo" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Seleciona Exemplo</a></p>
 		<br/>
-		<br/>
-		<button id="btn_webskt">Testa WebSocket</button>
 	</div><!-- /content -->
 	
 </div><!-- /page one -->
@@ -246,7 +244,7 @@ footer {
 <div data-role="page" id="selecionaPart" data-footer="div_footer">
 
 	<div data-role="header">
-		<h1>Estudio</h1>
+		<h1 id='selecionaPartH1'>Estudio</h1>
 		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
 	</div><!-- /header -->
 
@@ -255,9 +253,7 @@ footer {
 			<li>Estúdio - Partitura 1</li>
 		</ul>
 		<a class="ui-btn" id="btn_selecionaPart" href="#mainpage">Receber</a>
-			<br/>
-			<br/>
-		<a class="ui-btn" id="btn_comecar" href="#exibePart">Começar</a>
+		<br/>
 	</div><!-- /content -->
 	
 </div><!-- /page selecionaPart -->
@@ -312,7 +308,7 @@ footer {
 
 	<div role="main" class="ui-content">
 		<form name = "radiosForm">
-			<fieldset data-role="controlgroup">
+			<fieldset data-role="controlgroup" id="checkExample">
 				<legend>Escolha o exemplo:</legend>
 				<input name="radio-choice-v-2" id="echigo" value="on" checked="checked" type="radio">
 				<label for="echigo">Echigo-Jish</label>
@@ -351,9 +347,6 @@ footer {
 	<h4>EasyScore</h4>
 </div><!-- /footer -->
 
-<!-- class="ui-panel ui-panel-position-right ui-panel-display-reveal ui-panel-closed ui-body-a ui-panel-animate"
-
- class="ui-listview ui-group-theme-a" -->
 <div data-role="panel" data-position="right" data-theme="a" data-display="overlay" id="panel_options">
 	<div class="content">
 		<ul data-inset="true" data-theme="a" data-icon="false" data-role="listview">
@@ -373,12 +366,14 @@ footer {
 	var escPart = 3.0;
 	var velPart = 500; //timeout de 3 segundos
 	var d = new Date();
+	var studioid;
 	
 	function setDoc() {
 		var comp;
+
 		if (document.getElementById("echigo").checked) {
 			comp = ishigo;
-		} else if ((document.getElementById("dupla").checked)) {
+		} else if (document.getElementById("dupla").checked) {
 			comp = part_dupla;
 		} else {
 			comp = part_simples;
@@ -392,13 +387,10 @@ footer {
 		formatter.setWidth(doc.getNumberOfMeasures() * 150);	
 	}
 	
-	document.addEventListener('DOMContentLoaded', function () {   
-		//initTime();
+	var main = function() {
 		init();
-		document.getElementById('btn_webskt').onclick = function() {
-			getTime();
-		}
-		document.getElementById('btn_comecarExemplo').onclick = function() {
+		//listaestudios = está no websocket.js, no onMessage (obj.hasOwnProperty('studios'))
+		$('#btn_comecarExemplo').click(function() {
 			setDoc();
 			drawLine();
 			
@@ -406,8 +398,8 @@ footer {
 			console.log("DENTRO DO BOTÃO: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
 			document.getElementById('exibe_info').scrollLeft = -500;
 			scrollBlocksIntoView(nBlocks, velPart);
-		}
-		document.getElementById('btn_voltaMain').onclick = function() {
+		});
+		$('#btn_voltaMain').click(function() {
 			var b = 0;
 			while (typeof formatter.canvases[b] == "object") {
 				// Remove canvases beyond the last one we are using
@@ -415,34 +407,46 @@ footer {
 				delete formatter.canvases[b];
 				b++;
 			  }
-		}
-		document.getElementById('btn_configuracoes').onclick = function() {
+		});
+		$('#btn_configuracoes').click(function() {
 			escPart = document.getElementById("rangeEscala").value;
 			velPart = (1/(document.getElementById("rangeVelocidade").value)) * 3000; //inversamente proporcional
-		};
-		document.getElementById('btn_pause').onclick = function() {
+		});
+		$('#btn_pause').click(function() {
 			document.getElementById('btn_pause').style.display="none";
 			document.getElementById('btn_continue').style.display="block";
 			clearTimeout(timeoutvar);
-		};
-		document.getElementById('btn_continue').onclick = function() {
+		});
+		$('#btn_continue').click(function() {
 			document.getElementById('btn_pause').style.display="block";
 			document.getElementById('btn_continue').style.display="none";
 			var nBlocks = doc.getNumberOfMeasures() * 100;
 			scrollBlocksIntoView(nBlocks, velPart);
-		};
-		document.getElementById('btn_criaEstudio').onclick = function() {
+		});
+		$('#btn_criaEstudio').click(function() {
 			var speed = document.getElementById('criaEstSpeed').value;
 			speed = (1/document.getElementById('criaEstSpeed').value) * 3000;
 			var start = document.getElementById('criaEstStart').value;
 			var name = document.getElementById('criaEstName').value;
-			alert("Início: " + start + '\nNome: ' + name +
-				'\nVelocidade: ' + speed);
 			var d = new Date();
+			d.setMinutes(start.substr(3,5));
+			d.setHours(start.substr(0,2));
+			alert("Início: " + start + " date: " + d + " - getTime: " + d.getTime() + 
+				'\nNome: ' + name + '\nVelocidade: ' + speed);
 			
-			createStudio(document.getElementById('criaEstName').value, speed, start);
-		};
-	}, false);
+			createStudio(name, d.getTime(), speed);
+		});
+		$('#btn_upload').click(function() {
+			//envia a partitura informada para o servidor
+			var nomePart = document.getElementById("nome_part").value;
+			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
+			sendScore(1, nomePart, partitura_lida);
+		});
+		$('#btn_le').click(function() {
+			//envia a partitura informada para o servidor
+			readFile(document.getElementById("arquivo").value);
+		});
+	}
 	
 	function scrollBlocksIntoView(numberOfBlocks, timeout) {
 		console.log("number of blocks" + numberOfBlocks);
@@ -458,6 +462,8 @@ footer {
 		}
 		cb();
 	};
+	
+	$(document).ready(main);
 </script>
 </body>
 </html>

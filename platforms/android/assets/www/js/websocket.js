@@ -1,7 +1,8 @@
-//var wsUri = "ws://54.207.48.208/easyscore/websocket/easy";
+﻿//var wsUri = "ws://54.207.48.208/easyscore/websocket/easy";
 var wsUri = "ws://192.168.0.2:8081/easyscore-server/websocket/easy";
 var output;
 var message;
+
 function init() {
 	output = document.getElementById("af-footer");
 	testWebSocket();
@@ -23,7 +24,7 @@ function testWebSocket() {
 };
 function onOpen(evt) {
 	writeToScreen("CONNECTED");
-	alert("open");
+	console.log("WebSocket open");
 	listStudio();
 };
 function onClose(evt) {
@@ -35,56 +36,77 @@ function onMessage(evt) {
 	message = evt.data;
 	var obj = JSON.parse(evt.data);
 	if (obj.hasOwnProperty('studios')) {
-		var list = document.getElementById("listaEstudios");
-		//while(list.firstChild){
-		//	list.removeChild(list.firstChild);
-		//}
 		$("#listaEstudios").children("li").remove();
+		if (obj.studios.length <= 0) { //VALIDAR ESSA PARTE
+			$('<li>').text("Não há estúdios disponíveis").prependTo("#listaEstudios");
+		}
 		for (var i = 0; i<obj.studios.length; i++) {
-			/*VIA JQUERY
-			 * $('#listaEstudios').append($('<li/>', { // here appending `<li>`
-				'data-role' : "list-divider"
-			}).append($('<a/>', { // here appending `<a>` into `<li>`
-				'href' : '#selecionaPart',
-				'data-transition' : 'fade',
-				'text' : teste;
-			})));*/
 			if (obj.studios[i].name != "") {
-				var x = document.createElement("LI");
-			    var a = document.createElement("A");
-			    var t = document.createTextNode(obj.studios[i].name);
-			    a.setAttribute("href", "#selecionaPart");
-			    a.setAttribute("hash", obj.studios[i].name);
-			    a.appendChild(t);
-			    x.appendChild(a);
-			    list.appendChild(x);
+				$('#listaEstudios').append($('<li/>', { // here appending `<li>`
+					'id' : "studio" + obj.studios[i].id,
+					'value' : obj.studios[i].name
+				}).append($('<a/>', { // here appending `<a>` into `<li>`
+					'href'  : '#selecionaPart',
+					'class' : "ui-btn ui-btn-icon-right ui-icon-carat-r",
+					'text'  : obj.studios[i].name
+				})));
 			}
 		}
+		$('#listaEstudios li').click(function() {
+			studioid = this.id.substr(6,this.id.length);
+			//alert($("#"+this.id).value);
+			$('#selecionaPartH1').text(this.name);
+			listScore(studioid);
+		});
 	} else if (obj.hasOwnProperty('scores')) {
 		var list = document.getElementById("listaPartEst");
 		$("#listaPartEst").children("li").remove();
-		for (var i = 0; i<obj.studios.length; i++) {
-			var x = document.createElement("LI");
-		    var a = document.createElement("A");
-		    var t = document.createTextNode(obj.studios[i].name);
-		    a.setAttribute("href", "#mainpage");
-		    a.setAttribute("hash", obj.studios[i].name);
-		    a.appendChild(t);
-		    x.appendChild(a);
-		    list.appendChild(x);
-		}
-		
-		list = document.getElementById("listaPart");
 		$("#listaPart").children("li").remove();
-		for (var i = 0; i<obj.studios.length; i++) {
-			var x = document.createElement("LI");
-		    var a = document.createElement("A");
-		    var t = document.createTextNode(obj.studios[i].name);
-		    a.setAttribute("href", "#");
-		    a.setAttribute("hash", obj.studios[i].name);
-		    a.appendChild(t);
-		    x.appendChild(a);
-		    list.appendChild(x);
+		if (obj.scores.length <= 0) { //VALIDAR ESSA PARTE
+			$('#listaPartEst').append($('<li/>', {'text' : "Não há partituras disponíveis"}));
+			$('#listaPart').append($('<li/>', {'text' : "Não há partituras disponíveis"}));
+		} else {
+			for (var i = 0; i<obj.scores.length; i++) {
+				if (obj.scores[i].name != "") {
+					$('#listaPart').append($('<li/>', { // here appending `<li>`
+						'id' : "score" + obj.scores[i].id,
+						'value' : obj.scores[i].name
+					}).append($('<a/>', { // here appending `<a>` into `<li>`
+						'href'  : '#',
+						'class' : "ui-btn ui-icon-carat-r",
+						'text'  : obj.scores[i].name
+					})));
+					$('#listaPartEst').append($('<li/>', { // here appending `<li>`
+						'id' : "score" + obj.scores[i].id,
+						'value' : obj.scores[i].name
+					}).append($('<a/>', { // here appending `<a>` into `<li>`
+						'href'  : '#',
+						'class' : "ui-btn ui-icon-carat-r",
+						'text'  : obj.scores[i].name
+					})));
+				}
+/*
+				var x = document.createElement("LI");
+				var a = document.createElement("A");
+				var t = document.createTextNode(obj.studios[i].name);
+				a.setAttribute("href", "#mainpage");
+				a.setAttribute("hash", obj.studios[i].name);
+				a.appendChild(t);
+				x.appendChild(a);
+				list.appendChild(x);*/
+			}
+			/*
+			list = document.getElementById("listaPart");
+			for (var i = 0; i<obj.studios.length; i++) {
+				var x = document.createElement("LI");
+				var a = document.createElement("A");
+				var t = document.createTextNode(obj.studios[i].name);
+				a.setAttribute("href", "#");
+				a.setAttribute("hash", obj.studios[i].name);
+				a.appendChild(t);
+				x.appendChild(a);
+				list.appendChild(x);
+			}*/
 		}
 	}
 	//document.getElementById('strRes').value = evt.data;
@@ -124,9 +146,13 @@ function sendScore(idStudio, nome, score) {
 };
 function getScore(idStudio, idScore) {
 	var getScore = '{"type": "get_score", "values": [{\
-						"studio_id": '
-			+ idStudio + ',\
+						"studio_id": ' + idStudio + ',\
 						"score_id": ' + idScore + '}]}';
+	doSend(getScore);
+};
+function listScore(idStudio) {
+	var getScore = '{"type": "list_all_scores","values": [{\
+					"studio_id": ' + idStudio + '}]}';
 	doSend(getScore);
 };
 function notify(idStudio) {
