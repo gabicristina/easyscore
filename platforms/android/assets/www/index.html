@@ -89,10 +89,14 @@
 	<script src="js/jquery.mobile-1.4.3.min.js"></script>
 	<!--script src="js/websocketTime.js"></script-->
 	<script src="js/websocket.js"></script>
-	
+
+	<script src='js/getFiles.js'></script> 
+	<script type="text/javascript" src="cordova.js"></script>
+
 	<script>
 		var i = 0;
 		var timeoutvar;
+		var timestartvar;
 		
 		$(function(){
 			$( "[data-role='header'], [data-role='footer']" ).toolbar();
@@ -104,7 +108,7 @@
 		});
 	</script>
 	
-	<!-- script src="http://192.168.0.8:8080/target/target-script-min.js#anonymous"></script -->
+	<script src="http://192.168.0.2:8080/target/target-script-min.js#anonymous"></script>
 <style text="text/css">
 #exibePart {
 	background-color: #eed;
@@ -349,10 +353,10 @@ footer {
 
 <div data-role="panel" data-position="right" data-theme="a" data-display="overlay" id="panel_options">
 	<div class="content">
-		<ul data-inset="true" data-theme="a" data-icon="false" data-role="listview">
+		<ul data-inset="true" data-theme="a" data-icon="false" data-role="listview" id="listaMenu">
 			<li data-icon="back" data-role="list-divider"><a href="#" data-rel="close">Voltar</a></li>
 			<li id="consultarEstudios"><a href="#mainpage">Consultar Estúdios</a></li>
-			<li><a href="#upload">Carregar Partitura</a></li>
+			<li id="menu_upload"><a href="#upload">Carregar Partitura</a></li>
 			<li><a href="#criaEstudio">Criar Estúdio</a></li>
 			<li><a href="#configuracoes">Configurações</a></li>
 			<li><a href="#selecionaExemplo">Exemplos de Partituras</a></li>
@@ -361,25 +365,14 @@ footer {
 </div>
 
 <script>
-	var doc;
 	var formatter;
 	var escPart = 3.0;
 	var velPart = 500; //timeout de 3 segundos
 	var d = new Date();
 	var studioid;
 	
-	function setDoc() {
-		var comp;
-
-		if (document.getElementById("echigo").checked) {
-			comp = ishigo;
-		} else if (document.getElementById("dupla").checked) {
-			comp = part_dupla;
-		} else {
-			comp = part_simples;
-		}
-	
-		doc = new Vex.Flow.Document(comp);
+	function setDoc(partitura) {
+		doc = new Vex.Flow.Document(partitura);
 		formatter = doc.getFormatter();
 		formatter.zoom = escPart;
 		console.log("número de compassos da partitura: " + doc.getNumberOfMeasures());
@@ -391,13 +384,25 @@ footer {
 		init();
 		//listaestudios = está no websocket.js, no onMessage (obj.hasOwnProperty('studios'))
 		$('#btn_comecarExemplo').click(function() {
-			setDoc();
+			if (document.getElementById("echigo").checked) {
+				setDoc(ishigo);
+				console.log("ishigo");
+			} else if (document.getElementById("dupla").checked) {
+				setDoc(part_dupla);
+				console.log("dupla");
+			} else {
+				setDoc(part_simples);
+				console.log("simples");
+			}
+			
 			drawLine();
 			
 			var nBlocks = doc.getNumberOfMeasures() * 100;
 			console.log("DENTRO DO BOTÃO: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
 			document.getElementById('exibe_info').scrollLeft = -500;
 			scrollBlocksIntoView(nBlocks, velPart);
+			document.getElementById('btn_pause').style.display="block";
+			document.getElementById('btn_continue').style.display="none";
 		});
 		$('#btn_voltaMain').click(function() {
 			var b = 0;
@@ -440,12 +445,26 @@ footer {
 			//envia a partitura informada para o servidor
 			var nomePart = document.getElementById("nome_part").value;
 			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
-			sendScore(1, nomePart, partitura_lida);
+			sendScore(studioid, nomePart, partitura_lida);
 		});
 		$('#btn_le').click(function() {
 			//envia a partitura informada para o servidor
+			alert(document.getElementById("arquivo").value);
 			readFile(document.getElementById("arquivo").value);
 		});
+		$('#btn_selecionaPart').click(function() {
+			//precisa atribuir o usuário ao grupo e fazer download da partitura!
+			joinStudio(studioid);
+		});
+		$('#consultarEstudios').click(function() {
+			listStudio();
+		});
+		$('#listaMenu li').click(function() {
+			if (this.id === "menu_upload") {
+				iniciaGetFiles();
+			}
+		});
+		iniciaGetFiles();
 	}
 	
 	function scrollBlocksIntoView(numberOfBlocks, timeout) {
@@ -462,7 +481,7 @@ footer {
 		}
 		cb();
 	};
-	
+			
 	$(document).ready(main);
 </script>
 </body>

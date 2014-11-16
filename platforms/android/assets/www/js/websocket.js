@@ -1,12 +1,13 @@
-﻿//var wsUri = "ws://54.207.48.208/easyscore/websocket/easy";
-var wsUri = "ws://192.168.0.2:8081/easyscore-server/websocket/easy";
+﻿var wsUri = "ws://192.168.0.2:8081/easyscore-server/websocket/easy";
 var output;
 var message;
+var doc;
 
 function init() {
 	output = document.getElementById("af-footer");
 	testWebSocket();
 };
+
 function testWebSocket() {
 	websocket = new WebSocket(wsUri);
 	websocket.onopen = function(evt) {
@@ -85,29 +86,20 @@ function onMessage(evt) {
 						'text'  : obj.scores[i].name
 					})));
 				}
-/*
-				var x = document.createElement("LI");
-				var a = document.createElement("A");
-				var t = document.createTextNode(obj.studios[i].name);
-				a.setAttribute("href", "#mainpage");
-				a.setAttribute("hash", obj.studios[i].name);
-				a.appendChild(t);
-				x.appendChild(a);
-				list.appendChild(x);*/
 			}
-			/*
-			list = document.getElementById("listaPart");
-			for (var i = 0; i<obj.studios.length; i++) {
-				var x = document.createElement("LI");
-				var a = document.createElement("A");
-				var t = document.createTextNode(obj.studios[i].name);
-				a.setAttribute("href", "#");
-				a.setAttribute("hash", obj.studios[i].name);
-				a.appendChild(t);
-				x.appendChild(a);
-				list.appendChild(x);
-			}*/
 		}
+	} else if (obj.hasOwnProperty('join')) {
+		timestartvar = setTimeout(function(){
+			setDoc(obj.content);
+			drawLine();
+			
+			var nBlocks = doc.getNumberOfMeasures() * 100;
+			console.log("WEBSOCKET: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
+			document.getElementById('exibe_info').scrollLeft = -500;
+			scrollBlocksIntoView(nBlocks, velPart);			
+		}, obj.start);
+		document.getElementById('btn_pause').style.display="block";
+		document.getElementById('btn_continue').style.display="none";
 	}
 	//document.getElementById('strRes').value = evt.data;
 };
@@ -125,7 +117,7 @@ function writeToScreen(message) {
 	//output.insertBefore(pre, output.firstChild);
 };
 function createStudio(name, start, speed) {
-	var create = '{"type": "create","values": [{"name": "' + name + '","start: ' + start + ', "speed:"' + speed+ '}]}';
+	var create = '{"type": "create","values": [{"name": "' + name + '","start": "' + start + '", "speed":' + speed+ '}]}';
 	doSend(create);
 };
 function listStudio() {
@@ -139,10 +131,11 @@ function joinStudio(idStudio) {
 };
 function sendScore(idStudio, nome, score) {
 	var vsendScore = '{"type": "send_score", "values": [{ \
-	                    "studio_id": "' + idStudio + '",\
+	                    "studio_id": ' + idStudio + ',\
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
-	//doSend(vsendScore);
+	alert(vsendScore);
+	doSend(vsendScore);
 };
 function getScore(idStudio, idScore) {
 	var getScore = '{"type": "get_score", "values": [{\
@@ -154,11 +147,6 @@ function listScore(idStudio) {
 	var getScore = '{"type": "list_all_scores","values": [{\
 					"studio_id": ' + idStudio + '}]}';
 	doSend(getScore);
-};
-function notify(idStudio) {
-	var vnotify = '{"type": "notify", "values": [{"studio_id": "' + idStudio
-			+ '"}]}';
-	//doSend(vnotify);
 };
 function getTime() {
 	var vgetTime = '{"type": "server_time"}';

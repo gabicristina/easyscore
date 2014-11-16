@@ -1,10 +1,17 @@
 var fs;
 var partitura_lida;
-document.addEventListener("deviceready", onDeviceReady, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 5 * 1024 * 1024,
 			onFSSuccess, fail);
+};
+
+function iniciaGetFiles() {
+	alert("entrou no Device Ready");
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 5 * 1024 * 1024,
+			onFSSuccess, fail);
+	alert("passou");
 };
 
 // The directory path is without the prefix of the root directory!
@@ -13,15 +20,19 @@ function onFSSuccess(fileSystem) {
 };
 
 function readFile(path) {
+	alert("entrei " + path + fs);
 	fs.root.getFile(path, {
 			create : false,
 			exclusive : false
 	}, function(fileEntry) {
+		alert("entrei function: " + path);
 		// onSuccess
 		fileEntry.file(function(file) {
+			alert("entrei fileentry: " + path);
 			var reader = new FileReader();
 			reader.onloadend = function(e) {
 				if (e.target.readyState == FileReader.DONE) { // DONE == 2
+					alert("entrei iiiif: " + path);
 					document.getElementById('res_botao').value = this.result;
 					partitura_lida = this.result;
 				}

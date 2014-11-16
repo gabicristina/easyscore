@@ -38,6 +38,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$22.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$23.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$24.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$25.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$3.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$4.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\FileUtils$5.class \
@@ -52,5 +53,18 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\LocalFilesystemURL.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\NoModificationAllowedException.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\file\TypeMismatchException.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileProgressResult.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$1.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$2.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$3.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$4.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$5.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$ExposedGZIPInputStream.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$RequestContext.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$SimpleTrackingInputStream.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$TrackingGZIPInputStream.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer$TrackingInputStream.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileTransfer.class \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileUploadResult.class \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\dexedLibs\classes-567d9d622a8d046d2c3a9e43c64d0e86.jar \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\ant-build\dexedLibs\jetty-websocket-8.1.15.v20140411-5331a70ac83481ca94187903bf2cce43.jar \

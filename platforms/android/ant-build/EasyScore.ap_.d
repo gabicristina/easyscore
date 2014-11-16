@@ -82,6 +82,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\websocke
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\websocketTime.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\com.knowledgecode.cordova.websocket \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file-transfer \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\com.knowledgecode.cordova.websocket\www \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\com.knowledgecode.cordova.websocket\www\websocket.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www \
@@ -94,6 +95,9 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\FileError.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\FileReader.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\FileSystem.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\fileSystemPaths.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\fileSystems-roots.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\fileSystems.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\FileUploadOptions.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\FileUploadResult.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\FileWriter.js \
@@ -104,6 +108,9 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\requestFileSystem.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\resolveLocalFileSystemURI.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file\www\android\FileSystem.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file-transfer\www \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src\accidental.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src\annotation.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\src\articulation.js \
