@@ -218,7 +218,7 @@ footer {
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
-		<form>
+		<!--form>
 		<fieldset data-role="controlgroup">
 			<legend>Escolha as partituras:</legend>
 			<input name="est_1" id="est_1" type="checkbox">
@@ -232,7 +232,12 @@ footer {
 			<input name="est_3c" id="est_3c" type="checkbox">
 			<label for="est_3c">Estúdio 3 - Clarinete</label>
 		</fieldset>
-		</form>
+		</form-->
+		<ul data-role="listview" data-inset="true" id="listaPartEst">
+			<li>Partitura 1 - Tuba</li>
+			<li>Partitura 2 - Tuba</li>
+			<li>Partitura 1 - Clarinete</li>
+		</ul>
 		<a class="ui-btn" id="btn_selec" href="#mainpage">Selecionar</a>
 		<br/>
 		<br/>
@@ -251,8 +256,8 @@ footer {
 		<h1 id='selecionaPartH1'>Estudio</h1>
 		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
 	</div><!-- /header -->
-
 	<div role="main" class="ui-content">
+		<h3>Clique em uma partitura para entrar no estúdio e receber as informações da partitura</h3>
 		<ul data-role="listview" data-inset="true" id="listaPart">
 			<li>Estúdio - Partitura 1</li>
 		</ul>
@@ -370,6 +375,7 @@ footer {
 	var velPart = 500; //timeout de 3 segundos
 	var d = new Date();
 	var studioid;
+	var scoreid;
 	
 	function setDoc(partitura) {
 		doc = new Vex.Flow.Document(partitura);
@@ -445,7 +451,8 @@ footer {
 			//envia a partitura informada para o servidor
 			var nomePart = document.getElementById("nome_part").value;
 			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
-			sendScore(studioid, nomePart, partitura_lida);
+			//sendScore(studioid, nomePart, partitura_lida);
+			sendScore(studioid, nomePart, "ooi");
 		});
 		$('#btn_le').click(function() {
 			//envia a partitura informada para o servidor
@@ -454,7 +461,7 @@ footer {
 		});
 		$('#btn_selecionaPart').click(function() {
 			//precisa atribuir o usuário ao grupo e fazer download da partitura!
-			joinStudio(studioid);
+			joinStudio(studioid, scoreid);
 		});
 		$('#consultarEstudios').click(function() {
 			listStudio();
@@ -463,6 +470,17 @@ footer {
 			if (this.id === "menu_upload") {
 				iniciaGetFiles();
 			}
+		});
+		$('#listaPartEst li').click(function() {
+			scoreid = this.id.substr(5,this.id.length);
+			alert($("#"+this).id);
+			$('#selecionaPartH1').text(this.name);
+		});
+		$('#listaPart li').click(function() {
+			scoreid = this.id.substr(5,this.id.length);
+			alert($("#"+this.id).value);
+			$('#selecionaPartH1').text(this.name);
+			joinStudio(studioid, scoreid);
 		});
 		iniciaGetFiles();
 	}

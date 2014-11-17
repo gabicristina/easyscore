@@ -43,13 +43,14 @@ function onMessage(evt) {
 		}
 		for (var i = 0; i<obj.studios.length; i++) {
 			if (obj.studios[i].name != "") {
+				var dstart = new Date(obj.studios[i].start);
 				$('#listaEstudios').append($('<li/>', { // here appending `<li>`
 					'id' : "studio" + obj.studios[i].id,
 					'value' : obj.studios[i].name
 				}).append($('<a/>', { // here appending `<a>` into `<li>`
 					'href'  : '#selecionaPart',
 					'class' : "ui-btn ui-btn-icon-right ui-icon-carat-r",
-					'text'  : obj.studios[i].name
+					'text'  : obj.studios[i].name + " - " + dstart.getHours() + ":" + dstart.getMinutes()
 				})));
 			}
 		}
@@ -60,10 +61,11 @@ function onMessage(evt) {
 			listScore(studioid);
 		});
 	} else if (obj.hasOwnProperty('scores')) {
+		alert("scores");
 		var list = document.getElementById("listaPartEst");
 		$("#listaPartEst").children("li").remove();
 		$("#listaPart").children("li").remove();
-		if (obj.scores.length <= 0) { //VALIDAR ESSA PARTE
+		if (obj.scores.length <= 0) {
 			$('#listaPartEst').append($('<li/>', {'text' : "Não há partituras disponíveis"}));
 			$('#listaPart').append($('<li/>', {'text' : "Não há partituras disponíveis"}));
 		} else {
@@ -88,18 +90,36 @@ function onMessage(evt) {
 				}
 			}
 		}
+		$('#listaPartEst li').click(function() {
+			scoreid = this.id.substr(5,this.id.length);
+			alert($("#"+this).id);
+			$('#selecionaPartH1').text(this.name);
+			joinStudio(studioid, scoreid);
+		});
+		$('#listaPart li').click(function() {
+			scoreid = this.id.substr(5,this.id.length);
+			alert($("#"+this.id).value);
+			$('#selecionaPartH1').text(this.name);
+			joinStudio(studioid, scoreid);
+		});
 	} else if (obj.hasOwnProperty('join')) {
+		alert("join: studio_vel-" + obj.studio_vel + " obj.tempo-" +
+			obj.tempo);
 		timestartvar = setTimeout(function(){
-			setDoc(obj.content);
+			velPart = obj.studio_vel;
+			setDoc(obj.score_content);
 			drawLine();
 			
 			var nBlocks = doc.getNumberOfMeasures() * 100;
 			console.log("WEBSOCKET: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
 			document.getElementById('exibe_info').scrollLeft = -500;
 			scrollBlocksIntoView(nBlocks, velPart);			
-		}, obj.start);
+		}, obj.tempo);
 		document.getElementById('btn_pause').style.display="block";
 		document.getElementById('btn_continue').style.display="none";
+		alert("teoricamente, começou!");
+	} else if (obj.hasOwnProperty('studio')) {
+		listScore(null);
 	}
 	//document.getElementById('strRes').value = evt.data;
 };
@@ -124,16 +144,21 @@ function listStudio() {
 	var listGroup = '{"type": "list","values": []}';
 	doSend(listGroup);
 };
-function joinStudio(idStudio) {
-	var joinGroup = '{"type": "join","values": [{"studio_id": "' + idStudio
-			+ '",}]}';
+function joinStudio(idStudio, idScore) {
+	var joinGroup = '{"type": "join","values": [{"studio_id": "' + idStudio	+ '","score_id":'+ idScore + '}]}';
 	doSend(joinGroup);
 };
 function sendScore(idStudio, nome, score) {
-	var vsendScore = '{"type": "send_score", "values": [{ \
+	if (isnull(idStudio)) {
+		var vsendScore = '{"type": "send_score", "values": [{ \
+	                    "name": "' + nome + '",\
+	                    "content": "' + score + '"}]}';
+	} else {
+		var vsendScore = '{"type": "send_score", "values": [{ \
 	                    "studio_id": ' + idStudio + ',\
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
+	}
 	alert(vsendScore);
 	doSend(vsendScore);
 };
@@ -144,8 +169,13 @@ function getScore(idStudio, idScore) {
 	doSend(getScore);
 };
 function listScore(idStudio) {
-	var getScore = '{"type": "list_all_scores","values": [{\
-					"studio_id": ' + idStudio + '}]}';
+	if (idStudio === null) {
+		var getScore = '{"type": "list_all_scores"}';
+	} else {
+		var getScore = '{"type": "list_all_scores","values": [{\
+				"studio_id": ' + idStudio + '}]}';
+	}
+	alert("list");
 	doSend(getScore);
 };
 function getTime() {
