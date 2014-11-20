@@ -8,10 +8,10 @@ function onDeviceReady() {
 };
 
 function iniciaGetFiles() {
-	alert("entrou no Device Ready");
+	//alert("entrou no Device Ready");
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 5 * 1024 * 1024,
 			onFSSuccess, fail);
-	alert("passou");
+	//alert("passou");
 };
 
 // The directory path is without the prefix of the root directory!

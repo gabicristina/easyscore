@@ -209,7 +209,7 @@ footer {
 	</div><!-- /content -->
 </div><!-- /page criaEstudio -->
 
-<!-- Start of page: #selecionaPartEst MAESTRO -->
+<!-- Start of page: #selecionaPartEst MAESTRO (add) -->
 <div data-role="page" id="selecionaPartEst" data-footer="div_footer">
 
 	<div data-role="header">
@@ -217,7 +217,7 @@ footer {
 		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content"> <!-- ADD -->
 		<!--form>
 		<fieldset data-role="controlgroup">
 			<legend>Escolha as partituras:</legend>
@@ -238,7 +238,7 @@ footer {
 			<li>Partitura 2 - Tuba</li>
 			<li>Partitura 1 - Clarinete</li>
 		</ul>
-		<a class="ui-btn" id="btn_selec" href="#mainpage">Selecionar</a>
+		<a class="ui-btn" id="btn_selec" href="#mainpage">Finalizar</a>
 		<br/>
 		<br/>
 		<label for="search-control-group">Search</label>
@@ -249,19 +249,19 @@ footer {
 	</div><!-- /content -->
 </div><!-- /page selecionaPartEst MAESTRO -->
 
-<!-- Start of page: #selecionaPart -->
+<!-- Start of page: #selecionaPart (join)-->
 <div data-role="page" id="selecionaPart" data-footer="div_footer">
 
 	<div data-role="header">
 		<h1 id='selecionaPartH1'>Estudio</h1>
 		<a href="#panel_options" data-icon="gear" data-iconpos="notext" class="ui-btn-right"></a>
 	</div><!-- /header -->
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content"> <!-- ADD -->
 		<h3>Clique em uma partitura para entrar no estúdio e receber as informações da partitura</h3>
 		<ul data-role="listview" data-inset="true" id="listaPart">
 			<li>Estúdio - Partitura 1</li>
 		</ul>
-		<a class="ui-btn" id="btn_selecionaPart" href="#mainpage">Receber</a>
+		<!--a class="ui-btn" id="btn_selecionaPart" href="#mainpage">Receber</a-->
 		<br/>
 	</div><!-- /content -->
 	
@@ -446,6 +446,7 @@ footer {
 				'\nNome: ' + name + '\nVelocidade: ' + speed);
 			
 			createStudio(name, d.getTime(), speed);
+			document.getElementById('btn_selec').style.display="none";
 		});
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
@@ -459,10 +460,10 @@ footer {
 			alert(document.getElementById("arquivo").value);
 			readFile(document.getElementById("arquivo").value);
 		});
-		$('#btn_selecionaPart').click(function() {
+		/*$('#btn_selecionaPart').click(function() {
 			//precisa atribuir o usuário ao grupo e fazer download da partitura!
 			joinStudio(studioid, scoreid);
-		});
+		});*/
 		$('#consultarEstudios').click(function() {
 			listStudio();
 		});

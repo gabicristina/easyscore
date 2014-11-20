@@ -87,7 +87,7 @@ function onMessage(evt) {
 						'id' : "score" + obj.scores[i].id,
 						'value' : obj.scores[i].name
 					}).append($('<a/>', { // here appending `<a>` into `<li>`
-						'href'  : '#mainpage',
+						'href'  : '#',
 						'class' : "ui-btn ui-icon-carat-r",
 						'text'  : obj.scores[i].name
 					})));
@@ -99,6 +99,7 @@ function onMessage(evt) {
 			alert(scoreid);
 			$('#selecionaPartH1').text(this.name);
 			addScore(studioid, scoreid);
+			document.getElementById('btn_selec').style.display="block";
 			listStudio();
 		});
 		$('#listaPart li').click(function() {
@@ -108,21 +109,23 @@ function onMessage(evt) {
 			joinStudio(studioid, scoreid);
 		});
 	} else if (obj.hasOwnProperty('join')) {
-		alert("join: studio_vel-" + obj.join.studio_vel + " obj.tempo-" +
-			obj.join.tempo);
+		alert("join: studio_vel-" + obj.join[0].studio_vel + " obj.tempo-" +
+			obj.join[0].tempo);
 		timestartvar = setTimeout(function(){
-			velPart = obj.join.studio_vel;
-			setDoc(obj.join.score_content);
+			alert("timeout - " + obj.join[0].score_content);
+			document.location.href='#exibePart';
+			velPart = obj.join[0].studio_vel;
+			setDoc(part_simples);
 			drawLine();
 			
 			var nBlocks = doc.getNumberOfMeasures() * 100;
 			console.log("WEBSOCKET: número de compassos da partitura: " + doc.getNumberOfMeasures() + "    " + nBlocks);
 			document.getElementById('exibe_info').scrollLeft = -500;
 			scrollBlocksIntoView(nBlocks, velPart);			
-		}, obj.join.tempo);
+		}, obj.join[0].tempo);
 		document.getElementById('btn_pause').style.display="block";
 		document.getElementById('btn_continue').style.display="none";
-		alert("teoricamente, começou!");
+		alert("agendou!");
 	} else if (obj.hasOwnProperty('studio')) {
 		for (var key in obj) {
 			if (obj.hasOwnProperty(key)) 
