@@ -72,6 +72,7 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\musicxml
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_complete.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_duas_pautas.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_ishigo_nocom.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_sem_text.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_simples.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\qunit.css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\qunit.js \

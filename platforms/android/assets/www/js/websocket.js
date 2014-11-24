@@ -87,7 +87,7 @@ function onMessage(evt) {
 						'id' : "score" + obj.scores[i].id,
 						'value' : obj.scores[i].name
 					}).append($('<a/>', { // here appending `<a>` into `<li>`
-						'href'  : '#mainpage',
+						'href'  : '#',
 						'class' : "ui-btn ui-icon-carat-r",
 						'text'  : obj.scores[i].name
 					})));
@@ -99,6 +99,7 @@ function onMessage(evt) {
 			alert(scoreid);
 			$('#selecionaPartH1').text(this.name);
 			addScore(studioid, scoreid);
+			document.getElementById('btn_selec').style.display="block";
 			listStudio();
 		});
 		$('#listaPart li').click(function() {
@@ -114,7 +115,22 @@ function onMessage(evt) {
 			alert("timeout - " + obj.join[0].score_content);
 			document.location.href='#exibePart';
 			velPart = obj.join[0].studio_vel;
-			setDoc(part_simples);
+			//setDoc(part_simples);
+			
+			if (obj.join[0].score_content === "echigo") {
+				setDoc(ishigo);
+				console.log("ishigo");
+			} else if (obj.join[0].score_content === "dupla") {
+				setDoc(part_dupla);
+				console.log("dupla");
+			} else if (obj.join[0].score_content === "simples_sem_text") {
+				setDoc(part_sem_text);
+				console.log("simples_sem_text");
+			} else {
+				setDoc(part_simples);
+				console.log("simples");
+			}
+			
 			drawLine();
 			
 			var nBlocks = doc.getNumberOfMeasures() * 100;

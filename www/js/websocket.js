@@ -115,7 +115,22 @@ function onMessage(evt) {
 			alert("timeout - " + obj.join[0].score_content);
 			document.location.href='#exibePart';
 			velPart = obj.join[0].studio_vel;
-			setDoc(part_simples);
+			//setDoc(part_simples);
+			
+			if (obj.join[0].score_content === "echigo") {
+				setDoc(ishigo);
+				console.log("ishigo");
+			} else if (obj.join[0].score_content === "dupla") {
+				setDoc(part_dupla);
+				console.log("dupla");
+			} else if (obj.join[0].score_content === "simples_sem_text") {
+				setDoc(part_sem_text);
+				console.log("simples_sem_text");
+			} else {
+				setDoc(part_simples);
+				console.log("simples");
+			}
+			
 			drawLine();
 			
 			var nBlocks = doc.getNumberOfMeasures() * 100;
@@ -164,7 +179,7 @@ function joinStudio(idStudio, idScore) {
 	doSend(joinGroup);
 };
 function sendScore(idStudio, nome, score) {
-	if (isnull(idStudio)) {
+	if (idStudio === null) {
 		var vsendScore = '{"type": "send_score", "values": [{ \
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
@@ -174,6 +189,7 @@ function sendScore(idStudio, nome, score) {
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
 	}
+	console.log(vsendScore);
 	alert(vsendScore);
 	doSend(vsendScore);
 };

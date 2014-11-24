@@ -74,6 +74,7 @@
 <script src="js/part_simples.js"></script>
 <script src="js/part_duas_pautas.js"></script>
 <script src="js/part_ishigo_nocom.js"></script>
+<script src="js/part_sem_text.js"></script>
 
 <link rel="stylesheet" href="js/qunit.css" type="text/css"
 	media="screen" />
@@ -108,7 +109,7 @@
 		});
 	</script>
 	
-	<script src="http://192.168.0.2:8080/target/target-script-min.js#anonymous"></script>
+	<!--script src="http://192.168.0.2:8080/target/target-script-min.js#anonymous"></script-->
 <style text="text/css">
 #exibePart {
 	background-color: #eed;
@@ -325,6 +326,8 @@ footer {
 				<label for="dupla">Dupla</label>
 				<input name="radio-choice-v-2" id="simples" value="other" type="radio">
 				<label for="simples">Simples</label>
+				<input name="radio-choice-v-2" id="simples_sem_text" value="other" type="radio">
+				<label for="simples_sem_text">Teste</label>
 			</fieldset>
 		</form>
 		
@@ -396,6 +399,9 @@ footer {
 			} else if (document.getElementById("dupla").checked) {
 				setDoc(part_dupla);
 				console.log("dupla");
+			} else if (document.getElementById("simples_sem_text").checked) {
+				setDoc(part_sem_text);
+				console.log("simples_sem_text");
 			} else {
 				setDoc(part_simples);
 				console.log("simples");
@@ -451,9 +457,9 @@ footer {
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
 			var nomePart = document.getElementById("nome_part").value;
-			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
+			//readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
 			//sendScore(studioid, nomePart, partitura_lida);
-			sendScore(studioid, nomePart, "ooi");
+			sendScore(studioid, nomePart, part_sem_text);
 		});
 		$('#btn_le').click(function() {
 			//envia a partitura informada para o servidor
