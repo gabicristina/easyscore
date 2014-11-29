@@ -71,7 +71,7 @@ var part_simples = '<?xml version="1.0" encoding="UTF-8"?> \
 </part-list> \
 <!--=========================================================--> \
 <part id="P1"> \
-<measure number="1" width="1180"> \
+<measure number="2" width="1180"> \
 <print> \
 <system-layout> \
 <top-system-distance>237</top-system-distance> \

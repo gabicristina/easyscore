@@ -68,11 +68,11 @@ C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery-1
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.min.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\jquery.mobile-1.4.3.min.js \
+C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\maxAceita.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\musicxml_test.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_complete.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_duas_pautas.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_ishigo_nocom.js \
-C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_sem_text.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\part_simples.js \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\qunit.css \
 C:\Users\Gaabi\Documents\FURB\easyscore\platforms\android\assets\www\js\qunit.js \

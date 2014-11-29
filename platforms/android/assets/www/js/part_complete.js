@@ -95,7 +95,7 @@ Lyrics added by Karen Tanaka and Michael Good, 2006. See http://www.recordare.co
   </part-list>	\
   <!--=========================================================-->	\
   <part id="P1">	\
-    <measure number="1" width="225">	\
+	<measure number="1" width="225">	\
       <print>	\
         <system-layout>	\
           <system-margins>	\

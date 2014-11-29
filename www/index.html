@@ -74,7 +74,7 @@
 <script src="js/part_simples.js"></script>
 <script src="js/part_duas_pautas.js"></script>
 <script src="js/part_ishigo_nocom.js"></script>
-<script src="js/part_sem_text.js"></script>
+<script src="js/maxAceita.js"></script>
 
 <link rel="stylesheet" href="js/qunit.css" type="text/css"
 	media="screen" />
@@ -109,7 +109,7 @@
 		});
 	</script>
 	
-	<!--script src="http://192.168.0.2:8080/target/target-script-min.js#anonymous"></script-->
+	<!--script src="http://192.168.0.6:8080/target/target-script-min.js#anonymous"></script -->
 <style text="text/css">
 #exibePart {
 	background-color: #eed;
@@ -152,9 +152,7 @@ footer {
 	
 	<div role="main" class="ui-content">
 		<ul data-role="listview" data-inset="true" id="listaEstudios">
-			<li><a href="#selecionaPart">Estúdio 1</a></li>
-			<li><a href="#selecionaPart">Estúdio 2</a></li>
-			<li><a href="#selecionaPart">Estúdio 3</a></li>
+			<li><a href="#selecionaPart">Exemplo Estúdio 1</a></li>
 		</ul>
 		<br/>
 		<br/>
@@ -180,6 +178,7 @@ footer {
 		<br/>
 		<br/>
 		<a class="ui-btn" id="btn_le" href="#">Lê Arquivo</a>
+		<a class="ui-btn" id="btn_testaReplace" href="#">Testa Replace</a>
 		<textarea id="res_botao" rows="10" cols="50"></textarea>
 	</div><!-- /content -->
 
@@ -207,6 +206,9 @@ footer {
 		<label>Velocidade de execução da música</label>
 		<input type="range" min="1" max="20" value="6" step="0.5" id="criaEstSpeed" />
 		<a class="ui-btn" href="#selecionaPartEst" id="btn_criaEstudio">Criar</a>
+		<br/>
+		<br/>
+		<h3>As partituras desejadas serão selecionadas após a criação do estúdio</h3>
 	</div><!-- /content -->
 </div><!-- /page criaEstudio -->
 
@@ -219,30 +221,14 @@ footer {
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content"> <!-- ADD -->
-		<!--form>
-		<fieldset data-role="controlgroup">
-			<legend>Escolha as partituras:</legend>
-			<input name="est_1" id="est_1" type="checkbox">
-			<label for="est_1">Estúdio 1 - Partitura 1</label>
-			<input name="est_2t" id="est_2t" type="checkbox">
-			<label for="est_2t">Estúdio 2 - Tuba</label>
-			<input name="est_2c" id="est_2c" type="checkbox">
-			<label for="est_2c">Estúdio 2 - Clarinete</label>
-			<input name="est_2s" id="est_2s" type="checkbox">
-			<label for="est_2s">Estúdio 2 - Saxofone</label>
-			<input name="est_3c" id="est_3c" type="checkbox">
-			<label for="est_3c">Estúdio 3 - Clarinete</label>
-		</fieldset>
-		</form-->
+		<h3>Selecione as partituras que você deseja que sejam adicionadas ao estúdio. Ao terminar, clique em "Finalizar"</h3>
 		<ul data-role="listview" data-inset="true" id="listaPartEst">
-			<li>Partitura 1 - Tuba</li>
-			<li>Partitura 2 - Tuba</li>
-			<li>Partitura 1 - Clarinete</li>
+			<li>Exemplo Partitura 1 - Tuba</li>
 		</ul>
 		<a class="ui-btn" id="btn_selec" href="#mainpage">Finalizar</a>
 		<br/>
 		<br/>
-		<label for="search-control-group">Search</label>
+		<!--label for="search-control-group">Search</label>
 		<div data-role="controlgroup" data-type="horizontal">
 			<input id="search-control-group" data-wrapper-class="controlgroup-textinput ui-btn" type="text">
 			<!--button id="submit" onclick="adicionarcheck">Submit</button-->
@@ -288,6 +274,10 @@ footer {
 		<br/>
 		<br/>
 		<button id="btn_configuracoes">Gravar</button>
+		<br/>
+		<label>Endereço WebSocket</label>
+		<input type="text" value="ws://192.168.0.6:8081/easyscore-server/websocket/easy" id="endWebsocket" />
+		<button id="btn_websocket">Gravar endereço</button>
 	</div><!-- /content -->
 </div><!-- /page configuracoes -->
 
@@ -326,8 +316,10 @@ footer {
 				<label for="dupla">Dupla</label>
 				<input name="radio-choice-v-2" id="simples" value="other" type="radio">
 				<label for="simples">Simples</label>
-				<input name="radio-choice-v-2" id="simples_sem_text" value="other" type="radio">
-				<label for="simples_sem_text">Teste</label>
+				<input name="radio-choice-v-2" id="rec_servidor" value="other" type="radio">
+				<label for="rec_servidor">Recebida Servidor</label>
+				<input name="radio-choice-v-2" id="max_aceita" value="other" type="radio">
+				<label for="max_aceita">Echigo-Jish com cortes</label>
 			</fieldset>
 		</form>
 		
@@ -399,12 +391,23 @@ footer {
 			} else if (document.getElementById("dupla").checked) {
 				setDoc(part_dupla);
 				console.log("dupla");
-			} else if (document.getElementById("simples_sem_text").checked) {
-				setDoc(part_sem_text);
-				console.log("simples_sem_text");
-			} else {
+			} else if (document.getElementById("rec_servidor").checked) {
+				if (partitura_lida === null || partitura_lida === undefined) {
+					alert("Não há partitura lida pelo servidor");
+					document.location.href='#mainpage';
+					listStudio();
+				} else {
+					setDoc(partitura_lida);
+					console.log("rec_servidor");
+				}
+			} else if (document.getElementById("max_aceita").checked) {
+				setDoc(max_aceita);
+				console.log("max_aceita");
+			} else if (document.getElementById("simples").checked){
 				setDoc(part_simples);
 				console.log("simples");
+			} else {
+				console.log("lida do device")
 			}
 			
 			drawLine();
@@ -424,6 +427,7 @@ footer {
 				delete formatter.canvases[b];
 				b++;
 			  }
+			  listStudio();
 		});
 		$('#btn_configuracoes').click(function() {
 			escPart = document.getElementById("rangeEscala").value;
@@ -448,9 +452,10 @@ footer {
 			var d = new Date();
 			d.setMinutes(start.substr(3,5));
 			d.setHours(start.substr(0,2));
-			alert("Início: " + start + " date: " + d + " - getTime: " + d.getTime() + 
+			d.setSeconds(0);
+			/*alert("Início: " + start + " date: " + d + " - getTime: " + d.getTime() + 
 				'\nNome: ' + name + '\nVelocidade: ' + speed);
-			
+			*/
 			createStudio(name, d.getTime(), speed);
 			document.getElementById('btn_selec').style.display="none";
 		});
@@ -459,12 +464,18 @@ footer {
 			var nomePart = document.getElementById("nome_part").value;
 			//readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
 			//sendScore(studioid, nomePart, partitura_lida);
-			sendScore(studioid, nomePart, part_sem_text);
+			sendScore(studioid, nomePart, partitura_lida);
 		});
 		$('#btn_le').click(function() {
 			//envia a partitura informada para o servidor
-			alert(document.getElementById("arquivo").value);
+			//alert(document.getElementById("arquivo").value);
 			readFile(document.getElementById("arquivo").value);
+		});
+		$('#btn_testaReplace').click(function() {
+			var v_replace = part_simples;
+			var outra = v_replace.replace(/"/g, "'");
+			outra = outra.replace(/(?:\r\n|\r|\n)/g, "");
+			document.getElementById('res_botao').value = outra;
 		});
 		/*$('#btn_selecionaPart').click(function() {
 			//precisa atribuir o usuário ao grupo e fazer download da partitura!
@@ -474,20 +485,25 @@ footer {
 			listStudio();
 		});
 		$('#listaMenu li').click(function() {
+			listStudio();
 			if (this.id === "menu_upload") {
 				iniciaGetFiles();
 			}
 		});
 		$('#listaPartEst li').click(function() {
 			scoreid = this.id.substr(5,this.id.length);
-			alert($("#"+this).id);
 			$('#selecionaPartH1').text(this.name);
 		});
 		$('#listaPart li').click(function() {
 			scoreid = this.id.substr(5,this.id.length);
-			alert($("#"+this.id).value);
 			$('#selecionaPartH1').text(this.name);
 			joinStudio(studioid, scoreid);
+		});
+		$('#btn_websocket').click(function() {
+			//document.getElementById("nome_part").value;
+			wsUri = document.getElementById("endWebsocket").value;
+			//alert(web);
+			testWebSocket();
 		});
 		iniciaGetFiles();
 	}

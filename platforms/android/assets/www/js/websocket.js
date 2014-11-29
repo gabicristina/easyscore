@@ -1,4 +1,5 @@
-﻿var wsUri = "ws://192.168.0.2:8081/easyscore-server/websocket/easy";
+﻿var wsUri = "ws://campeche.inf.furb.br:8094/easyscore/websocket/easy";
+//var wsUri = "ws://campeche.inf.furb.br:8094/lotkaVolterraWeb/server"
 var output;
 var message;
 var doc;
@@ -9,7 +10,11 @@ function init() {
 };
 
 function testWebSocket() {
-	websocket = new WebSocket(wsUri);
+	try {
+		websocket = new WebSocket(wsUri);
+	} catch (err) {
+		alert("Error" + err.message);
+	}
 	websocket.onopen = function(evt) {
 		onOpen(evt)
 	};
@@ -32,6 +37,7 @@ function onClose(evt) {
 	writeToScreen("DISCONNECTED");
 };
 function onMessage(evt) {
+	//alert("onMessage");
 	writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data
 			+ '</span>');
 	message = evt.data;
@@ -65,7 +71,7 @@ function onMessage(evt) {
 			listScore(studioid);
 		});
 	} else if (obj.hasOwnProperty('scores')) {
-		alert("scores");
+		//alert("scores");
 		var list = document.getElementById("listaPartEst");
 		$("#listaPartEst").children("li").remove();
 		$("#listaPart").children("li").remove();
@@ -79,7 +85,7 @@ function onMessage(evt) {
 						'id' : "score" + obj.scores[i].id,
 						'value' : obj.scores[i].name
 					}).append($('<a/>', { // here appending `<a>` into `<li>`
-						'href'  : '#',
+						'href'  : '#mainpage',
 						'class' : "ui-btn ui-icon-carat-r",
 						'text'  : obj.scores[i].name
 					})));
@@ -96,7 +102,7 @@ function onMessage(evt) {
 		}
 		$('#listaPartEst li').click(function() {
 			scoreid = this.id.substr(5,this.id.length);
-			alert(scoreid);
+			//alert(scoreid);
 			$('#selecionaPartH1').text(this.name);
 			addScore(studioid, scoreid);
 			document.getElementById('btn_selec').style.display="block";
@@ -104,15 +110,15 @@ function onMessage(evt) {
 		});
 		$('#listaPart li').click(function() {
 			scoreid = this.id.substr(5,this.id.length);
-			alert(scoreid);
+			//alert(scoreid);
 			$('#selecionaPartH1').text(this.name);
 			joinStudio(studioid, scoreid);
 		});
 	} else if (obj.hasOwnProperty('join')) {
-		alert("join: studio_vel-" + obj.join[0].studio_vel + " obj.tempo-" +
-			obj.join[0].tempo);
+		/*alert("join: studio_vel-" + obj.join[0].studio_vel + " obj.tempo-" +
+			obj.join[0].tempo);*/
 		timestartvar = setTimeout(function(){
-			alert("timeout - " + obj.join[0].score_content);
+			//alert("timeout - " + obj.join[0].score_content);
 			document.location.href='#exibePart';
 			velPart = obj.join[0].studio_vel;
 			//setDoc(part_simples);
@@ -126,9 +132,13 @@ function onMessage(evt) {
 			} else if (obj.join[0].score_content === "simples_sem_text") {
 				setDoc(part_sem_text);
 				console.log("simples_sem_text");
-			} else {
+			} else if (obj.join[0].score_content === "simples") {
 				setDoc(part_simples);
 				console.log("simples");
+			} else {
+				partitura_lida = obj.join[0].score_content;
+				setDoc(partitura_lida);
+				console.log("partitura do servidor - " + obj.join[0].score_name);
 			}
 			
 			drawLine();
@@ -140,19 +150,21 @@ function onMessage(evt) {
 		}, obj.join[0].tempo);
 		document.getElementById('btn_pause').style.display="block";
 		document.getElementById('btn_continue').style.display="none";
-		alert("agendou!");
+		alert("Execução agendada");
 	} else if (obj.hasOwnProperty('studio')) {
 		for (var key in obj) {
 			if (obj.hasOwnProperty(key)) 
 				console.log(key + " -> " + obj[key]);
 		}
-		alert("obj.id: " + obj.studio.id);
+		//alert("obj.id: " + obj.studio.id);
 		studioid = obj.studio.id;
 		listScore(null);
 	} 
 	//document.getElementById('strRes').value = evt.data;
 };
 function onError(evt) {
+	//alert("onError");
+	alert("Erro: " + evt.data);
 	writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
 };
 function doSend(message) {
@@ -175,11 +187,11 @@ function listStudio() {
 };
 function joinStudio(idStudio, idScore) {
 	var joinGroup = '{"type": "join","values": [{"studio_id": ' + idStudio	+ ',"score_id":'+ idScore + '}]}';
-	alert(joinGroup);
+	//alert(joinGroup);
 	doSend(joinGroup);
 };
 function sendScore(idStudio, nome, score) {
-	if (isnull(idStudio)) {
+	if (idStudio === null || idStudio === undefined) {
 		var vsendScore = '{"type": "send_score", "values": [{ \
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
@@ -189,6 +201,7 @@ function sendScore(idStudio, nome, score) {
 	                    "name": "' + nome + '",\
 	                    "content": "' + score + '"}]}';
 	}
+	console.log(vsendScore);
 	alert(vsendScore);
 	doSend(vsendScore);
 };
@@ -196,7 +209,7 @@ function addScore(idStudio, idScore) {
 	var addScore = '{"type": "add_score", "values": [{\
 						"studio_id": ' + idStudio + ',\
 						"score_id": ' + idScore + '}]}';
-	alert(addScore);
+	//alert(addScore);
 	doSend(addScore);
 }
 function getScore(idStudio, idScore) {

@@ -25,23 +25,29 @@ function readFile(path) {
 			create : false,
 			exclusive : false
 	}, function(fileEntry) {
-		alert("entrei function: " + path);
+		//alert("entrei function: " + path);
 		// onSuccess
 		fileEntry.file(function(file) {
-			alert("entrei fileentry: " + path);
+			//alert("entrei fileentry: " + path);
 			var reader = new FileReader();
 			reader.onloadend = function(e) {
 				if (e.target.readyState == FileReader.DONE) { // DONE == 2
 					alert("entrei iiiif: " + path);
 					document.getElementById('res_botao').value = this.result;
-					partitura_lida = this.result;
+					alert("mata tempo");
+					var resultadoGet = this.result;
+					resultadoGet = resultadoGet.replace(/"/g, "'");
+					resultadoGet = resultadoGet.replace(/(?:\r\n|\r|\n)/g, "");
+					
+					document.getElementById('res_botao').value = resultadoGet;
+					partitura_lida = resultadoGet;
 				}
 			};
 			reader.onerror = errorReaderHandler;
 			reader.readAsText(file);
 		},errorHandlerR);
 	},errorHandlerR);
-	partitura_lida = part_simples;
+	//partitura_lida = part_simples;
 };
 
 function fail() {
