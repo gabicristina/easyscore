@@ -34,6 +34,7 @@ function onOpen(evt) {
 	listStudio();
 };
 function onClose(evt) {
+	alert("Conexão com o servidor encerrada");
 	writeToScreen("DISCONNECTED");
 };
 function onMessage(evt) {
@@ -124,10 +125,10 @@ function onMessage(evt) {
 			velPart = obj.join[0].studio_vel;
 			//setDoc(part_simples);
 			
-			if (obj.join[0].score_content === "echigo") {
+			/*if (obj.join[0].score_content === "echigo") {
 				setDoc(ishigo);
 				console.log("ishigo");
-			} else if (obj.join[0].score_content === "dupla") {
+			} else */if (obj.join[0].score_content === "dupla") {
 				setDoc(part_dupla);
 				console.log("dupla");
 			} else if (obj.join[0].score_content === "simples_sem_text") {
@@ -181,6 +182,8 @@ function writeToScreen(message) {
 function createStudio(name, start, speed) {
 	var create = '{"type": "create","values": [{"name": "' + name + '","start": "' + start + '", "speed":' + speed+ '}]}';
 	doSend(create);
+	document.getElementById('criaEstStart').value = "";
+	document.getElementById('criaEstName').value = "";
 };
 function listStudio() {
 	var listGroup = '{"type": "list","values": []}';
@@ -203,8 +206,11 @@ function sendScore(idStudio, nome, score) {
 	                    "content": "' + score + '"}]}';
 	}
 	console.log(vsendScore);
-	alert(vsendScore);
+	//alert(vsendScore);
 	doSend(vsendScore);
+	document.getElementById("nome_part").value = "";
+	document.getElementById("arquivo").value = "";
+	alert("Partitura enviada");
 };
 function addScore(idStudio, idScore) {
 	var addScore = '{"type": "add_score", "values": [{\

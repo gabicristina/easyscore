@@ -20,7 +20,7 @@ function onFSSuccess(fileSystem) {
 };
 
 function readFile(path) {
-	alert("entrei " + path + fs);
+	//alert("entrei " + path + fs);
 	fs.root.getFile(path, {
 			create : false,
 			exclusive : false
@@ -32,14 +32,14 @@ function readFile(path) {
 			var reader = new FileReader();
 			reader.onloadend = function(e) {
 				if (e.target.readyState == FileReader.DONE) { // DONE == 2
-					alert("entrei iiiif: " + path);
-					document.getElementById('res_botao').value = this.result;
-					alert("mata tempo");
+					//alert("entrei iiiif: " + path);
+					//document.getElementById('res_botao').value = this.result;
+					//alert("mata tempo");
 					var resultadoGet = this.result;
 					resultadoGet = resultadoGet.replace(/"/g, "'");
 					resultadoGet = resultadoGet.replace(/(?:\r\n|\r|\n)/g, "");
 					
-					document.getElementById('res_botao').value = resultadoGet;
+					//document.getElementById('res_botao').value = resultadoGet;
 					partitura_lida = resultadoGet;
 					var nomePart = document.getElementById("nome_part").value;			
 					sendScore(studioid, nomePart, partitura_lida);

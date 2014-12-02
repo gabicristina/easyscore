@@ -150,7 +150,8 @@ footer {
 	
 	<div role="main" class="ui-content">
 		<ul data-role="listview" data-inset="true" id="listaEstudios">
-			<li><a href="#selecionaPart">Exemplo Estúdio 1</a></li>
+			<li><a href="#">Aguarde.. WebSocket inicializando</a></li>
+			<!--href="#selecionaPart"-->
 		</ul>
 		<br/>
 		<br/>
@@ -171,13 +172,13 @@ footer {
 	<div role="main" class="ui-content">
 		<br />
 		<input id="nome_part" type="text" placeholder="nome da partitura" />
-		<input id="arquivo" type="text" placeholder="caminho do arquivo" />
+		<input id="arquivo" type="text" placeholder="caminho do arquivo Ex. EasyScore/Chantzip.xml" />
 		<a class="ui-btn" id="btn_upload" href="#mainpage">Enviar</a>
-		<br/>
+		<!--br/>
 		<br/>
 		<a class="ui-btn" id="btn_le" href="#">Lê Arquivo</a>
 		<a class="ui-btn" id="btn_testaReplace" href="#">Testa Replace</a>
-		<textarea id="res_botao" rows="10" cols="50"></textarea>
+		<textarea id="res_botao" rows="10" cols="50"></textarea-->
 	</div><!-- /content -->
 
 </div><!-- /page upload -->
@@ -202,7 +203,7 @@ footer {
 			</div>
 		</fieldset>
 		<label>Velocidade de execução da música</label>
-		<input type="range" min="1" max="20" value="6" step="0.5" id="criaEstSpeed" />
+		<input type="range" min="1" max="8.5" value="6" step="0.5" id="criaEstSpeed" />
 		<a class="ui-btn" href="#selecionaPartEst" id="btn_criaEstudio">Criar</a>
 		<br/>
 		<br/>
@@ -261,11 +262,12 @@ footer {
 		<br/>
 		<br/>
 		<label>Velocidade</label>
-		<input type="range" min="1" max="20" value="6" step="0.5" id="rangeVelocidade" />
+		<input type="range" min="1" max="8.5" value="6" step="0.5" id="rangeVelocidade" />
 		<br/>
 		<br/>
 		<button id="btn_configuracoes">Gravar</button>
 		<br/>
+		<h3>Avançado</h3>
 		<label>Endereço WebSocket</label>
 		<input type="text" value="ws://192.168.0.6:8081/easyscore-server/websocket/easy" id="endWebsocket" />
 		<button id="btn_websocket">Gravar endereço</button>
@@ -301,11 +303,11 @@ footer {
 		<form name = "radiosForm">
 			<fieldset data-role="controlgroup" id="checkExample">
 				<legend>Escolha o exemplo:</legend>
-				<input name="radio-choice-v-2" id="echigo" value="on" checked="checked" type="radio">
-				<label for="echigo">Echigo-Jish</label>
+				<!--input name="radio-choice-v-2" id="echigo" value="on" checked="checked" type="radio">
+				<label for="echigo">Echigo-Jish</label-->
 				<input name="radio-choice-v-2" id="dupla" value="off" type="radio">
 				<label for="dupla">Dupla</label>
-				<input name="radio-choice-v-2" id="simples" value="other" type="radio">
+				<input name="radio-choice-v-2" id="simples" value="other" checked="checked" type="radio">
 				<label for="simples">Simples</label>
 				<input name="radio-choice-v-2" id="rec_servidor" value="other" type="radio">
 				<label for="rec_servidor">Recebida Servidor</label>
@@ -376,10 +378,10 @@ footer {
 		init();
 		//listaestudios = está no websocket.js, no onMessage (obj.hasOwnProperty('studios'))
 		$('#btn_comecarExemplo').click(function() {
-			if (document.getElementById("echigo").checked) {
+			/*if (document.getElementById("echigo").checked) {
 				setDoc(ishigo);
 				console.log("ishigo");
-			} else if (document.getElementById("dupla").checked) {
+			} else */if (document.getElementById("dupla").checked) {
 				setDoc(part_dupla);
 				console.log("dupla");
 			} else if (document.getElementById("rec_servidor").checked) {
@@ -423,6 +425,7 @@ footer {
 		$('#btn_configuracoes').click(function() {
 			escPart = document.getElementById("rangeEscala").value;
 			velPart = (1/(document.getElementById("rangeVelocidade").value)) * 3000; //inversamente proporcional
+			alert("Configurações salvas");
 		});
 		$('#btn_pause').click(function() {
 			document.getElementById('btn_pause').style.display="none";
@@ -447,15 +450,14 @@ footer {
 			/*alert("Início: " + start + " date: " + d + " - getTime: " + d.getTime() + 
 				'\nNome: ' + name + '\nVelocidade: ' + speed);
 			*/
-			createStudio(name, d.getTime(), speed);
-			document.getElementById('btn_selec').style.display="none";
+			createStudio(name, d.getTime(), speed);	document.getElementById('btn_selec').style.display="none";
 		});
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
 			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
 			//sendScore(studioid, nomePart, partitura_lida);
 		});
-		$('#btn_le').click(function() {
+		/*$('#btn_le').click(function() {
 			//envia a partitura informada para o servidor
 			//alert(document.getElementById("arquivo").value);
 			readFile(document.getElementById("arquivo").value);
