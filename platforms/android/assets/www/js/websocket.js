@@ -42,6 +42,7 @@ function onMessage(evt) {
 			+ '</span>');
 	message = evt.data;
 	var obj = JSON.parse(evt.data);
+	console.log(" ONMESSAGE --------------- ");
 	for (var key in obj) {
 		if (obj.hasOwnProperty(key)) 
 			console.log(key + " -> " + obj[key]);

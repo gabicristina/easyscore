@@ -141,8 +141,6 @@ footer {
 </head>
 
 <body>
-<!-- class="ui-mobile-viewport ui-overlay-a ui-panel-page-container-themed ui-panel-page-container" -->
-	
 <!-- Start of first page: #one -->
 <div data-role="page" id="mainpage" data-footer="div_footer">
 	<div data-role="header">
@@ -227,11 +225,6 @@ footer {
 		</ul>
 		<a class="ui-btn" id="btn_selec" href="#mainpage">Finalizar</a>
 		<br/>
-		<br/>
-		<!--label for="search-control-group">Search</label>
-		<div data-role="controlgroup" data-type="horizontal">
-			<input id="search-control-group" data-wrapper-class="controlgroup-textinput ui-btn" type="text">
-			<!--button id="submit" onclick="adicionarcheck">Submit</button-->
 		</div>
 	</div><!-- /content -->
 </div><!-- /page selecionaPartEst MAESTRO -->
@@ -248,8 +241,6 @@ footer {
 		<ul data-role="listview" data-inset="true" id="listaPart">
 			<li>Estúdio - Partitura 1</li>
 		</ul>
-		<!--a class="ui-btn" id="btn_selecionaPart" href="#mainpage">Receber</a-->
-		<br/>
 	</div><!-- /content -->
 	
 </div><!-- /page selecionaPart -->
@@ -462,7 +453,7 @@ footer {
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
 			var nomePart = document.getElementById("nome_part").value;
-			//readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
+			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
 			//sendScore(studioid, nomePart, partitura_lida);
 			sendScore(studioid, nomePart, partitura_lida);
 		});
