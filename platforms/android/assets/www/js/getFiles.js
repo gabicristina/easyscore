@@ -41,6 +41,8 @@ function readFile(path) {
 					
 					document.getElementById('res_botao').value = resultadoGet;
 					partitura_lida = resultadoGet;
+					var nomePart = document.getElementById("nome_part").value;			
+					sendScore(studioid, nomePart, partitura_lida);
 				}
 			};
 			reader.onerror = errorReaderHandler;
@@ -56,6 +58,7 @@ function fail() {
 
 function errorHandlerR(e) {
 	alert("Ocorreu um erro ao acessar o arquivo");
+	document.location.href='#upload';
 	var msg = '';
 
 	switch (e.code) {

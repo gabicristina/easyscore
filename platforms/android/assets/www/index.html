@@ -452,10 +452,8 @@ footer {
 		});
 		$('#btn_upload').click(function() {
 			//envia a partitura informada para o servidor
-			var nomePart = document.getElementById("nome_part").value;
 			readFile(document.getElementById("arquivo").value); //"EasyScore/chant.xml"
 			//sendScore(studioid, nomePart, partitura_lida);
-			sendScore(studioid, nomePart, partitura_lida);
 		});
 		$('#btn_le').click(function() {
 			//envia a partitura informada para o servidor
